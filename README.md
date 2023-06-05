@@ -5,7 +5,7 @@ Pedro Henrique Resende Ribeiro <br />
 Pedro Henrique Bufulim de Almeida <br />
 
 
-# Peer Grading an Ethereum Solution
+# Peer Grading: an Ethereum Solution
 
 ## The problem
 
