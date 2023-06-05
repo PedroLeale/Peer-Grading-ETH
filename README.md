@@ -51,7 +51,7 @@ A protocol prototype was implemented in Solidity and tested in some courses.
 
 ## Contact with authors
 
-Ivan da Silva Sendon: https://github.com/ivansendin <br />
+Ivan da Silva Sendin: https://github.com/ivansendin <br />
 Pedro Leale: https://github.com/PedroLeale <br />
 Pedro Henrique Resende Ribeiro: https://www.linkedin.com/in/pedro-hr-resende <br />
 Pedro Henrique Bufulin de Almeida: https://www.linkedin.com/in/pedro-henrique-bufulin-de-almeida-6a7375160 <br />
