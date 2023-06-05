@@ -1,8 +1,8 @@
 # Authors from UFU (Federal University of Uberlândia)
-Ivan da Silva Sendin
-Pedro Leale
-Pedro Henrique Resende Ribeiro
-Pedro Henrique Bufulim de Almeida
+Ivan da Silva Sendin <br />
+Pedro Leale <br />
+Pedro Henrique Resende Ribeiro <br />
+Pedro Henrique Bufulim de Almeida <br />
 
 
 # Peer Grading an Ethereum Solution
