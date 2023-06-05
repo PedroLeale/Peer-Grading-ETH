@@ -2,8 +2,7 @@
 Ivan da Silva Sendin <br />
 Pedro Leale <br />
 Pedro Henrique Resende Ribeiro <br />
-Pedro Henrique Bufulim de Almeida <br />
-
+Pedro Henrique Bufulin de Almeida <br />
 
 # Peer Grading: an Ethereum Solution
 
@@ -44,8 +43,14 @@ only the best proposed ordering;
 
 6. Once the ordering of the report has been established, participants are
 graded based on a) the quality of the order produced; and b) for the
-quality of the report itself.
+quality of the report itself;
 
 ## Feasibility
 
 A protocol prototype was implemented in Solidity and tested in some courses.
+
+## Contact with authors
+
+Pedro Leale: https://github.com/PedroLeale <br />
+Pedro Henrique Resende Ribeiro: https://www.linkedin.com/in/pedro-hr-resende <br />
+Pedro Henrique Bufulin de Almeida: https://www.linkedin.com/in/pedro-henrique-bufulin-de-almeida-6a7375160 <br />
