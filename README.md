@@ -1,8 +1,7 @@
 # Authors from UFU (Federal University of Uberlândia)
-Ivan da Silva Sendin <br />
-Pedro Leale <br />
-Pedro Henrique Resende Ribeiro <br />
-Pedro Henrique Bufulin de Almeida <br />
+Pedro Leale (pedro.leale@ufu.br) <br />
+Pedro Henrique Resende Ribeiro (ribeiro.hr.pdero@ufu.br) <br />
+Pedro Henrique Bufulin de Almeida (pedro.almeida@ufu.br) <br />
 
 # Peer Grading: an Ethereum Solution
 
@@ -49,9 +48,8 @@ quality of the report itself;
 
 A protocol prototype was implemented in Solidity and tested in some courses.
 
-## Contact with authors
+## Contact Us
 
-Ivan da Silva Sendin: https://github.com/ivansendin <br />
 Pedro Leale: https://github.com/PedroLeale <br />
 Pedro Henrique Resende Ribeiro: https://www.linkedin.com/in/pedro-hr-resende <br />
 Pedro Henrique Bufulin de Almeida: https://www.linkedin.com/in/pedro-henrique-bufulin-de-almeida-6a7375160 <br />
