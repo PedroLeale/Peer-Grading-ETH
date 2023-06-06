@@ -1,6 +1,6 @@
 # Authors from UFU (Federal University of Uberlândia)
 Pedro Leale (pedro.leale@ufu.br) <br />
-Pedro Henrique Resende Ribeiro (ribeiro.hr.pdero@ufu.br) <br />
+Pedro Henrique Resende Ribeiro (ribeiro.hr.pedro@ufu.br) <br />
 Pedro Henrique Bufulin de Almeida (pedro.almeida@ufu.br) <br />
 
 # Peer Grading: an Ethereum Solution
