@@ -97,22 +97,17 @@ It is possible to observe that an honest participant, supplying an initial entro
 
 In order to assign  $k$ tasks to each participant the following algorithm can be used:
 
-\begin{algorithm}
-\caption{Selecting $k$ different tasks from $1\dots n$, excluding $id$, using $seed$ as initial random value}\label{alg:cap}
-\begin{algorithmic}[lines]
-\State $tasks \gets \emptyset$
-\State $h \gets seed$
-\While{$|tasks| < k$}
-    \State $h \gets \mathcal{H}(h)$
-    \State $newtask = (h \pmod n) +1$
-    \If{$newtask \ne id$}
-    \State $tasks = task \cup \{newtask\}$
-    \EndIf
-\EndWhile
-\State \Return $tasks$
-\end{algorithmic}
-\end{algorithm}
+**Algorithm:** Selecting k different tasks from 1...n, excluding id, using seed as the initial random value
 
+1. `tasks` &larr; `0`
+2. `h` &larr; `seed`
+3. While `|tasks|` is less than `k`, repeat steps 4-9
+   - 4. `h` &larr; $\mathcal{H}(h)$
+   - 5. `newtask` = `(h mod n) + 1`
+   - 6. If `newtask` is not equal to `id`, go to step 7; otherwise, skip to step 8.
+   - 7. `tasks` = `task ∪ {newtask}`
+   - 8. Continue to the next iteration of the loop
+4. Return `tasks` = `0`
 
 This process can be executed off-chain by each participant e verified by anyone.
 
