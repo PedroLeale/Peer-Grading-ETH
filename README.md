@@ -102,11 +102,12 @@ In order to assign  $k$ tasks to each participant the following algorithm can be
 1. `tasks` &larr; `0`
 2. `h` &larr; `seed`
 3. While `|tasks|` is less than `k`, repeat steps 4-9
-   - 4. `h` &larr; $\mathcal{H}(h)$
-   - 5. `newtask` = `(h mod n) + 1`
-   - 6. If `newtask` is not equal to `id`, go to step 7; otherwise, skip to step 8.
-   - 7. `tasks` = `task ∪ {newtask}`
-   - 8. Continue to the next iteration of the loop
+   - `h` &larr; $\mathcal{H}(h)$
+   - `newtask` = `(h mod n) + 1`
+   - If `newtask` is not equal to `id` then
+     - `tasks` = `task ∪ {newtask}`
+     -  end If
+   - end While
 4. Return `tasks` = `0`
 
 This process can be executed off-chain by each participant e verified by anyone.
