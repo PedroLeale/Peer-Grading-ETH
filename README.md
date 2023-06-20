@@ -13,8 +13,7 @@ scenario, we can imagine n students who produced n reports and must establish
 an order taking into account the quality of the reports for grading purposes.
 
 ## Protocol
-Here we present an overview of a Smart Contract that implements a trust-
-less/Game Theoric protocol where it is not necessary to expect participants to
+Here we present an overview of a Smart Contract that implements a trustless/Game Theoric protocol where it is not necessary to expect participants to
 behave honestly, but act in such a way as to maximize their gains. The protocol
 is described below:
 
@@ -44,9 +43,95 @@ only the best proposed ordering;
 graded based on a) the quality of the order produced; and b) for the
 quality of the report itself;
 
+## Example
+Let's assume a scenario where a professor is responsible for a course in which 5 students participate. Each student must produce a report to be evaluated and help correct 3 reports, also as an assessment process.
+
+In this example, each student is randomly assigned to 3 reports, exemplified in Table 1, first column. Note that some reports will be evaluated more times than others, we believe this will not be an issue as $n$ and $k$ grow.
+
+Following the execution of the protocol, each participant sends their corrections to the contract (in two stages of commit and revelation) (see column $Grading$ in Table 1).
+
+
+| Participant | Assigned | Grading | Penalty |
+|-------------|---------|----------|---------|
+|1 | 2 3 4 | 4 3 2 | 0 |
+|2 | 1 3 5 | 5 3 1 | 0 |
+|3 | 1 2 4 | 4 1 2 | 1 |
+|4 | 2 3 5 | 5 2 3 | 1 |
+|5 | 1 3 4 | 4 3 1 | 0 |
+
+In the next step, any participant can submit a consensus vector candidate. For example, a user might initially send the array $<1,2,3,4,5>$. Later another user can send $<5,4,3,2,1>$ which the participants must accept as it is clearly better according to the corrections sent (more on this in Technical Solutions Section). This process can be repeated until participants are satisfied or a time limit is reached.
+
+Once a consensus vector is established the student assessment is done:
+
+ - **Using report quality** Which can be obtained directly from the consensus vector;
+ - **Using the reviewer work** This can be obtained by the distance between the sent correction and the consensus vector (exemplified by column $Penalty$ in Table 1).
+
+
+## Technical Solutions
+
+In this section, we present some technical details for implementing the protocol in a Smart Contract ecosystem. We think about these details with tools that can be used in other contexts and also be exchanged for others that may eventually be more appropriate in a specific context.
+
+### Sealed Values
+
+It is a standard solution, and for simplicity, we are assuming that this process is done with values and $nonces$ large enough to prevent attacks.
+
+### Random Numbers
+
+Generating random numbers is a problem in Smart Contracts. In Peer Grading scenarios, it is possible to set up an $entropy pool$: each participant is invited to deposit a seed for the random number generator, committing to a value and revealing it later.
+
+Then a value that will be used as $seed$ for a PRN function can be calculated as follows:
+
+$$Seed_{global} = \mathcal{H}(E_{a_1}|E_{a_2}\dots E_{a_n}),$$
+
+where $E_{a_n}$ is the entropy provided by $a_n$ participant.
+
+
+Finally, each $a_n$ participant gets its seed using:
+
+$$Seed_{a_n} = \mathcal{H}(Seed_{global}|a_n).$$
+
+It is possible to observe that an honest participant, supplying an initial entropy using commit/reveal is enough to reach the security purposes.
+
+
+### Assigning tasks
+
+In order to assign  $k$ tasks to each participant the following algorithm can be used:
+
+\begin{algorithm}
+\caption{Selecting $k$ different tasks from $1\dots n$, excluding $id$, using $seed$ as initial random value}\label{alg:cap}
+\begin{algorithmic}[lines]
+\State $tasks \gets \emptyset$
+\State $h \gets seed$
+\While{$|tasks| < k$}
+    \State $h \gets \mathcal{H}(h)$
+    \State $newtask = (h \pmod n) +1$
+    \If{$newtask \ne id$}
+    \State $tasks = task \cup \{newtask\}$
+    \EndIf
+\EndWhile
+\State \Return $tasks$
+\end{algorithmic}
+\end{algorithm}
+
+
+This process can be executed off-chain by each participant e verified by anyone.
+
+### Consensus Vector
+
+The consensus vector that combines all partial solutions can be defined with a permutation over $n$ elements that minimizes the sum of inversions of each correction:
+
+
+$$\sum_{s \in S} inv(V,s)$$
+
+The inversion count can be done in $\mathcal{O}(n \lg n)$  time and it is important to highlight that the optimization itself can be computed off chain and only the consensus vector is sent to Smart Contract. Each participant can generate a consensus vector using their own computational power, the Smart Contract receives the proposals and accepts them if they are better than the previous one.
+
+
 ## Feasibility
 
 A protocol prototype was implemented in Solidity and tested in some courses.
+
+
+
 
 ## Contact Us
 
