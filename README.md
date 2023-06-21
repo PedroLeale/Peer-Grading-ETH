@@ -98,11 +98,11 @@ In order to assign  $k$ tasks to each participant the following algorithm can be
 1) tasks $\leftarrow$ $\emptyset$ <br>
 2) h $\leftarrow$ seed <br>
 3) **while** |tasks| < k **do**: <br>
-4) &nbsp;&nbsp;&nbsp;&nbsp;h $\leftarrow$ $\mathcal{H}(h)$ <br>
-5) &nbsp;&nbsp;&nbsp;&nbsp;newtask = (h mod n) + 1 <br>
-6) &nbsp;&nbsp;&nbsp;&nbsp;**if** newtask $\neq$ id **then**: <br>
-7) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tasks = tasks $\cup$ {newtask} <br>
-8) &nbsp;&nbsp;&nbsp;&nbsp;**end if** <br>
+4) $\quad$ h $\leftarrow$ $\mathcal{H}(h)$ <br>
+5) $\quad$ newtask = (h mod n) + 1 <br>
+6) $\quad$ **if** newtask $\neq$ id **then**: <br>
+7) $\quad$ $\quad$ tasks = tasks $\cup$ {newtask} <br>
+8) $\quad$ **end if** <br>
 9) **end while** <br>
 10) **return** tasks
 ***
