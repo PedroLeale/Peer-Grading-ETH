@@ -121,11 +121,16 @@ $$\sum_{s \in S} inv(V,s)$$
 
 The inversion count can be done in $\mathcal{O}(n \lg n)$  time and it is important to highlight that the optimization itself can be computed off chain and only the consensus vector is sent to Smart Contract. Each participant can generate a consensus vector using their own computational power, the Smart Contract receives the proposals and accepts them if they are better than the previous one.
 
-
 ## Feasibility
 
-A protocol prototype was implemented in Solidity and tested in some courses.
 
+A proof of concept for the proposed protocol has already been implemented and used (
+[GSI075-Smart Contract](https://github.com/ivansendin/GSI075---Smart-Contract})), however, this preliminary version does not cover all scenarios of a real-world application (e.g. not revealing the commit or cheat in off-chain computation); lacks a proper client-side interface and its architecture is composed of a set of independent contracts ( for example, one contract to  [random numbers assignment](https://ropsten.etherscan.io/address/0x7f50FD8100F03588B41E6991565A4061D16BDcA3) and a different one to [commit the consensus vector](https://ropsten.etherscan.io/address/0xa7bea30e2bdFefe81f93517F01C52A51A3Aefe39)).
+
+
+## Objectives
+
+This proposal aims to develop a complete Peer-Grading System on the Ethereum platform, including the smart contract and its libraries to implement a trustless and self-executing solution, as also the client-side applications.
 
 
 
