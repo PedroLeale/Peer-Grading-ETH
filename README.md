@@ -121,7 +121,7 @@ $$\sum_{s \in S} inv(V,s)$$
 
 The inversion count can be done in $\mathcal{O}(n \lg n)$  time and it is important to highlight that the optimization itself can be computed off chain and only the consensus vector is sent to Smart Contract. Each participant can generate a consensus vector using their own computational power, the Smart Contract receives the proposals and accepts them if they are better than the previous one.
 
-## Feasibility
+## Proof of concept
 
 
 A proof of concept for the proposed protocol has already been implemented and used (
