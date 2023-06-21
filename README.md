@@ -99,16 +99,16 @@ In order to assign  $k$ tasks to each participant the following algorithm can be
 
 **Algorithm:** Selecting k different tasks from 1...n, excluding id, using seed as the initial random value
 
-1. `tasks` &larr; `0`
+1. `tasks` &larr; `{}`
 2. `h` &larr; `seed`
-3. While `|tasks|` is less than `k`, repeat steps 4-9
+3. While `|tasks|` is less than `k`, repeat
    - `h` &larr; $\mathcal{H}(h)$
    - `newtask` = `(h mod n) + 1`
    - If `newtask` is not equal to `id` then
      - `tasks` = `task ∪ {newtask}`
      -  end If
    - end While
-4. Return `tasks` = `0`
+4. Return `tasks`
 
 This process can be executed off-chain by each participant e verified by anyone.
 
