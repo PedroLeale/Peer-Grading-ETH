@@ -129,10 +129,10 @@ This proposal aims to develop a complete Peer-Grading System on the Ethereum pla
 ## Contact us
 
 Pedro Henrique Bufulin de Almeida <br>
-[![](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pedrohba1) [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pedro-henrique-bufulin-de-almeida-6a7375160) 
+[![](./images/github.png)](https://github.com/pedrohba1) [![](./images/linkedin.png)](https://www.linkedin.com/in/pedro-henrique-bufulin-de-almeida-6a7375160) 
 
 Pedro Henrique Resende Ribeiro <br>
-[![](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pedro-hr-resende) [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pedro-hr-resende)
+[![](./images/github.png)](https://github.com/pedro-hr-resende) [![](./images/linkedin.png)](https://www.linkedin.com/in/pedro-hr-resende)
 
 Pedro Leale <br>
-[![](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PedroLeale) [![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pedro-leale)
+[![](./images/github.png)](https://github.com/PedroLeale) [![](./images/linkedin.png)](https://www.linkedin.com/in/pedro-leale)
