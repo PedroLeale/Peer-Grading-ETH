@@ -95,16 +95,16 @@ In order to assign  $k$ tasks to each participant the following algorithm can be
 ***
 **Algorithm:** Selecting $k$ different tasks from $1 ... n$, excluding $id$, using $seed$ as the initial random value.
 ***
-1) $tasks \leftarrow \emptyset$ <br>
-2) $h \leftarrow seed$ <br>
-3) **while** $|tasks| < k$ **do**: <br>
-4) &nbsp;&nbsp;&nbsp;&nbsp;$h \leftarrow \mathcal{H}(h)$ <br>
-5) &nbsp;&nbsp;&nbsp;&nbsp;$newtask$ = ($h$ mod $n$) + 1 <br>
-6) &nbsp;&nbsp;&nbsp;&nbsp;**if** $newtask \neq id$ **then**: <br>
-7) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$tasks = tasks \cup \{newtask\}$ <br>
+1) tasks $\leftarrow$ $\emptyset$ <br>
+2) h $\leftarrow$ seed <br>
+3) **while** |tasks| < k **do**: <br>
+4) &nbsp;&nbsp;&nbsp;&nbsp;h $\leftarrow$ $\mathcal{H}(h)$ <br>
+5) &nbsp;&nbsp;&nbsp;&nbsp;newtask = (h mod n) + 1 <br>
+6) &nbsp;&nbsp;&nbsp;&nbsp;**if** newtask $\neq$ id **then**: <br>
+7) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tasks = tasks $\cup$ {newtask} <br>
 8) &nbsp;&nbsp;&nbsp;&nbsp;**end if** <br>
 9) **end while** <br>
-10) **return** $tasks$
+10) **return** tasks
 ***
 
 This process can be executed off-chain by each participant e verified by anyone.
