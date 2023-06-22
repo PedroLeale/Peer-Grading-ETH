@@ -14,6 +14,6 @@ contract Deploy is Script {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
 
         vm.stopBroadcast();
-        console.log("contract address: %s", address(moderatio));
+        console.log("contract address: ");
     }
 }
