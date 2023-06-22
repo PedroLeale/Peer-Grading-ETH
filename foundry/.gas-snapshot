@@ -1,1 +1,1 @@
-TestPeerGrading:test_GenerateEntropy(uint256) (runs: 256, μ: 298026, ~: 299270)
+TestPeerGrading:test_GenerateEntropy(uint256) (runs: 256, μ: 297993, ~: 299082)
