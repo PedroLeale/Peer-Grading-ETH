@@ -6,7 +6,6 @@ setup-foundry:
 
 install:
 	forge install
-	cd function && npm install
 
 test:
 	forge test
