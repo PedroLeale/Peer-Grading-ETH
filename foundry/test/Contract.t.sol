@@ -3,16 +3,21 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import "src/Contract.sol";
+import "src/PeerGradingContract.sol";
 
-contract TestContract is Test {
-    Contract c;
+contract TestPeerGrading is Test {
+    PeerGradingContract c;
+
+    address[] participants;
+    uint8[][] assignemnts;
 
     function setUp() public {
-        c = new Contract();
+        participants = new address[](5);
+        assignemnts = [[2, 3, 4], [1, 3, 5], [1, 2, 4], [2, 3, 5], [1, 3, 4]];
+        c = new PeerGradingContract(participants, assignemnts);
     }
 
-    function testBar() public {
+    function testGenerateEntropy() public {
         assertEq(uint256(1), uint256(1), "ok");
     }
 
