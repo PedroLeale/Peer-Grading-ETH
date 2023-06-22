@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -23,10 +24,10 @@ jobs:
         run: cd foundry
 
       - name: Install deps
-        run: forge install
+        run: cd foundry && forge install
 
       - name: Check gas snapshots
-        run: forge snapshot --check
+        run: cd foundry && forge snapshot --check
 
       - name: Run tests
-        run: forge test
+        run: cd foundry && forge test
