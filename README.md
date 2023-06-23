@@ -128,7 +128,7 @@ This proposal aims to develop a complete Peer-Grading System on the Ethereum pla
 
 ## Special thanks 
 
-Original idea from Professor Ivan da Silva Sendin
+Original idea from Professor Ivan da Silva Sendin <br>
 [![](./images/github.png)](https://github.com/ivansendin) [![](./images/linkedin.png)](https://www.linkedin.com/in/ivan-sendin-5310635/) 
 
 ## Contact us
