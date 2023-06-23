@@ -126,9 +126,10 @@ A proof of concept for the proposed protocol has already been implemented and us
 
 This proposal aims to develop a complete Peer-Grading System on the Ethereum platform, including the smart contract and its libraries to implement a trustless and self-executing solution, as also the client-side applications.
 
-## Credits
+## Special thanks 
 
-Original Idea from Professor Ivan da Silva Sendin
+Original idea from Professor Ivan da Silva Sendin
+[![](./images/github.png)](https://github.com/ivansendin) [![](./images/linkedin.png)](https://www.linkedin.com/in/ivan-sendin-5310635/) 
 
 ## Contact us
 
