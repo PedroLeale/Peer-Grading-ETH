@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.13;
 
+import {CommitReveal} from "./CommitRevealLib.sol";
+
 contract PeerGradingContract {
     mapping(address => Participant) public participants;
 
