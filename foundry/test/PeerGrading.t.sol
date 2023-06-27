@@ -5,13 +5,14 @@ import "forge-std/Test.sol";
 
 import "src/PeerGradingContract.sol";
 import {CommitUtils} from "src/CommitUtils.sol";
-import "forge-std/console.sol";
 
 contract PeerGradingTest is Test {
     PeerGrading c;
 
     address[] participants;
     uint8[] assignemnts;
+
+    error NotAParticipant();
 
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
@@ -28,11 +29,21 @@ contract PeerGradingTest is Test {
             numbers[i] = _entropy % 100; // Generate a number between 0 and 99 using modular arithmetic
         }
 
+        bytes32 com = CommitUtils.createCommitment(participants[0], numbers[0]);
+
+        vm.expectRevert(abi.encodeWithSelector(NotAParticipant.selector));
+        c.commit(com);
+
         for (uint256 i = 0; i < participants.length; i++) {
             vm.prank(participants[i]);
-            bytes32 com = CommitUtils.createCommitment(participants[i], numbers[i]);
+            com = CommitUtils.createCommitment(participants[i], numbers[i]);
             vm.prank(participants[i]);
             c.commit(com);
+        }
+
+        for (uint256 i = 0; i < participants.length; i++) {
+            vm.prank(participants[i]);
+            c.reveal(numbers[i]);
         }
     }
 }
