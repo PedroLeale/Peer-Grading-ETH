@@ -1,11 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.13;
 
-library CommitReveal {
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a + b;
-    }
-
+library CommitUtils {
     /**
      * @notice creates a commitment
      * @dev notice that an untrusted source might know what was your rand uint depending

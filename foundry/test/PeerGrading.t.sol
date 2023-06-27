@@ -4,23 +4,23 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 
 import "src/PeerGradingContract.sol";
+import {CommitUtils} from "src/CommitUtils.sol";
+import "forge-std/console.sol";
 
-contract TestPeerGrading is Test {
-    PeerGradingContract c;
+contract PeerGradingTest is Test {
+    PeerGrading c;
 
     address[] participants;
-    uint8[][] assignemnts;
+    uint8[] assignemnts;
 
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
 
-        assignemnts = [[2, 3, 4], [1, 3, 5], [1, 2, 4], [2, 3, 5], [1, 3, 4]];
-        c = new PeerGradingContract(participants, assignemnts);
+        assignemnts = [1, 2, 3, 4, 5];
+        c = new PeerGrading(participants, assignemnts);
     }
 
-    //it should generate am entropy value for each particiapnt and
-    //then generate the global seed
-    function test_GenerateEntropy(uint256 _entropy) public {
+    function test_commit_and_reveal(uint256 _entropy) public {
         uint256[] memory numbers = new uint256[](participants.length);
 
         for (uint256 i = 0; i < participants.length; i++) {
@@ -30,9 +30,9 @@ contract TestPeerGrading is Test {
 
         for (uint256 i = 0; i < participants.length; i++) {
             vm.prank(participants[i]);
-            c.generateEntropy(numbers[i]);
+            bytes32 com = CommitUtils.createCommitment(participants[i], numbers[i]);
+            vm.prank(participants[i]);
+            c.commit(com);
         }
-
-        c.generateSeed();
     }
 }

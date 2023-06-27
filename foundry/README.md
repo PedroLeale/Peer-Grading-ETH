@@ -9,6 +9,7 @@
 Click "Use this template" on [GitHub](https://github.com/foundry-rs/forge-template) to create a new repository with this repo as the initial state.
 
 Or, if your repo already exists, run:
+
 ```sh
 forge init
 forge build
@@ -37,3 +38,11 @@ contract ContractTest is Test {
 ## Development
 
 This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh/getting-started/installation.html) for instructions on how to install and use Foundry.
+
+## Suggested extensions
+
+https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity
+
+https://marketplace.visualstudio.com/items?itemName=tintinweb.solidity-visual-auditor
+
+https://marketplace.visualstudio.com/items?itemName=idrabenia.solidity-solhint
