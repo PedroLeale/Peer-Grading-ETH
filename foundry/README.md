@@ -6,6 +6,9 @@
 
 ## Getting Started
 
+If you are using vscode, change directory into the folder with `cd /foundry` of this file to use foundry properly.
+Otherwise, linting and other aspects might fail.
+
 Click "Use this template" on [GitHub](https://github.com/foundry-rs/forge-template) to create a new repository with this repo as the initial state.
 
 Or, if your repo already exists, run:
