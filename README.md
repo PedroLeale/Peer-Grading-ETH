@@ -107,7 +107,7 @@ In order to assign  $k$ tasks to each participant the following algorithm can be
 10) **return** tasks
 ***
 
-This process can be executed off-chain by each participant e verified by anyone.
+This process can be executed off-chain by each participant and verified by anyone.
 
 ### Consensus vector
 
