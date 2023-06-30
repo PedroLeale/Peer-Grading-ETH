@@ -21,7 +21,8 @@ contract PeerGradingTest is Test {
         c = new PeerGrading(participants, assignemnts);
     }
 
-    function test_commit_and_reveal(uint256 _entropy) public {
+    // tests the complete logic as we intend it to work
+    function test_full_logic(uint256 _entropy) public {
         uint256[] memory numbers = new uint256[](participants.length);
 
         for (uint256 i = 0; i < participants.length; i++) {
