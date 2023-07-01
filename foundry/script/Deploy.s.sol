@@ -3,7 +3,7 @@ pragma solidity 0.8.13;
 
 /* solhint-disable no-global-import */
 import "forge-std/Script.sol";
-import "../src/PeerGradingContract.sol";
+import "../src/PeerGrading.sol";
 
 /* solhint-enable no-global-import */
 

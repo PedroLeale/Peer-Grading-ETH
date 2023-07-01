@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 
-import "src/PeerGradingContract.sol";
+import "src/PeerGrading.sol";
 import {CommitUtils} from "src/CommitUtils.sol";
 
 contract PeerGradingTest is Test {
@@ -45,18 +45,17 @@ contract PeerGradingTest is Test {
             c.reveal(numbers[i]);
         }
 
-        //Para testar a função de distribuição de assignments
-        //veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
+        // Para testar a função de distribuição de assignments
+        // veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
         for (uint256 i = 0; i < participants.length; i++) {
-            for (uint256 j = 0; j < participants.length; j++) {
-                if (participants[i].assigmentId == participants[i].assigned[j]) {
-                    //dar erro
-                }
+            (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
+            vm.prank(participants[i]);
+            uint256[] memory distdAssignments = c.distributeAssignments();
+            for (uint256 j = 0; i < distdAssignments.length; j++) {
+                assertTrue(assignmentId != distdAssignments[j]);
             }
+
+            // PeerGrading.Participant memory p = PeerGrading.Participant();
         }
-
-        uint256 test = participants.length / 2;
-        console.log("test %d", test);
-
     }
 }

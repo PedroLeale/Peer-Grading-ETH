@@ -1,1 +1,1 @@
-PeerGradingTest:test_commit_and_reveal(uint256) (runs: 256, μ: 165953, ~: 165953)
+PeerGradingTest:test_full_logic(uint256) (runs: 256, μ: 274103, ~: 274103)
