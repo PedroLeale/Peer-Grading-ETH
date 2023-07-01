@@ -17,8 +17,7 @@ contract PeerGradingTest is Test {
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
 
-        assignemnts = [1, 2, 3, 4, 5];
-        c = new PeerGrading(participants, assignemnts);
+        c = new PeerGrading(participants);
     }
 
     // tests the complete logic as we intend it to work
@@ -31,7 +30,6 @@ contract PeerGradingTest is Test {
         }
 
         bytes32 com = CommitUtils.createCommitment(participants[0], numbers[0]);
-
         vm.expectRevert(abi.encodeWithSelector(NotAParticipant.selector));
         c.commit(com);
 
@@ -46,5 +44,19 @@ contract PeerGradingTest is Test {
             vm.prank(participants[i]);
             c.reveal(numbers[i]);
         }
+
+        //Para testar a função de distribuição de assignments
+        //veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
+        for (uint256 i = 0; i < participants.length; i++) {
+            for (uint256 j = 0; j < participants.length; j++) {
+                if (participants[i].assigmentId == participants[i].assigned[j]) {
+                    //dar erro
+                }
+            }
+        }
+
+        uint256 test = participants.length / 2;
+        console.log("test %d", test);
+
     }
 }
