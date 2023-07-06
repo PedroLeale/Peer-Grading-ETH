@@ -10,6 +10,7 @@ contract PeerGrading {
 
     bytes32 globalSeed;
     uint256 awaiting_commits;
+    uint256 number_participants;
     uint256[] entropies;
 
     error AlreadyScrambled();
@@ -31,8 +32,8 @@ contract PeerGrading {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
         }
-
         awaiting_commits = _participants.length;
+        number_participants = _participants.length;
     }
 
     function commit(bytes32 _commit) public {
@@ -58,11 +59,10 @@ contract PeerGrading {
     }
 
     function distributeAssignments() public view returns (uint256[] memory) {
-        uint256 k = (assignments.length + 1) / 2;
+        uint256 k = (number_participants + 1 ) / 2 ;
         bytes32 seed = globalSeed;
         uint256[] memory tasks;
         uint256 i = 0;
-        participants[msg.sender].assignmentId;
 
         //TODO: validar depois o tamanho desse k. Se ele é metade +1 quando ímpar ou metade quando par. (precisa
         // ser metade qunado par?)
