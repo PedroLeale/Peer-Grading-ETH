@@ -51,7 +51,7 @@ contract PeerGradingTest is Test {
             (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
             vm.prank(participants[i]);
             uint256[] memory distdAssignments = c.distributeAssignments();
-            //assertEq(distdAssignments.length, 0);
+            assertEq(distdAssignments.length, 3);
             for (uint256 j = 0; i < distdAssignments.length; j++) {
                 assertTrue(assignmentId != distdAssignments[j]);
             }
