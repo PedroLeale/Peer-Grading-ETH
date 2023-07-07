@@ -71,7 +71,7 @@ contract PeerGrading {
     }
 
     function distributeAssignments() public view returns (uint256[] memory) {
-        
+
         uint256 k = (number_participants + 1 ) / 2 ;
         bytes32 seed = globalSeed;
         uint256[] memory tasks;
@@ -105,7 +105,7 @@ contract PeerGrading {
 
     // TODO implementar a função de receber consenso
 
-    function receiveConsensus() {
+    function receiveConsensus() public {
         // Implementar
     }
 
