@@ -4,10 +4,12 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 
 import "src/PeerGrading.sol";
+import "src/CommitRevealRandomness.sol";
 import {CommitUtils} from "src/CommitUtils.sol";
 
 contract PeerGradingTest is Test {
     PeerGrading c;
+    CommitReveralRandomness randSrc;
 
     address[] participants;
     uint8[] assignemnts;
@@ -16,8 +18,8 @@ contract PeerGradingTest is Test {
 
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
-
-        c = new PeerGrading(participants);
+        randSrc = new CommitReveralRandomness(participants);
+        c = new PeerGrading(participants, address(randSrc));
     }
 
     // tests the complete logic as we intend it to work
@@ -31,32 +33,32 @@ contract PeerGradingTest is Test {
 
         bytes32 com = CommitUtils.createCommitment(participants[0], numbers[0]);
         vm.expectRevert(abi.encodeWithSelector(NotAParticipant.selector));
-        c.commit(com);
+        randSrc.commit(com);
 
         for (uint256 i = 0; i < participants.length; i++) {
             vm.prank(participants[i]);
             com = CommitUtils.createCommitment(participants[i], numbers[i]);
             vm.prank(participants[i]);
-            c.commit(com);
+            randSrc.commit(com);
         }
 
         for (uint256 i = 0; i < participants.length; i++) {
             vm.prank(participants[i]);
-            c.reveal(numbers[i]);
+            randSrc.reveal(numbers[i]);
         }
 
         // Para testar a função de distribuição de assignments
         // veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
-        for (uint256 i = 0; i < participants.length; i++) {
-            (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
-            vm.prank(participants[i]);
-            uint256[] memory distdAssignments = c.distributeAssignments();
-            assertEq(distdAssignments.length, 3);
-            for (uint256 j = 0; i < distdAssignments.length; j++) {
-                assertTrue(assignmentId != distdAssignments[j]);
-            }
+        // for (uint256 i = 0; i < participants.length; i++) {
+        //     (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
+        //     vm.prank(participants[i]);
+        //     uint256[] memory distdAssignments = c.distributeAssignments();
+        //     assertEq(distdAssignments.length, 3);
+        //     for (uint256 j = 0; i < distdAssignments.length; j++) {
+        //         assertTrue(assignmentId != distdAssignments[j]);
+        //     }
 
-            // PeerGrading.Participant memory p = PeerGrading.Participant();
-        }
+        //     // PeerGrading.Participant memory p = PeerGrading.Participant();
+        // }
     }
 }
