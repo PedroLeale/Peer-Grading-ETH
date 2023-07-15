@@ -55,21 +55,21 @@ contract PeerGrading {
 
     // TODO: implementar testes para a função calculatePenalties
 
-    function calculatePenalties(uint256[] memory consensusArray, uint256[][] memory grading)
+    function calculatePenalties(uint8[] memory consensusArray, uint8[][] memory grading)
         public
         pure
-        returns (uint256[] memory)
+        returns (uint8[] memory)
     {
-        uint256[] memory finalPenalties = new uint256[](grading.length);
+        uint8[] memory finalPenalties = new uint8[](grading.length);
 
-        for (uint256 auxIndex = 0; auxIndex < grading.length; auxIndex++) {
-            uint256 penalty = 0;
-            uint256 consensusPosition = 0;
+        for (uint8 auxIndex = 0; auxIndex < grading.length; auxIndex++) {
+            uint8 penalty = 0;
+            uint8 consensusPosition = 0;
 
-            for (uint256 i = 0; i < grading[auxIndex].length; i++) {
+            for (uint8 i = 0; i < grading[auxIndex].length; i++) {
                 bool found = false;
 
-                for (uint256 j = consensusPosition; j < consensusArray.length; j++) {
+                for (uint8 j = consensusPosition; j < consensusArray.length; j++) {
                     if (consensusArray[j] == grading[auxIndex][i]) {
                         consensusPosition = j;
                         found = true;
