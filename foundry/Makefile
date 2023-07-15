@@ -10,5 +10,9 @@ install:
 test:
 	forge test
 
+gen-snapshot: 
+	    forge snapshot --snap ./snapshots/$(shell date +'%Y-%m-%d_%H:%m')
+
+
 deploy:
 	forge script script/Deploy.s.sol:Deploy --fork-url ${RPC_URL}  --broadcast -vvvv
