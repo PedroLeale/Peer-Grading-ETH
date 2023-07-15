@@ -12,7 +12,7 @@ contract PeerGradingTest is Test {
     CommitReveralRandomness randSrc;
 
     address[] participants;
-    uint8[] assignemnts;
+    uint256[] assignemnts;
 
     error NotAParticipant();
 
@@ -60,5 +60,18 @@ contract PeerGradingTest is Test {
 
         //     // PeerGrading.Participant memory p = PeerGrading.Participant();
         // }
+    }
+
+    function test_calcPenalties() public {
+        // uint256[5] memory consensusVector = [5, 4, 3, 2, 1];
+        // uint256[5][3] memory gradings = [
+        //     [uint256(4), uint256(3), uint256(2)],
+        //     [uint256(5), uint256(3), uint256(1)],
+        //     [uint256(4), uint256(1), uint256(2)],
+        //     [uint256(5), uint256(2), uint256(3)],
+        //     [uint256(4), uint256(3), uint256(1)]
+        // ];
+
+        // c.calculatePenalties(consensusVector, gradings);
     }
 }

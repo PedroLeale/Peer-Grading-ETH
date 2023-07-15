@@ -7,7 +7,7 @@ import {RandomnessSource} from "./RandomnessSource.sol";
 
 contract PeerGrading {
     mapping(address => Participant) public participants;
-    uint8[] public assignments;
+    uint256[] public assignments;
 
     uint256 number_participants;
     uint256[] entropies;

@@ -10,7 +10,7 @@ contract CommitReveralRandomnessTest is Test {
     CommitReveralRandomness randSrc;
 
     address[] participants;
-    uint8[] assignemnts;
+    uint256[] assignemnts;
 
     error NotAParticipant();
 
