@@ -74,9 +74,36 @@ contract PeerGradingTest is Test {
             dynamicConsensusVector[i] = cont;
             cont -= 1;
         }
- 
-        uint8[][] memory gradings = [[4, 3, 2], [5, 3, 1], [4, 1, 2], [5, 2, 3], [4, 3, 1]];
         
+        // uint8[][] memory gradings = [[4, 3, 2], [5, 3, 1], [4, 1, 2], [5, 2, 3], [4, 3, 1]];
+
+        uint8[][] memory gradings = new uint8[][](5);
+
+        gradings[0] = new uint8[](3);
+        gradings[0][0] = 4;
+        gradings[0][1] = 3;
+        gradings[0][2] = 2;
+        
+        gradings[1] = new uint8[](3);
+        gradings[1][0] = 5;
+        gradings[1][1] = 3;
+        gradings[1][2] = 1;
+        
+        gradings[2] = new uint8[](3);
+        gradings[2][0] = 4;
+        gradings[2][1] = 1;
+        gradings[2][2] = 2;
+        
+        gradings[3] = new uint8[](3);
+        gradings[3][0] = 5;
+        gradings[3][1] = 2;
+        gradings[3][2] = 3;
+        
+        gradings[4] = new uint8[](3);
+        gradings[4][0] = 4;
+        gradings[4][1] = 3;
+        gradings[4][2] = 1;
+
         c.calculatePenalties(dynamicConsensusVector, gradings);
     }
 }
