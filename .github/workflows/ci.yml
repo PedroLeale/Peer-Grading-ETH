@@ -10,7 +10,7 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  run-ci:
+  foundry:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +46,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'yarn'
+                  cache-dependency-path: front-end/yarn.lock
 
             - name: Run CI command
               run: yarn install --frozen-lockfile
