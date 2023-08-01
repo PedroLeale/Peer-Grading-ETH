@@ -30,4 +30,4 @@ jobs:
         run: cd foundry && forge snapshot --check
 
       - name: Run tests
-        run: cd foundry && forge test
+        run: cd foundry && forge test --ffi
