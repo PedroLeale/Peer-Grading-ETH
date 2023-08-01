@@ -5,9 +5,17 @@ pragma solidity ^0.8.13;
 import "forge-std/console.sol";
 import {IRandomnessSource} from "./IRandomnessSource.sol";
 
+/**!SECTION
+* @title PeerGrading contract
+* @notice this contract handles the logic of a single peer grading process
+* This contract is single suer per PeeGrading process, so you might user the other
+* implementation for reutilization. 
+*/
+
 contract PeerGrading {
     mapping(address => Participant) public participants;
-    uint256[] public assignments;
+    address currentIssuer;
+    uint256 gradesAmount;
 
     uint256 number_participants;
     uint256[] entropies;
@@ -24,24 +32,35 @@ contract PeerGrading {
 
     enum CurrentState {
         WAITING_CONSENSUS,
-        REACHED_CONSENSUS
+        REACHED_CONSENSUS,
+        FINAL_CONSENSUS
     }
 
-    // TODO: verificar se é melhor fazer um contrato por vez ou um contravo
-    // só que inicializa e controla mais de uma instância de PeerGrading
 
+    /**
+    * @param _participants both the addresses and the assignments. The assignemnts are
+    * the positions of each of the addresses in the array
+    * @param _randSrc A randomness source. A contract interface that will outsource the 
+    * randmoness generation logic/process to another contract, but allowing this contract to
+    * access a random number.
+    * @dev the randomness source is here to allow other implementations of randomness without
+    * changing this base contract. For example, the interface could be used to integrate a 
+    * Chainlink VRF into the randomness source.
+    * @notice the first currentIssuer is the first one to submit a consensus vector.
+    * It will round-robin through all participant addresses until the final consensus is reached.
+    */
     constructor(address[] memory _participants, address _randSrc) {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
         }
         randSrc = IRandomnessSource(_randSrc);
-
+        currentIssuer = _participants[0];
         number_participants = _participants.length;
     }
 
     // TODO implementar a função de receber consenso
 
-    function receiveConsensus() public {
+    function receiveConsensus(uint8[] memory consensusArray) public {
         // Implementar
     }
 
