@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import {IRandomnessSource} from "./IRandomnessSource.sol";
 
 /**
- * !SECTION
  * @title PeerGrading contract
  * @notice this contract handles the logic of a single peer grading process
  * This contract is single suer per PeeGrading process, so you might user the other
@@ -36,8 +35,7 @@ contract PeerGrading {
 
     enum CurrentState {
         WAITING_CONSENSUS,
-        REACHED_CONSENSUS,
-        FINAL_CONSENSUS
+        REACHED_CONSESUS
     }
 
     /**
@@ -74,6 +72,11 @@ contract PeerGrading {
         if (nextIssuerIndex == numberParticipants) nextIssuerIndex = 0;
         currentIssuer = participantsIndex[nextIssuerIndex];
     }
+
+    //TODO: implementar uma função que finaliza o consenso do contrato.
+    // Por exemplo, se a maioria votar que sim, não será mais possível emitir outtro vetor,
+    // e o estado de consenso do contrato será REACHED_CONSESUS
+    function finalizeConsensus() public {}
 
     /**
      * @param consensusArray the given consensus array to compare against the gradings
