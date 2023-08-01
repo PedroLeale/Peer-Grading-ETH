@@ -3,7 +3,7 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/console.sol";
-import {RandomnessSource} from "./RandomnessSource.sol";
+import {IRandomnessSource} from "./IRandomnessSource.sol";
 
 contract PeerGrading {
     mapping(address => Participant) public participants;
@@ -12,7 +12,7 @@ contract PeerGrading {
     uint256 number_participants;
     uint256[] entropies;
 
-    RandomnessSource public randSrc;
+    IRandomnessSource public randSrc;
 
     struct Participant {
         bytes32 commit;
@@ -22,6 +22,11 @@ contract PeerGrading {
         uint256[] grading;
     }
 
+    enum CurrentState {
+        WAITING_CONSENSUS,
+        REACHED_CONSENSUS
+    }
+
     // TODO: verificar se é melhor fazer um contrato por vez ou um contravo
     // só que inicializa e controla mais de uma instância de PeerGrading
 
@@ -29,22 +34,9 @@ contract PeerGrading {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
         }
-        randSrc = RandomnessSource(_randSrc);
+        randSrc = IRandomnessSource(_randSrc);
 
         number_participants = _participants.length;
-    }
-
-    // Getter function for the Participant struct
-
-    function getParticipant(address _address)
-        public
-        view
-        returns (bytes32, uint256, uint256, uint256[] memory, uint256[] memory)
-    {
-        Participant memory participant = participants[_address];
-        return (
-            participant.commit, participant.penalty, participant.assignmentId, participant.assigned, participant.grading
-        );
     }
 
     // TODO implementar a função de receber consenso
@@ -86,6 +78,19 @@ contract PeerGrading {
         }
 
         return finalPenalties;
+    }
+
+    // Getter function for the Participant struct
+
+    function getParticipant(address _address)
+        public
+        view
+        returns (bytes32, uint256, uint256, uint256[] memory, uint256[] memory)
+    {
+        Participant memory participant = participants[_address];
+        return (
+            participant.commit, participant.penalty, participant.assignmentId, participant.assigned, participant.grading
+        );
     }
 
     //TODO: comentei esse código porque ele precisa ser executado offchain e validado pelos participantes

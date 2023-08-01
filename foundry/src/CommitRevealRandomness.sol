@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.13;
 
-import {RandomnessSource} from "./RandomnessSource.sol";
+import {IRandomnessSource} from "./IRandomnessSource.sol";
 import {CommitUtils} from "./CommitUtils.sol";
 
-contract CommitReveralRandomness is RandomnessSource {
+contract CommitReveralRandomness is IRandomnessSource {
     mapping(address => bytes32) public participants;
     uint256 required_commits;
     bytes32 globalSeed;
