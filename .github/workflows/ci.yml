@@ -27,7 +27,7 @@ jobs:
         run: cd foundry && forge install
 
       - name: Check gas snapshots
-        run: cd foundry && forge snapshot --check
+        run: cd foundry && forge snapshot --check --ffi
 
       - name: Run tests
         run: cd foundry && forge test --ffi
