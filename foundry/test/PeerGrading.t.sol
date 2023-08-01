@@ -22,6 +22,23 @@ contract PeerGradingTest is Test {
         c = new PeerGrading(participants, address(randSrc));
     }
 
+    /*
+    * @notice  we will use this to validate off-chain code execution
+    */
+
+    function test_checkFfi() public {
+        string[] memory inputs = new string[](3);
+        inputs[0] = "echo";
+        inputs[1] = "-n";
+        // ABI encoded "gm", as a hex string
+        inputs[2] =
+            "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002676d000000000000000000000000000000000000000000000000000000000000";
+
+        bytes memory res = vm.ffi(inputs);
+        string memory output = abi.decode(res, (string));
+        assertEq(output, "gm");
+    }
+
     // tests the complete logic as we intend it to work
     function test_full_logic(uint256 _entropy) public {
         uint256[] memory numbers = new uint256[](participants.length);
@@ -63,9 +80,8 @@ contract PeerGradingTest is Test {
     }
 
     function test_calcPenalties() public {
-
         // uint8[] memory consensusVector = [5, 4, 3, 2, 1];
-        
+
         uint8[] memory dynamicConsensusVector = new uint8[](5);
 
         uint8 cont = 5;
@@ -74,7 +90,7 @@ contract PeerGradingTest is Test {
             dynamicConsensusVector[i] = cont;
             cont -= 1;
         }
-        
+
         // uint8[][] memory gradings = [[4, 3, 2], [5, 3, 1], [4, 1, 2], [5, 2, 3], [4, 3, 1]];
 
         uint8[][] memory gradings = new uint8[][](5);
@@ -83,22 +99,22 @@ contract PeerGradingTest is Test {
         gradings[0][0] = 4;
         gradings[0][1] = 3;
         gradings[0][2] = 2;
-        
+
         gradings[1] = new uint8[](3);
         gradings[1][0] = 5;
         gradings[1][1] = 3;
         gradings[1][2] = 1;
-        
+
         gradings[2] = new uint8[](3);
         gradings[2][0] = 4;
         gradings[2][1] = 1;
         gradings[2][2] = 2;
-        
+
         gradings[3] = new uint8[](3);
         gradings[3][0] = 5;
         gradings[3][1] = 2;
         gradings[3][2] = 3;
-        
+
         gradings[4] = new uint8[](3);
         gradings[4][0] = 4;
         gradings[4][1] = 3;
