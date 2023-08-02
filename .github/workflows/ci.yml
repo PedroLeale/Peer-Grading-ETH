@@ -35,6 +35,9 @@ jobs:
         env:
           working-directory: ./front-end  # This specifies the path to your yarn.lock file
         runs-on: ubuntu-latest
+        defaults:
+          run: 
+            working-directory: ${{env.working-directory}}
         strategy:
             matrix:
                 node-version: [18.15.x]
