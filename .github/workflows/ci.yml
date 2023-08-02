@@ -49,14 +49,17 @@ jobs:
                   cache-dependency-path: front-end/yarn.lock
 
             - name: Run CI command
+              working-directory: ${{env.working-directory}}
               run: yarn install --frozen-lockfile
 
 
             - name: Check linting
-              run: cd front-end && yarn lint
+              working-directory: ${{env.working-directory}}
+              run: yarn lint
             
             # - name: Run the tests
             #   run: yarn test
 
             - name: Build
-              run: cd front-end && yarn build
+              working-directory: ${{env.working-directory}}              
+              run: yarn build
