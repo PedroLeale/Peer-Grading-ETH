@@ -49,7 +49,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'yarn'
-                  cache-dependency-path: front-end/yarn.lock
+                  cache-dependency-path: './front-end/yarn.lock'
 
             - name: Run CI command
               working-directory: ${{env.working-directory}}
