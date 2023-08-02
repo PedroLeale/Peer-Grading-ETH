@@ -53,10 +53,10 @@ jobs:
 
 
             - name: Check linting
-              run: yarn lint
+              run: cd front-end && yarn lint
             
             # - name: Run the tests
             #   run: yarn test
 
             - name: Build
-              run: yarn build
+              run: cd front-end && yarn build
