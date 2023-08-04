@@ -1,16 +1,16 @@
 pub mod participant;
 
-use ethereum_types::*;
 use crate::participant::*;
+use ethereum_types::*;
 #[derive(Debug, Clone)]
-pub struct Contract{
+pub struct Contract {
     participants: Vec<Participant>,
     assignments: Vec<U256>,
-    global_seed: [u8;32],
+    global_seed: [u8; 32],
 }
 
 impl Contract {
-    pub fn new(global_seed: [u8;32]) -> Self {
+    pub fn new(global_seed: [u8; 32]) -> Self {
         Self {
             participants: vec![],
             assignments: vec![],
@@ -36,5 +36,4 @@ impl Contract {
     pub fn get_participants(&self) -> Vec<Participant> {
         self.participants.clone()
     }
-
 }

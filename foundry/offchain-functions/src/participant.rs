@@ -1,6 +1,6 @@
 use ethereum_types::*;
-use rand::{Rng, SeedableRng};
 use rand::rngs::StdRng;
+use rand::{Rng, SeedableRng};
 
 #[derive(Debug, Clone)]
 pub struct Participant {
@@ -22,17 +22,20 @@ impl Participant {
         }
     }
 
-    pub fn grade(&mut self, n: usize, global_seed: [u8;32]){
+    pub fn grade(&mut self, n: usize, global_seed: [u8; 32]) {
         let k = (n + 1) / 2;
         let mut seed = global_seed;
         let mut rng = StdRng::from_seed(seed);
-        let mut tasks:Vec<U256> = vec![U256::zero(); k];
+        let mut tasks: Vec<U256> = vec![U256::zero(); k];
         let mut i = 0;
 
         while i < k {
             seed = rng.gen();
             let task = U256::from(seed) % U256::from(n);
-            if (task != self.assignment_id) && (!tasks.contains(&task)) && (!self.assigned.contains(&task)) {
+            if (task != self.assignment_id)
+                && (!tasks.contains(&task))
+                && (!self.assigned.contains(&task))
+            {
                 tasks[i] = task;
                 i += 1;
             }

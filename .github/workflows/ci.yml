@@ -10,7 +10,7 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  run-ci:
+  foundry:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,7 +27,42 @@ jobs:
         run: cd foundry && forge install
 
       - name: Check gas snapshots
-        run: cd foundry && forge snapshot --check
+        run: cd foundry && forge snapshot --check --ffi
 
       - name: Run tests
-        run: cd foundry && forge test
+        run: cd foundry && forge test --ffi
+  build-front-end:
+        env:
+          working-directory: ./front-end  # This specifies the path to your yarn.lock file
+        runs-on: ubuntu-latest
+        defaults:
+          run: 
+            working-directory: ${{env.working-directory}}
+        strategy:
+            matrix:
+                node-version: [18.15.x]
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'yarn'
+                  cache-dependency-path: './front-end/yarn.lock'
+            - run: yarn 
+
+            - name: Run CI command
+              working-directory: ${{env.working-directory}}
+              run: yarn install --frozen-lockfile
+
+
+            - name: Check linting
+              working-directory: ${{env.working-directory}}
+              run: yarn lint
+            
+            # - name: Run the tests
+            #   run: yarn test
+
+            - name: Build
+              working-directory: ${{env.working-directory}}              
+              run: yarn build

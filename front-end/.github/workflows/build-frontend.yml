@@ -1,0 +1,37 @@
+name: Front-end Build and lint
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18.15.x]
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'yarn'
+
+            - name: Run CI command
+              run: cd front-end && yarn install --frozen-lockfile
+
+
+            - name: Check linting
+              run: cd front-end && yarn lint
+            
+            # - name: Run the tests
+            #   run: yarn test
+
+            - name: Build
+              run: cd front-end && yarn build
