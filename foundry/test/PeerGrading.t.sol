@@ -63,9 +63,6 @@ contract PeerGradingTest is Test {
     }
 
     function test_calcPenalties() public {
-
-        // uint8[] memory consensusVector = [5, 4, 3, 2, 1];
-        
         uint8[] memory dynamicConsensusVector = new uint8[](5);
 
         uint8 cont = 5;
@@ -104,6 +101,20 @@ contract PeerGradingTest is Test {
         gradings[4][1] = 3;
         gradings[4][2] = 1;
 
-        c.calculatePenalties(dynamicConsensusVector, gradings);
+        uint8[5] memory penalties;
+        for (uint8 i = 0; i < 5; i++) {
+            if (i == 2 || i == 3) {
+                penalties[i] = 1;
+            } else {
+                penalties[i] = 0;
+            }
+        }
+        
+        uint8[] memory result = c.calculatePenalties(dynamicConsensusVector, gradings);
+
+        for (uint8 i = 0; i < 5; i++) {
+            assertEq(result[i], penalties[i]);
+        }
+        
     }
 }
