@@ -22,6 +22,7 @@ contract PeerGrading {
     uint256 numberParticipants;
     uint8 nextIssuerIndex = 0;
     uint8[] ConsensusVector;
+    CurrentState public currentState = CurrentState.WAITING_CONSENSUS;
 
     IRandomnessSource public randSrc;
 
@@ -61,7 +62,7 @@ contract PeerGrading {
     }
 
     //TODO: check alternatives in this function to mitigate the problem
-    // of a participant not issuing a new consesnus vector.
+    // of a participant not issuing a new consensus vector.
     /**
      * @param _consensusVector the next consensus verctor issue by the current chosen participant
      * @notice each participant has to issue the next consensus.
@@ -74,9 +75,15 @@ contract PeerGrading {
     }
 
     //TODO: implementar uma função que finaliza o consenso do contrato.
-    // Por exemplo, se a maioria votar que sim, não será mais possível emitir outtro vetor,
+    // Por exemplo, se a maioria votar que sim, não será mais possível emitir outro vetor,
     // e o estado de consenso do contrato será REACHED_CONSESUS
-    function finalizeConsensus() public {}
+    event ConsensusReached(uint8[] consensusVector);
+    function finalizeConsensus(uint256 votes) public {
+        if(votes > (numberParticipants/2)) {
+            currentState = CurrentState.REACHED_CONSESUS;
+            emit ConsensusReached(ConsensusVector);
+        }
+    }
 
     /**
      * @param consensusArray the given consensus array to compare against the gradings

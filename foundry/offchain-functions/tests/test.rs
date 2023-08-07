@@ -1,15 +1,21 @@
 #[cfg(test)]
-mod test{
+mod test {
     use ethereum_types::H32;
     use ethereum_types::U256;
-    use peer_grading_eth_distribute_assignments::Contract;
     use peer_grading_eth_distribute_assignments::participant;
+    use peer_grading_eth_distribute_assignments::Contract;
 
     #[test]
     fn test_distribution() {
-        let global_seed = [0;32];
+        let global_seed = [0; 32];
         let mut contract = Contract::new(global_seed);
-        contract.add_assignments(vec![U256::from(0), U256::from(1), U256::from(2), U256::from(3), U256::from(4)]);
+        contract.add_assignments(vec![
+            U256::from(0),
+            U256::from(1),
+            U256::from(2),
+            U256::from(3),
+            U256::from(4),
+        ]);
 
         for i in 0..5 {
             let commit = H32::zero();
@@ -28,6 +34,5 @@ mod test{
                 assert!(grade[j] != participants[i].get_assignment_id());
             }
         }
-
     }
 }
