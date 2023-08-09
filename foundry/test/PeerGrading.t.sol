@@ -66,17 +66,14 @@ contract PeerGradingTest is Test {
 
         // Para testar a função de distribuição de assignments
         // veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
-        // for (uint256 i = 0; i < participants.length; i++) {
-        //     (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
-        //     vm.prank(participants[i]);
-        //     uint256[] memory distdAssignments = c.distributeAssignments();
-        //     assertEq(distdAssignments.length, 3);
-        //     for (uint256 j = 0; i < distdAssignments.length; j++) {
-        //         assertTrue(assignmentId != distdAssignments[j]);
-        //     }
+        for (uint256 i = 0; i < participants.length; i++) {
+            (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
+            vm.prank(participants[i]);
+            uint256[] memory distdAssignments = c.distributeAssingments();
+        }
 
-        //     // PeerGrading.Participant memory p = PeerGrading.Participant();
-        // }
+        console.log("distributed assignments");
+        console.log(c.distributeAssingments().length);
     }
 
     function test_calcPenalties() public {
@@ -126,12 +123,11 @@ contract PeerGradingTest is Test {
                 penalties[i] = 0;
             }
         }
-        
+
         uint8[] memory result = c.calculatePenalties(dynamicConsensusVector, gradings);
 
         for (uint8 i = 0; i < 5; i++) {
             assertEq(result[i], penalties[i]);
         }
-        
     }
 }

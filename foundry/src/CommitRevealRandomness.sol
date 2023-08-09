@@ -6,8 +6,8 @@ import {CommitUtils} from "./CommitUtils.sol";
 
 contract CommitReveralRandomness is IRandomnessSource {
     mapping(address => bytes32) public participants;
-    uint256 required_commits;
-    bytes32 globalSeed;
+    uint256 public requiredCommits;
+    bytes32 public globalSeed;
 
     error AlreadyScrambled();
     error NotAParticipant();
@@ -18,7 +18,7 @@ contract CommitReveralRandomness is IRandomnessSource {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]] = keccak256(abi.encodePacked(uint256(1)));
         }
-        required_commits = _participants.length;
+        requiredCommits = _participants.length;
     }
 
     function commit(bytes32 _commit) public {
@@ -28,11 +28,11 @@ contract CommitReveralRandomness is IRandomnessSource {
         if (preCommit != keccak256(abi.encodePacked(uint256(1)))) revert AlreadyScrambled();
 
         participants[msg.sender] = _commit;
-        required_commits -= 1;
+        requiredCommits -= 1;
     }
 
     function reveal(uint256 _rand) public {
-        if (required_commits > 0) revert WaitingCommits();
+        if (requiredCommits > 0) revert WaitingCommits();
         bool check = CommitUtils.reveal(_rand, participants[msg.sender]);
         if (!check) revert InvalidReveal();
 
@@ -49,7 +49,7 @@ contract CommitReveralRandomness is IRandomnessSource {
     }
 
     function checkSeedVailidty() external view returns (bool) {
-        if (required_commits == 0) return true;
+        if (requiredCommits == 0) return true;
         return false;
     }
 }

@@ -22,6 +22,7 @@ contract PeerGrading {
     uint256 numberParticipants;
     uint8 nextIssuerIndex = 0;
     uint8[] ConsensusVector;
+
     CurrentState public currentState = CurrentState.WAITING_CONSENSUS;
 
     IRandomnessSource public randSrc;
@@ -38,6 +39,8 @@ contract PeerGrading {
         WAITING_CONSENSUS,
         REACHED_CONSESUS
     }
+
+    event ConsensusReached(uint8[] consensusVector);
 
     /**
      * @param _participants both the addresses and the assignments. The assignemnts are
@@ -77,9 +80,8 @@ contract PeerGrading {
     //TODO: implementar uma função que finaliza o consenso do contrato.
     // Por exemplo, se a maioria votar que sim, não será mais possível emitir outro vetor,
     // e o estado de consenso do contrato será REACHED_CONSESUS
-    event ConsensusReached(uint8[] consensusVector);
     function finalizeConsensus(uint256 votes) public {
-        if(votes > (numberParticipants/2)) {
+        if (votes > (numberParticipants / 2)) {
             currentState = CurrentState.REACHED_CONSESUS;
             emit ConsensusReached(ConsensusVector);
         }
@@ -124,8 +126,11 @@ contract PeerGrading {
         return finalPenalties;
     }
 
-    // Getter function for the Participant struct
-
+    /**
+     * @param _address the participant address
+     * @notice this function is inteded to use to gather further information on the participnat
+     * directly from the contract
+     */
     function getParticipant(address _address)
         public
         view
@@ -137,29 +142,33 @@ contract PeerGrading {
         );
     }
 
-    //TODO: comentei esse código porque ele precisa ser executado offchain e validado pelos participantes
-    // offchain
+    /**
+     * @return arr the shuffled array of assignments.
+     * @dev this shuffling has to ensure that the resulting array is does not have
+     * any index equal the same value. For exaxmple, index 0 cannot be of value 1.
+     * this is done in order to assure that some of the participants doesn't get it's own
+     * assignment. The shuffling algorithm being used is a version of the Knuth's shuffle
+     */
+    function distributeAssingments() public view returns (uint256[] memory arr) {
+        arr = new uint256[](numberParticipants);
+        uint256 n = arr.length;
 
-    // function distributeAssignments() public view returns (uint256[] memory) {
-    //     uint256 k = (numberParticipants + 1) / 2;
-    //     bytes32 seed = globalSeed;
-    //     uint256[] memory tasks;
-    //     uint256 i = 0;
+        for (uint256 i = 0; i < n; i++) {
+            arr[i] = i + 1;
+        }
 
-    //     console.log(k);
-    //     // TODO: validar depois o tamanho desse k. Se ele é metade +1 quando ímpar ou metade quando par.
-    //     // (precisa ser metade qunado par?)
-    //     console.log(tasks.length);
-    //     while (tasks.length < k) {
-    //         seed = keccak256(abi.encode(seed));
-    //         uint256 task = uint256(seed) % k;
+        for (uint256 i = n - 1; i > 0; i--) {
+            uint256 j = uint256((randSrc.getSeed() + i) % (i + 1));
 
-    //         if (tasks[task] != participants[msg.sender].assignmentId) {
-    //             tasks[i] = task;
-    //             i++;
-    //         }
-    //     }
+            // Ensure that the index of the array won't be the same as the value of the index
+            while (arr[j] == i + 1) {
+                j = (j + 1) % n; // Incrementally adjust the index
+            }
 
-    //     return tasks;
-    // }
+            // Swap arr[i] with the element at random index j
+            uint256 temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
 }
