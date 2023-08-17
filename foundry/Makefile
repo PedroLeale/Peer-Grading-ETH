@@ -11,7 +11,7 @@ test:
 	forge test
 
 gen-snapshot: 
-	    forge snapshot --snap ./snapshots/$(shell date +'%Y-%m-%d_%H:%m') --ffi
+	    forge snapshot --snap ./snapshots/.gas-snapshot-$(shell date +'%Y-%m-%d_%H:%m') --ffi
 
 
 deploy:
