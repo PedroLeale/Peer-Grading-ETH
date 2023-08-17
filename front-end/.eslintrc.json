@@ -20,6 +20,7 @@
         "prettier"
     ],
     "rules": {
+        "react/no-children-prop": "off",
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
         "react/react-in-jsx-scope": "off",
