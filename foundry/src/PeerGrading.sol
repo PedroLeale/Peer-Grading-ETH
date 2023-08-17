@@ -42,6 +42,9 @@ contract PeerGrading {
     }
 
     event ConsensusReached(uint8[] consensusVector);
+    event NewConsensus(uint8[] consensusVector, address sender);
+    event AddedParticipant(address participant, uint256 assignemtnId);
+    event Voted(address participant);
 
     /**
      * @param _participants both the addresses and the assignments. The assignemnts are
@@ -58,6 +61,7 @@ contract PeerGrading {
     constructor(address[] memory _participants, address _randSrc) {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
+            emit AddedParticipant(_participants[i], i + 1);
             participantsIndex[i] = _participants[i];
         }
         randSrc = IRandomnessSource(_randSrc);
@@ -79,17 +83,21 @@ contract PeerGrading {
     // of a participant not issuing a new consensus vector.
     /**
      * @param _consensusVector the next consensus verctor issue by the current chosen participant
-     * @notice each participant has to issue the next consensus.
+     * @notice any participant can issue a new consesnus at any time. The commented code is another
+     * alternative where users issued in a round-robin style but we thought about not doing that now
      */
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
         ConsensusVector = _consensusVector;
-        nextIssuerIndex += 1;
-        if (nextIssuerIndex == numberParticipants) nextIssuerIndex = 0;
-        currentIssuer = participantsIndex[nextIssuerIndex];
+        votes = 0;
+        // nextIssuerIndex += 1;
+        // if (nextIssuerIndex == numberParticipants) nextIssuerIndex = 0;
+        // currentIssuer = participantsIndex[nextIssuerIndex];
+        emit NewConsensus(_consensusVector, msg.sender);
     }
 
     function vote() public onlyParticipant {
         votes += 1;
+        emit Voted(msg.sender);
     }
 
     /**
