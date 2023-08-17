@@ -16,6 +16,11 @@ contract PeerGradingTest is Test {
 
     error NotAParticipant();
 
+    enum CurrentState {
+        WAITING_CONSENSUS,
+        REACHED_CONSESUS
+    }
+
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
         randSrc = new CommitReveralRandomness(participants);
@@ -74,6 +79,14 @@ contract PeerGradingTest is Test {
 
         console.log("distributed assignments");
         console.log(c.distributeAssingments().length);
+
+        for (uint256 i = 0; i < participants.length; i++) {
+            vm.prank(participants[i]);
+            c.vote();
+        }
+
+        c.finalizeConsensus();
+        assert(1 == uint256(c.currentState()));
     }
 
     function test_calcPenalties() public {

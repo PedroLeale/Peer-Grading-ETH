@@ -17,6 +17,7 @@ contract PeerGrading {
     mapping(uint256 => address) participantsIndex;
 
     uint256 gradesAmount;
+    uint256 votes;
 
     address currentIssuer;
     uint256 numberParticipants;
@@ -63,6 +64,16 @@ contract PeerGrading {
         currentIssuer = _participants[0];
         numberParticipants = _participants.length;
     }
+    /**
+     * @dev Ut's not possible to set an assignmentId as 0, so the intention in
+     * this modifier is that checking the existence of a participant
+     * by validating if the msg.sender has a valid assignmentId
+     */
+
+    modifier onlyParticipant() {
+        require(participants[msg.sender].assignmentId != 0, "Not a participant");
+        _;
+    }
 
     //TODO: check alternatives in this function to mitigate the problem
     // of a participant not issuing a new consensus vector.
@@ -70,17 +81,22 @@ contract PeerGrading {
      * @param _consensusVector the next consensus verctor issue by the current chosen participant
      * @notice each participant has to issue the next consensus.
      */
-    function receiveConsensus(uint8[] memory _consensusVector) public {
+    function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
         ConsensusVector = _consensusVector;
         nextIssuerIndex += 1;
         if (nextIssuerIndex == numberParticipants) nextIssuerIndex = 0;
         currentIssuer = participantsIndex[nextIssuerIndex];
     }
 
-    //TODO: implementar uma função que finaliza o consenso do contrato.
-    // Por exemplo, se a maioria votar que sim, não será mais possível emitir outro vetor,
-    // e o estado de consenso do contrato será REACHED_CONSESUS
-    function finalizeConsensus(uint256 votes) public {
+    function vote() public onlyParticipant {
+        votes += 1;
+    }
+
+    /**
+     * @notice this function sets the state to consensus reached.]
+     * this consensus depends on the votes cast by the participants
+     */
+    function finalizeConsensus() public {
         if (votes > (numberParticipants / 2)) {
             currentState = CurrentState.REACHED_CONSESUS;
             emit ConsensusReached(ConsensusVector);
