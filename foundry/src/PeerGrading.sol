@@ -42,9 +42,9 @@ contract PeerGrading {
     }
 
     event ConsensusReached(uint8[] consensusVector);
-    event NewConsensus(uint8[] consensusVector, address sender);
-    event AddedParticipant(address participant, uint256 assignemtnId);
-    event Voted(address participant);
+    event NewConsensus(uint8[] consensusVector, address indexed sender);
+    event AddedParticipant(address indexed participant, uint256 indexed assignemtnId);
+    event Voted(address indexed participant);
 
     /**
      * @param _participants both the addresses and the assignments. The assignemnts are

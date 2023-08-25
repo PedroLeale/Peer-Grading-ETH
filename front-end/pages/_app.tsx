@@ -16,7 +16,6 @@ const queryClient = new QueryClient();
 const anonPro = Anonymous_Pro({ subsets: ["latin"], weight: "400" });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const AnyComponent = Component as any;
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
@@ -30,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <QueryClientProvider client={queryClient}>
               <ToastContainer position="top-left" />
 
-              {getLayout(<AnyComponent {...pageProps} />)}
+              {getLayout(<Component {...pageProps} />)}
             </QueryClientProvider>
           </WagmiProvider>
         </ChakraProvider>
