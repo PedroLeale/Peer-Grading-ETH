@@ -14,8 +14,10 @@ const Dashboard = () => {
     refetch();
   }, [router.query]);
 
-  const { data } = useReadRandomnessContract({ contract: contractAddress });
   const { data: participants } = useReadAllParticipants({contract: contractAddress});
+  const { data, refetch } = useReadRandomnessContract({
+    contract: contractAddress,
+  });
 
   return (
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
