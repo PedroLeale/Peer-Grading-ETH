@@ -16,7 +16,6 @@ contract PeerGrading {
     mapping(address => Participant) public participants;
     mapping(uint256 => address) participantsIndex;
 
-    uint256 gradesAmount;
     uint256 votes;
 
     address currentIssuer;
@@ -173,7 +172,7 @@ contract PeerGrading {
      * this is done in order to assure that some of the participants doesn't get it's own
      * assignment. The shuffling algorithm being used is a version of the Knuth's shuffle
      */
-    function distributeAssingments() public view returns (uint256[] memory arr) {
+    function distributeAssignments() public view returns (uint256[] memory arr) {
         arr = new uint256[](numberParticipants);
         uint256 n = arr.length;
 
