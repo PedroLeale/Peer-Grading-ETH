@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     colors: {
       white: "#fff",
-      "soft-pinky": "#804461",
-      "hard-pink": "#884566",
+      "pg-primary": "#FCEC5F",
     },
     extend: {
       backgroundImage: {

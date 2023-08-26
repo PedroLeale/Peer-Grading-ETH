@@ -50,7 +50,6 @@ export const Navbar = () => {
   } = useDisclosure();
 
   // TODO: atualizar esse código posteriorment
-  const { isTokenSet } = useHandleToken();
 
   return (
     <>
@@ -80,43 +79,7 @@ export const Navbar = () => {
             </HStack>
           </HStack>
           <Flex alignItems={"center"} hideBelow="md">
-            {!isTokenSet() && (
-              <Button
-                variant={"solid"}
-                color={"#004"}
-                backgroundColor={"#FCEC5F"}
-                size={"sm"}
-                mr={4}
-                onClick={() => {
-                  onOpenSignIn();
-                }}
-                _hover={{
-                  backgroundColor: "#FCEC5F",
-                }}
-              >
-                sign in
-              </Button>
-            )}
-
-            {isTokenSet() ? (
-              <WalletButton />
-            ) : (
-              <Button
-                variant={"solid"}
-                color={"#004"}
-                backgroundColor={"#FCEC5F"}
-                size={"sm"}
-                mr={4}
-                onClick={() => {
-                  onOpen();
-                }}
-                _hover={{
-                  backgroundColor: "#FCEC5F",
-                }}
-              >
-                sign up
-              </Button>
-            )}
+            <WalletButton></WalletButton>
           </Flex>
         </Flex>
       </Box>

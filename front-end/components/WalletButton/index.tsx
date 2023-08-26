@@ -23,7 +23,7 @@ const WalletButton = () => {
   return (
     <div>
       <div
-        className="p-3 m-3 rounded bg-dark-blue text-white font-bold flex flex-row cursor-pointer"
+        className="p-3 m-3 rounded bg-pg-primary text-[#444] font-bold flex flex-row cursor-pointer rounded-md"
         onClick={onOpen}
       >
         <Image
