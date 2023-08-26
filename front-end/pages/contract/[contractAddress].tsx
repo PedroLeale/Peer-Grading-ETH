@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
 import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ const Dashboard = () => {
   }, [router.query]);
 
   const { data } = useReadRandomnessContract({ contract: contractAddress });
+  const { data: participants } = useReadAllParticipants({contract: contractAddress});
 
   return (
     <div className="w-full h-screen bg-[##e7e8ea]">

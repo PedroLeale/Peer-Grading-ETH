@@ -42,7 +42,7 @@ contract PeerGrading {
 
     event ConsensusReached(uint8[] consensusVector);
     event NewConsensus(uint8[] consensusVector, address indexed sender);
-    event AddedParticipant(address indexed participant, uint256 indexed assignemtnId);
+    event AddedParticipant(address indexed participant, uint256 indexed assignmentId);
     event Voted(address indexed participant);
 
     /**
@@ -151,7 +151,7 @@ contract PeerGrading {
 
     /**
      * @param _address the participant address
-     * @notice this function is inteded to use to gather further information on the participnat
+     * @notice this function is inteded to use to gather further information on the participant
      * directly from the contract
      */
     function getParticipant(address _address)

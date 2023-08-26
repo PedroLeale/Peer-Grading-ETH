@@ -11,7 +11,7 @@ type IGetSharesProps = {
 
 const getRandomnessData = async ({ contract, signer }: IGetSharesProps) => {
   if (!contract || !signer) {
-    console.log("aqussi");
+    console.log("aqui getRandomnessData");
     return "0.0";
   }
   const RdContract = new ethers.Contract(contract, abi, signer);
