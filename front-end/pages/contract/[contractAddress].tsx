@@ -11,13 +11,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     setContractAddress(String(router.query.contractAddress));
+    refetch();
   }, [router.query]);
 
   const { data } = useReadRandomnessContract({ contract: contractAddress });
   const { data: participants } = useReadAllParticipants({contract: contractAddress});
 
   return (
-    <div className="w-full h-screen bg-[##e7e8ea]">
+    <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
       {" "}
       <Navbar />
       <div className="w-[1200px] flex flex-col items-center text-left  mt-4">

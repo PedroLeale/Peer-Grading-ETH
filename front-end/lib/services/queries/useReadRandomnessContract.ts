@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { QueryKeys } from "@/config/queryKeys";
-import { useAccount, useSigner } from "wagmi";
+import { useSigner } from "wagmi";
 import { ethers, type Signer } from "ethers";
 import abi from "@/abi/PeerGrading.json";
 
@@ -30,18 +30,17 @@ const onError = (e: any) => {
   console.log(e);
 };
 
-type UseGetSharesProps = {
+type Props = {
   contract?: string;
 };
 
-const useReadRandomnessContract = ({ contract }: UseGetSharesProps = {}) => {
-  const { address: account } = useAccount();
+const useReadRandomnessContract = ({ contract }: Props) => {
   const { data: signer } = useSigner();
 
   console.log({ signer, contract });
 
   return useQuery(
-    [QueryKeys.READ_RANDOMNESS, account],
+    [QueryKeys.READ_RANDOMNESS, contract],
     async () => {
       await getRandomnessData({
         signer,
@@ -50,7 +49,7 @@ const useReadRandomnessContract = ({ contract }: UseGetSharesProps = {}) => {
     },
     {
       onError,
-      enabled: !!account,
+      enabled: !!(signer && contract),
     }
   );
 };
