@@ -4,13 +4,11 @@ import {
   Flex,
   HStack,
   Link,
-  Button,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerButton } from "./HamburgerButton";
 import { SignUpModal } from "../SignUpModal";
-import { useHandleToken } from "@/lib/utils/useHandleToken";
 import WalletButton from "../WalletButton";
 import { useRouter } from "next/router";
 import { SignInModal } from "../SignInModal";

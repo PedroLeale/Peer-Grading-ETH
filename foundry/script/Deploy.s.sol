@@ -17,11 +17,15 @@ contract Deploy is Script {
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        participants.push(0xa1655dd4B230841E6782e03Dd1d718fd148eA6f8);
+        participants.push(0x9dB3a915dFdc6f6975769657fE2194d661bA536f);
+        participants.push(0x6E10679Eaf9Cc4733274a0F85148F4126364C2b5);
+        participants.push(0x793591f2569B27208Df6ed3CEB396E1C89f4c630);
+        vm.startBroadcast(deployerPrivateKey);
+
         CommitReveralRandomness cv = new CommitReveralRandomness(participants);
         PeerGrading pg = new PeerGrading(participants, address(cv));
 
         vm.stopBroadcast();
-        console.log("contract address: ");
+        console.log("contract address: ", address(pg));
     }
 }

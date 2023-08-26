@@ -1,0 +1,240 @@
+ [
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_participants",
+          "type": "address[]"
+        },
+        {
+          "internalType": "address",
+          "name": "_randSrc",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "participant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "assignemtnId",
+          "type": "uint256"
+        }
+      ],
+      "name": "AddedParticipant",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8[]",
+          "name": "consensusVector",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "ConsensusReached",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8[]",
+          "name": "consensusVector",
+          "type": "uint8[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "NewConsensus",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "participant",
+          "type": "address"
+        }
+      ],
+      "name": "Voted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "consensusArray",
+          "type": "uint8[]"
+        },
+        {
+          "internalType": "uint8[][]",
+          "name": "grading",
+          "type": "uint8[][]"
+        }
+      ],
+      "name": "calculatePenalties",
+      "outputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "currentState",
+      "outputs": [
+        {
+          "internalType": "enum PeerGrading.CurrentState",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "distributeAssingments",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "arr",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "finalizeConsensus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "getParticipant",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "participants",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "commit",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "penalty",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "assignmentId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "randSrc",
+      "outputs": [
+        {
+          "internalType": "contract IRandomnessSource",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "_consensusVector",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "receiveConsensus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]

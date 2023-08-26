@@ -1,16 +1,16 @@
 import { useAuth } from "@/lib/services/contexts/AuthContext/context";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect } from "wagmi";
 import { signTypedData } from "@wagmi/core";
 import { domain, types } from "@/types/SignInTypedData";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { Button } from "@chakra-ui/react";
+import { Connectors } from "../Connectors";
+
 import { ColoredBadge } from "../ColoredBadge";
 
 export function Wallets() {
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
   const { disconnect } = useDisconnect();
   const { isLoggedIn, login, logout } = useAuth();
   const router = useRouter();
@@ -61,7 +61,7 @@ export function Wallets() {
           {isLoggedIn ? (
             <span> currently connected with:</span>
           ) : (
-            <span> connecting with: </span>
+            <span> conectando com: </span>
           )}
 
           <ColoredBadge>{address}</ColoredBadge>
@@ -70,45 +70,39 @@ export function Wallets() {
       {!isConnected && (
         <div>
           <div className="flex items-start justify-between p-3  rounded-t">
-            <h3 className="text-2xl font-semibold text-center">
-              Choose a wallet to connect
+            <h3 className="text-2xl font-semibold text-left">
+              Escolha uma carteira para realizar o login web3
             </h3>
           </div>
 
-          <h1> choose a wallet to connect below. Oxsequence is the easiest</h1>
-          <div className="relative p-6 flex-auto">
-            <div className="flex flex-col">
-              {connectors.map((connector) => (
-                <button
-                  className="p-3  bg-soft-pinky text-white mb-2 rounded"
-                  disabled={!connector.ready}
-                  key={connector.id}
-                  onClick={() => {
-                    connect({ connector });
-                  }}
-                >
-                  {connector.name}
-                  {!connector.ready && " (unsupported)"}
-                  {isLoading &&
-                    connector.id === pendingConnector?.id &&
-                    " (connecting)"}
-                </button>
-              ))}
-
-              {error && <div>{error.message}</div>}
-            </div>
+          <div className="">
+            <span className="inline-block whitespace-normal align-middle">
+              Se você ainda não tem uma carteira web3, crie uma com a{" "}
+              <span className="  p-1 px-2 font-bold inline-flex items-baseline">
+                Sequence
+                <img
+                  className="self-center w-5 h-5  mx-1"
+                  alt="sequence logo"
+                  src={"/images/sequence.png"}
+                  width={20}
+                  height={15}
+                />
+              </span>
+            </span>
           </div>
+
+          <Connectors />
         </div>
       )}
       <div className="flex flex-col items-center">
         {!isLoggedIn && isConnected && (
           <Button
-            className="w-1/2 items mt-5 mb-4"
+            className=" mt-5 mb-4"
             onClick={() => {
               handleLogin();
             }}
           >
-            sign in with your wallet
+            sign in
           </Button>
         )}
         <div className="flex flex-row">

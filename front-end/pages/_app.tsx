@@ -16,7 +16,6 @@ const queryClient = new QueryClient();
 const anonPro = Anonymous_Pro({ subsets: ["latin"], weight: "400" });
 
 export default function App({ Component, pageProps }: AppProps) {
-
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
   return (
