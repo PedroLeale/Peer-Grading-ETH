@@ -49,7 +49,7 @@ contract PeerGrading {
     /**
      * @param _participants both the addresses and the assignments. The assignemnts are
      * the positions of each of the addresses in the array
-     * @param _randSrc A randomness source. A contract interface that will outsource the
+     * @param _randSrc A randomness source. A ce that will outsource the
      * randmoness generation logic/process to another contract, but allowing this contract to
      * access a random number.
      * @dev the randomness source is here to allow other implementations of randomness without

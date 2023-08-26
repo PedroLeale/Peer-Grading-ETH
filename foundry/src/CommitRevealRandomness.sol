@@ -29,6 +29,7 @@ contract CommitReveralRandomness is IRandomnessSource {
 
         participants[msg.sender] = _commit;
         requiredCommits -= 1;
+        emit Commit(msg.sender);
     }
 
     function reveal(uint256 _rand) public {
@@ -42,6 +43,7 @@ contract CommitReveralRandomness is IRandomnessSource {
         // onde é preciso rodar a hash de cada um dos commits.
 
         globalSeed = keccak256(abi.encode(globalSeed, _rand));
+        emit Revealed(msg.sender);
     }
 
     function getSeed() external view returns (uint256) {
