@@ -9,20 +9,20 @@ type IGetSharesProps = {
     contract?: string;
 };
 
-const getAllParticipants = async ({ contract, signer }: IGetSharesProps) => {
+const getNewConsensus = async ({ contract, signer }: IGetSharesProps) => {
     if (!contract || !signer) {
-        console.log("aqui getAllParticipants");
+        console.log("aqui getNewConsensus");
         return "0.0";
     }
     
     const RdContract = new ethers.Contract(contract, abi, signer);
   
-    const p = RdContract.on("AddedParticipant", (participant, assignmentId) => {
+    const p = RdContract.on("NewConsensus", (consensusVector, sender) => {
       let info = {
-      participant: participant.toString(),
-      assignmentId: ethers.utils.formatUnits(assignmentId, 18)
+      consensusVector: ethers.utils.arrayify(consensusVector),
+      sender: ethers.utils.getAddress(sender)
     }
-      console.log("AddedParticipant", JSON.stringify(info));
+      console.log("NewConsensus", JSON.stringify(info));
     });
 
    return p;
@@ -36,7 +36,7 @@ type UseGetSharesProps = {
     contract?: string;
 };
   
-const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
+const useReadNewConsensus = ({ contract }: UseGetSharesProps = {}) => {
     const { address: account } = useAccount();
     const { data: signer } = useSigner();
   
@@ -45,7 +45,7 @@ const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
     return useQuery(
       [QueryKeys.READ_RANDOMNESS, account],
       async () => {
-        await getAllParticipants({
+        await getNewConsensus({
           signer,
           contract,
         });
@@ -57,5 +57,4 @@ const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
     );
 };
   
-export { getAllParticipants, useReadAllParticipants };
-
+export { getNewConsensus, useReadNewConsensus };

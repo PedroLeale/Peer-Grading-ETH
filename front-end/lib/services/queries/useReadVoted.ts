@@ -9,20 +9,19 @@ type IGetSharesProps = {
     contract?: string;
 };
 
-const getAllParticipants = async ({ contract, signer }: IGetSharesProps) => {
+const getVoted = async ({ contract, signer }: IGetSharesProps) => {
     if (!contract || !signer) {
-        console.log("aqui getAllParticipants");
+        console.log("aqui getVoted");
         return "0.0";
     }
     
     const RdContract = new ethers.Contract(contract, abi, signer);
   
-    const p = RdContract.on("AddedParticipant", (participant, assignmentId) => {
+    const p = RdContract.on("Voted", (participant) => {
       let info = {
-      participant: participant.toString(),
-      assignmentId: ethers.utils.formatUnits(assignmentId, 18)
+      participant: ethers.utils.getAddress(participant)
     }
-      console.log("AddedParticipant", JSON.stringify(info));
+      console.log("Voted", JSON.stringify(info));
     });
 
    return p;
@@ -36,7 +35,7 @@ type UseGetSharesProps = {
     contract?: string;
 };
   
-const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
+const useReadVoted = ({ contract }: UseGetSharesProps = {}) => {
     const { address: account } = useAccount();
     const { data: signer } = useSigner();
   
@@ -45,7 +44,7 @@ const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
     return useQuery(
       [QueryKeys.READ_RANDOMNESS, account],
       async () => {
-        await getAllParticipants({
+        await getVoted({
           signer,
           contract,
         });
@@ -57,5 +56,4 @@ const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
     );
 };
   
-export { getAllParticipants, useReadAllParticipants };
-
+export { getVoted, useReadVoted };
