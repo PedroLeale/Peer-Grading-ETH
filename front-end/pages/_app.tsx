@@ -11,7 +11,13 @@ import { type ReactNode } from "react";
 import AuthProvider from "@/lib/services/contexts/AuthContext/provider";
 import { ChangeChainModal } from "@/components/ChangeChainModal";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const anonPro = Anonymous_Pro({ subsets: ["latin"], weight: "400" });
 

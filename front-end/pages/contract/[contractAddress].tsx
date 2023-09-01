@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { Participants } from "@/components/Participants";
 import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
 import { useReadNewConsensus } from "@/lib/services/queries/useReadNewConsensus";
 import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
@@ -12,12 +13,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     setContractAddress(String(router.query.contractAddress));
-    refetch();
   }, [router.query]);
 
-  //const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
-  //const { data, refetch } = useReadAllParticipants({contract: contractAddress});
-  const { data, refetch } = useReadNewConsensus({ contract: contractAddress });
+  // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
+  // const { data, refetch } = useReadAllParticipants({contract: contractAddress});
+  const { data } = useReadNewConsensus({ contract: contractAddress });
 
   return (
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
@@ -26,6 +26,7 @@ const Dashboard = () => {
       <div className="w-[1200px] flex flex-col items-center text-left  mt-4">
         <h1 className="text-4xl">Bem vindo ao helper do Peer Grading</h1>
         <h4 className="text-left"> seu contrato é {contractAddress}</h4>
+        <Participants />
       </div>
     </div>
   );

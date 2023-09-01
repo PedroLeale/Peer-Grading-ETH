@@ -5,57 +5,62 @@ import { ethers, type Signer } from "ethers";
 import abi from "@/abi/PeerGrading.json";
 
 type IGetSharesProps = {
-    signer?: Signer | null;
-    contract?: string;
+  signer?: Signer | null;
+  contractAddress?: string;
 };
 
-const getAllParticipants = async ({ contract, signer }: IGetSharesProps) => {
-    if (!contract || !signer) {
-        console.log("aqui getAllParticipants");
-        return "0.0";
-    }
-    
-    const RdContract = new ethers.Contract(contract, abi, signer);
-  
-    const p = RdContract.on("AddedParticipant", (participant, assignmentId) => {
-      let info = {
-      participant: participant.toString(),
-      assignmentId: ethers.utils.formatUnits(assignmentId, 18)
-    }
-      console.log("AddedParticipant", JSON.stringify(info));
-    });
+const getAllParticipants = async ({ contractAddress }: IGetSharesProps) => {
+  if (!contractAddress) {
+    console.log("error in getAllParticipants");
+    return "0.0";
+  }
 
-   return p;
+  console.log("aqui no getAllParticipants", contractAddress);
+
+  const contract = new ethers.Contract(contractAddress, abi);
+  const provider = new ethers.providers.JsonRpcProvider(
+    String(process.env.NEXT_PUBLIC_RPC_URL)
+  );
+
+  const filter = contract.filters.AddedParticipant();
+
+  // Optionally: Set a range to fetch logs from
+  // For the latest block:
+  const latestBlock = await provider.getBlockNumber();
+  filter.fromBlock = 39647954;
+  filter.toBlock = latestBlock;
+
+  // Fetch the logs
+  const logs = await provider.getLogs(filter);
+
+  // Parse the logs to get the event data
+  const events = logs.map((log) => contract.interface.parseLog(log));
+  console.log("aqui", events);
+
+  return events;
 };
-  
+
 const onError = (e: any) => {
-    console.log(e);
+  console.log(e);
 };
-  
-type UseGetSharesProps = {
-    contract?: string;
-};
-  
-const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
-    const { address: account } = useAccount();
-    const { data: signer } = useSigner();
-  
-    console.log({ signer, contract });
-  
-    return useQuery(
-      [QueryKeys.READ_RANDOMNESS, account],
-      async () => {
-        await getAllParticipants({
-          signer,
-          contract,
-        });
-      },
-      {
-        onError,
-        enabled: !!account,
-      }
-    );
-};
-  
-export { getAllParticipants, useReadAllParticipants };
 
+type UseGetSharesProps = {
+  contract?: string;
+};
+
+const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
+  return useQuery(
+    [QueryKeys.GET_PARTICIPANTS, contract],
+    async () => {
+      await getAllParticipants({
+        contractAddress: contract,
+      });
+    },
+    {
+      onError,
+      enabled: !!contract,
+    }
+  );
+};
+
+export { getAllParticipants, useReadAllParticipants };
