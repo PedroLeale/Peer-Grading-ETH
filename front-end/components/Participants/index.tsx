@@ -9,8 +9,15 @@ export const Participants = () => {
   });
 
   return (
-    <div>
-      <span> aqui</span>
+    <div className="text-left">
+      <span className="text-xl"> participantes presentes: </span>
+      <div className="flex flex-col">
+        {data?.map((l) => (
+          <span className="flex text-left" key={l.signature}>
+            {l.args?.participant}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };

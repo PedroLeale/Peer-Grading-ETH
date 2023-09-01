@@ -3,6 +3,7 @@ import { QueryKeys } from "@/config/queryKeys";
 import { useAccount, useSigner } from "wagmi";
 import { ethers, type Signer } from "ethers";
 import abi from "@/abi/PeerGrading.json";
+import { LogDescription } from "ethers/lib/utils.js";
 
 type IGetSharesProps = {
   signer?: Signer | null;
@@ -12,7 +13,7 @@ type IGetSharesProps = {
 const getAllParticipants = async ({ contractAddress }: IGetSharesProps) => {
   if (!contractAddress) {
     console.log("error in getAllParticipants");
-    return "0.0";
+    return [];
   }
 
   console.log("aqui no getAllParticipants", contractAddress);
@@ -52,7 +53,7 @@ const useReadAllParticipants = ({ contract }: UseGetSharesProps = {}) => {
   return useQuery(
     [QueryKeys.GET_PARTICIPANTS, contract],
     async () => {
-      await getAllParticipants({
+      return await getAllParticipants({
         contractAddress: contract,
       });
     },
