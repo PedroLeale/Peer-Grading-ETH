@@ -9,22 +9,31 @@ type IGetSharesProps = {
     contract?: string;
 };
 
-const getConsensusReached = async ({ contract, signer }: IGetSharesProps) => {
-    if (!contract || !signer) {
-        console.log("aqui getConsensusReached");
+const getConsensusReached = async ({ contractAddress }: IGetSharesProps) => {
+    if (!contractAddress) {
+        console.log("error in getConsensusReached");
         return "0.0";
     }
     
-    const RdContract = new ethers.Contract(contract, abi, signer);
-  
-    const p = RdContract.on("ConsensusReached", (consensusVector) => {
-      let info = {
-      consensusVector: ethers.utils.arrayify(consensusVector),
-    }
-      console.log("ConsensusReached", JSON.stringify(info));
-    });
+    const contract = new ethers.Contract(contractAddress, abi);
+    const provider = new ethers.providers.JsonRpcProvider(
+      String(process.env.NEXT_PUBLIC_RPC_URL)
+    );
+      
+    const filter = contract.filters.ConsensusReached();  
+    // Optionally: Set a range to fetch logs from
+    // For the latest block:
+    const latestBlock = await provider.getBlockNumber();
+    filter.fromBlock = 39647954;
+    filter.toBlock = latestBlock;
 
-   return p;
+    // Fetch the logs
+    const logs = await provider.getLogs(filter);
+
+    // Parse the logs to get the event data
+    const events = logs.map((log) => contract.interface.parseLog(log));
+
+    return events;
 };
   
 const onError = (e: any) => {
@@ -36,22 +45,16 @@ type UseGetSharesProps = {
 };
   
 const useReadConsensusReached = ({ contract }: UseGetSharesProps = {}) => {
-    const { address: account } = useAccount();
-    const { data: signer } = useSigner();
-  
-    console.log({ signer, contract });
-  
     return useQuery(
-      [QueryKeys.READ_RANDOMNESS, account],
+      [QueryKeys.GET_PARTICIPANTS, contract],
       async () => {
         await getConsensusReached({
-          signer,
-          contract,
+          contractAddress: contract,
         });
       },
       {
         onError,
-        enabled: !!account,
+        enabled: !!contract,
       }
     );
 };

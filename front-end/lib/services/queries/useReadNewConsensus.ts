@@ -9,13 +9,32 @@ type IGetSharesProps = {
   contract?: string;
 };
 
-const getNewConsensus = async ({ contract, signer }: IGetSharesProps) => {
-  if (!contract || !signer) {
-    console.log("aqui getNewConsensus");
+const getNewConsensus = async ({ contractAddress }: IGetSharesProps) => {
+  if (!contractAddress) {
+    console.log("error in getNewConsensus");
     return "0.0";
   }
 
-  return "";
+  const contract = new ethers.Contract(contractAddress, abi);
+  const provider = new ethers.providers.JsonRpcProvider(
+    String(process.env.NEXT_PUBLIC_RPC_URL)
+  );
+
+  const filter = contract.filters.NewConsensus();
+
+  // Optionally: Set a range to fetch logs from
+  // For the latest block:
+  const latestBlock = await provider.getBlockNumber();
+  filter.fromBlock = 39647954;
+  filter.toBlock = latestBlock;
+
+  // Fetch the logs
+  const logs = await provider.getLogs(filter);
+
+  // Parse the logs to get the event data
+  const events = logs.map((log) => contract.interface.parseLog(log));
+
+  return events;
 };
 
 const onError = (e: any) => {
@@ -27,20 +46,16 @@ type UseGetSharesProps = {
 };
 
 const useReadNewConsensus = ({ contract }: UseGetSharesProps = {}) => {
-  const { address: account } = useAccount();
-  const { data: signer } = useSigner();
-
   return useQuery(
-    [QueryKeys.READ_RANDOMNESS, account, contract],
+    [QueryKeys.READ_RANDOMNESS, contract],
     async () => {
       await getNewConsensus({
-        signer,
-        contract,
+        contractAddress: contract,
       });
     },
     {
       onError,
-      enabled: !!account && !!contract,
+      enabled: !!contract,
     }
   );
 };
