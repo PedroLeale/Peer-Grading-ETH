@@ -1,22 +1,19 @@
 import { ethers } from "hardhat";
+import dotenv from "dotenv";
+dotenv.config();
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const private_key_test_0 = process.env.PRIVATE_KEY_TEST_0;
+  const private_key_test_1 = process.env.PRIVATE_KEY_TEST_1;
+  const private_key_test_2 = process.env.PRIVATE_KEY_TEST_2;
+  const private_key_test_3 = process.env.PRIVATE_KEY_TEST_3;
+  const private_key_test_4 = process.env.PRIVATE_KEY_TEST_4;
 
-  const lockedAmount = ethers.parseEther("0.001");
-
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  console.log("Deploying contracts with the account:", private_key_test_0);
+  console.log("Deploying contracts with the account:", private_key_test_1);
+  console.log("Deploying contracts with the account:", private_key_test_2);
+  console.log("Deploying contracts with the account:", private_key_test_3);
+  console.log("Deploying contracts with the account:", private_key_test_4);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
