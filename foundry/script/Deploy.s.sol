@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.13;
+pragma solidity ^0.8.13;
 
 /* solhint-disable no-global-import */
 import "forge-std/Script.sol";
@@ -13,7 +13,13 @@ import "../src/CommitRevealRandomness.sol";
 contract Deploy is Script {
     address[] participants;
 
-    function setUp() public {}
+    function setUp() public {
+        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_0"));
+        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_1"));
+        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_2"));
+        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_3"));
+        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_4"));
+    } 
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");

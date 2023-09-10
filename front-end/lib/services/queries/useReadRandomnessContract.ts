@@ -16,10 +16,6 @@ const getRandomnessData = async ({ contract, signer }: IGetSharesProps) => {
   }
   const RdContract = new ethers.Contract(contract, abi, signer);
 
-  const p = await RdContract.getParticipant(
-    "0x6E10679Eaf9Cc4733274a0F85148F4126364C2b5"
-  );
-
   console.log("aquii");
   console.log("aqui", p);
 
