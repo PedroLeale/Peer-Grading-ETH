@@ -57,7 +57,11 @@ contract PeerGrading {
      * @notice the first currentIssuer is the first one to submit a consensus vector.
      * It will round-robin through all participant addresses until the final consensus is reached.
      */
-    constructor(address[] memory _participants, address _randSrc, uint256 _numberAssignments) {
+    constructor(address[] memory _participants, address _randSrc, uint256 _numberAssignmentsPerParticipant) {
+        require(
+            _participants.length > _numberAssignmentsPerParticipant,
+            "Number of assignments per participant must be lesser than number of participants"
+        );
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
             emit AddedParticipant(_participants[i], i + 1);
@@ -66,7 +70,7 @@ contract PeerGrading {
         randSrc = IRandomnessSource(_randSrc);
         currentIssuer = _participants[0];
         numberParticipants = _participants.length;
-        numberAssignments = _numberAssignments;
+        numberAssignments = _numberAssignmentsPerParticipant;
     }
     /**
      * @dev Ut's not possible to set an assignmentId as 0, so the intention in
