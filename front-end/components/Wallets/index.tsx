@@ -8,7 +8,7 @@ export function Wallets() {
   const { isConnected, address } = useAccount();
 
   return (
-    <div className="items-center flex-col">
+    <div className="flex items-center flex-col">
       {address && <ColoredBadge>{address}</ColoredBadge>}
       {!isConnected && (
         <div>

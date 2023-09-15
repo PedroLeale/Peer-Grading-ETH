@@ -8,10 +8,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerButton } from "./HamburgerButton";
-import { SignUpModal } from "../SignUpModal";
 import WalletButton from "../WalletButton";
 import { useRouter } from "next/router";
-import { SignInModal } from "../SignInModal";
+import { ConnectWalletModal } from "../ConnectWalletModal";
 
 const Links = ["Dashboard", "Team"];
 
@@ -40,12 +39,7 @@ const NavLink = ({ children }: { children: ReactNode }) => {
 };
 
 export const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isOpenSignIn,
-    onOpen: onOpenSignIn,
-    onClose: onCloseSignIn,
-  } = useDisclosure();
+  const { isOpen: isOpenSignIn, onClose: onCloseSignIn } = useDisclosure();
 
   // TODO: atualizar esse código posteriorment
 
@@ -81,8 +75,7 @@ export const Navbar = () => {
           </Flex>
         </Flex>
       </Box>
-      <SignUpModal isOpen={isOpen} onClose={onClose} title="Sign up" />
-      <SignInModal
+      <ConnectWalletModal
         isOpen={isOpenSignIn}
         onClose={onCloseSignIn}
         title="Sign in with your wallet "

@@ -1,12 +1,14 @@
 import { Navbar } from "@/components/Navbar";
 import { TextBorder } from "../components/TextBorder";
 import { Flex, Image, Box } from "@chakra-ui/react";
+import { Explanation } from "@/components/Explanation";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <div className=" w-1000 h-screen flex justify-center items-center">
+      <div className=" w-1000 h-screen ">
+        <Explanation />
         <Flex direction="row">
           <TextBorder
             children={"Peer Grading text 1"}

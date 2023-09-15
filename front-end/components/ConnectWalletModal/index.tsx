@@ -7,7 +7,7 @@ interface Props {
   onClose: () => void;
 }
 
-export function SignInModal({ onClose, isOpen, title }: Props) {
+export function ConnectWalletModal({ onClose, isOpen, title }: Props) {
   return (
     <>
       <BaseModal isOpen={isOpen} onClose={onClose} title={title}>
