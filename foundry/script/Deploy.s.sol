@@ -23,7 +23,7 @@ contract Deploy is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         CommitReveralRandomness cv = new CommitReveralRandomness(participants);
-        PeerGrading pg = new PeerGrading(participants, address(cv));
+        PeerGrading pg = new PeerGrading(participants, address(cv), participants.length - 1);
 
         vm.stopBroadcast();
         console.log("contract address: ", address(pg));

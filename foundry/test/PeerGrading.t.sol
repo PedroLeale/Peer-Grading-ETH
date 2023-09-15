@@ -24,7 +24,7 @@ contract PeerGradingTest is Test {
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
         randSrc = new CommitReveralRandomness(participants);
-        c = new PeerGrading(participants, address(randSrc));
+        c = new PeerGrading(participants, address(randSrc), participants.length - 1);
     }
 
     /*
@@ -69,15 +69,26 @@ contract PeerGradingTest is Test {
             randSrc.reveal(numbers[i]);
         }
 
-        // Para testar a função de distribuição de assignments
-        // veja se o assigmentId do participante n é igual ao id dos assigments presentes em seu array de assigments
+        // Testing distribute assignments function
+        // checking if the assignmentId from the participant "n" is equal to the id of the assignments present in his array of assignments
+        // if it is, it means that the assignments were NOT distributed correctly
         for (uint256 i = 0; i < participants.length; i++) {
             (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
             vm.prank(participants[i]);
             uint256[] memory distdAssignments = c.distributeAssignments(participants[i]);
 
-            console.log("distributed assignments");
-            console.log(c.distributeAssignments(participants[i])[i]);
+            console.log("distributed assignments length:");
+            console.log(distdAssignments.length);
+            for (uint256 j = 0; j < distdAssignments.length; j++) {
+                assertTrue(distdAssignments[j] != assignmentId);
+            }
+
+            console.log("distributed assignments for participant:");
+            console.log("participant: ", participants[i]);
+            for (uint256 j = 0; j < distdAssignments.length; j++) {
+                console.log(distdAssignments[j]);
+            }
+            console.log("-----------------------");
         }
 
         for (uint256 i = 0; i < participants.length; i++) {

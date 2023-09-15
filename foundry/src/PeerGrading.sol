@@ -17,7 +17,7 @@ contract PeerGrading {
     mapping(uint256 => address) participantsIndex;
 
     uint256 votes;
-
+    uint256 numberAssignments;
     address currentIssuer;
     uint256 numberParticipants;
     uint8 nextIssuerIndex = 0;
@@ -57,7 +57,7 @@ contract PeerGrading {
      * @notice the first currentIssuer is the first one to submit a consensus vector.
      * It will round-robin through all participant addresses until the final consensus is reached.
      */
-    constructor(address[] memory _participants, address _randSrc) {
+    constructor(address[] memory _participants, address _randSrc, uint256 _numberAssignments) {
         for (uint256 i = 0; i < _participants.length; i++) {
             participants[_participants[i]].assignmentId = i + 1;
             emit AddedParticipant(_participants[i], i + 1);
@@ -66,6 +66,7 @@ contract PeerGrading {
         randSrc = IRandomnessSource(_randSrc);
         currentIssuer = _participants[0];
         numberParticipants = _participants.length;
+        numberAssignments = _numberAssignments;
     }
     /**
      * @dev Ut's not possible to set an assignmentId as 0, so the intention in
@@ -176,10 +177,12 @@ contract PeerGrading {
      * assignment. The shuffling algorithm being used is a version of the Knuth's shuffle
      */
     function distributeAssignments(address _participant) public view returns (uint256[] memory arr) {
-        arr = new uint256[](numberParticipants);
-        uint256 n = arr.length;
+        arr = new uint256[](numberAssignments);
+        uint256 n = numberAssignments;
+        uint256 assignmentId = participants[_participant].assignmentId;
 
         for (uint256 i = 0; i < n; i++) {
+            if (i + 1 == assignmentId) continue;
             arr[i] = i + 1;
         }
 
@@ -196,5 +199,6 @@ contract PeerGrading {
             arr[i] = arr[j];
             arr[j] = temp;
         }
+        return arr;
     }
 }
