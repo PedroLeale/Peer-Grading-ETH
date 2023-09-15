@@ -4,26 +4,16 @@ import { useAccount } from "wagmi";
 import { BaseModal } from "../BaseModal";
 import { Wallets } from "../Wallets";
 import { useDisclosure } from "@chakra-ui/react";
+import { renderWalletText } from "@/lib/utils/renderWalletText";
 
 const WalletButton = () => {
   const { address, status } = useAccount();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const renderWalletText = () => {
-    if (status === "connected" && address) {
-      const shortAddress = `${String(address).slice(0, 3)}...${String(
-        address
-      ).slice(-3)}`;
-      return shortAddress;
-    } else {
-      return "connect wallet";
-    }
-  };
-
   return (
     <div>
       <div
-        className="p-3 m-3 rounded bg-pg-primary text-[#444] font-bold flex flex-row cursor-pointer rounded-md"
+        className="p-3 m-3  bg-pg-primary text-[#444] font-bold flex flex-row cursor-pointer rounded-md"
         onClick={onOpen}
       >
         <Image
@@ -32,7 +22,7 @@ const WalletButton = () => {
           height={18}
           alt="wallet icon"
         />
-        <span className="ml-3">{renderWalletText()}</span>
+        <span className="ml-3">{renderWalletText(status, address)}</span>
       </div>
       <BaseModal onClose={onClose} isOpen={isOpen} title="connect wallet">
         <Wallets />

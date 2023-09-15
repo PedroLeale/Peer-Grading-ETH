@@ -64,10 +64,6 @@ export const Connectors = () => {
 
         {error && <div>{error.message}</div>}
       </div>
-
-      <span className="mt-2 text-sm text-right underline text-[#3366CC] cursor-pointer ">
-        Entenda mais sobre carteiras e o nosso método de login clicando aqui
-      </span>
     </div>
   );
 };
