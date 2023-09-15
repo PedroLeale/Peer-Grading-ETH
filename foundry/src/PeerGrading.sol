@@ -178,12 +178,14 @@ contract PeerGrading {
      */
     function distributeAssignments(address _participant) public view returns (uint256[] memory arr) {
         arr = new uint256[](numberAssignments);
-        uint256 n = numberAssignments;
+        uint256 n = arr.length;
         uint256 assignmentId = participants[_participant].assignmentId;
+        uint256 assignmentCounter;
 
-        for (uint256 i = 0; i < n; i++) {
+        for (uint256 i = 0; i < numberParticipants; i++) {
             if (i + 1 == assignmentId) continue;
-            arr[i] = i + 1;
+            arr[assignmentCounter] = i + 1;
+            assignmentCounter += 1;
         }
 
         for (uint256 i = n - 1; i > 0; i--) {
