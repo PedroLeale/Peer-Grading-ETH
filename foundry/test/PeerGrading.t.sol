@@ -74,11 +74,11 @@ contract PeerGradingTest is Test {
         for (uint256 i = 0; i < participants.length; i++) {
             (,, uint256 assignmentId,,) = c.getParticipant(participants[i]);
             vm.prank(participants[i]);
-            uint256[] memory distdAssignments = c.distributeAssignments();
-        }
+            uint256[] memory distdAssignments = c.distributeAssignments(participants[i]);
 
-        console.log("distributed assignments");
-        console.log(c.distributeAssignments().length);
+            console.log("distributed assignments");
+            console.log(c.distributeAssignments(participants[i])[i]);
+        }
 
         for (uint256 i = 0; i < participants.length; i++) {
             vm.prank(participants[i]);

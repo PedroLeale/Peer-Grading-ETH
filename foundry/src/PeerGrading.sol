@@ -167,12 +167,15 @@ contract PeerGrading {
 
     /**
      * @return arr the shuffled array of assignments.
+     * @param _participant the participant address. It's used to generate entropy
+     * and tie this data to the participant at the same time. This means that
+     * addres will generate the assignment distribution for that specific participant
      * @dev this shuffling has to ensure that the resulting array is does not have
      * any index equal the same value. For exaxmple, index 0 cannot be of value 1.
      * this is done in order to assure that some of the participants doesn't get it's own
      * assignment. The shuffling algorithm being used is a version of the Knuth's shuffle
      */
-    function distributeAssignments() public view returns (uint256[] memory arr) {
+    function distributeAssignments(address _participant) public view returns (uint256[] memory arr) {
         arr = new uint256[](numberParticipants);
         uint256 n = arr.length;
 
@@ -181,7 +184,7 @@ contract PeerGrading {
         }
 
         for (uint256 i = n - 1; i > 0; i--) {
-            uint256 j = uint256((randSrc.getSeed() + i) % (i + 1));
+            uint256 j = uint256((randSrc.getSeed() + uint160(_participant) + i) % (i + 1));
 
             // Ensure that the index of the array won't be the same as the value of the index
             while (arr[j] == i + 1) {

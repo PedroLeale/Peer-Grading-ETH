@@ -69,7 +69,7 @@ contract Test is Script {
         }
 
         pg.receiveConsensus(consensusVector);
-        uint256[] memory assignments = pg.distributeAssignments();
+        // uint256[] memory assignments = pg.distributeAssignments();
         uint8[] memory penalties = pg.calculatePenalties(consensusVector, gradings);
         pg.finalizeConsensus();
 
