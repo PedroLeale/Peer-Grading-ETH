@@ -13,13 +13,7 @@ import "../src/CommitRevealRandomness.sol";
 contract Deploy is Script {
     address[] participants;
 
-    function setUp() public {
-        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_0"));
-        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_1"));
-        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_2"));
-        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_3"));
-        console.log("Private key test: ", vm.envUint("PRIVATE_KEY_TEST_4"));
-    } 
+    function setUp() public {}
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
