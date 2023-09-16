@@ -12,20 +12,31 @@ import WalletButton from "../WalletButton";
 import { useRouter } from "next/router";
 import { ConnectWalletModal } from "../ConnectWalletModal";
 
-const Links = ["Dashboard", "Team"];
+const Links = [
+  {
+    name: "Do a peer review",
+    route: "create",
+  },
+];
 
-const NavLink = ({ children }: { children: ReactNode }) => {
+const NavLink = ({
+  children,
+  route,
+}: {
+  children: ReactNode;
+  route: string;
+}) => {
   const router = useRouter();
 
   return (
     <Link
       px={2}
       onClick={() => {
-        router.push(String(children)?.toString().toLowerCase());
+        router.push(route);
       }}
       py={1}
       rounded={"md"}
-      color="white" // Set the color prop to "white"
+      color="black"
       _hover={{
         color: "black",
         textDecoration: "none",
@@ -66,7 +77,9 @@ export const Navbar = () => {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.route} route={link.route}>
+                  {link.name}
+                </NavLink>
               ))}
             </HStack>
           </HStack>

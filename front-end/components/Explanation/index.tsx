@@ -53,11 +53,20 @@ export const Explanation = () => {
 
       <div className="p-4  w-1/2">
         <h1 className="text-2xl font-bold mb-4">
-          How to Use This helper application
+          How to use this helper application
         </h1>
 
         <h2 className="text-xl font-semibold mt-4 mb-2">
-          Step 1: Insert Contract Address
+          Step 1: Have a dedicated RPC url
+        </h2>
+        <p className="mb-4">
+          This application requires reading events from the blockchain and{" "}
+          {`it's`} more reliable to do that with a dedicated RPC. Just sue some
+          dedicated RPC node service and it should be enough.
+        </p>
+
+        <h2 className="text-xl font-semibold mt-4 mb-2">
+          Step 2: Insert Contract Address
         </h2>
         <p className="mb-4">
           Navigate to{" "}
@@ -77,12 +86,17 @@ export const Explanation = () => {
           following order
         </h2>
         <ul className="list-disc list-inside mb-4">
-          <li>Generate Randomness via a RandomnessSource contract</li>
           <li>
-            Then based on the randomness generated, the assignments can be
+            First, the participants publish their articles to IPFS. These{" "}
+          </li>
+          <li>
+            then they generate a random value via a RandomnessSource contract
+          </li>
+          <li>
+            Based on the randomness generated, the assignments can be
             distributed to each participant
           </li>
-          <li>A participant then can send a transaction for consensus</li>
+          <li>A participant can then propose a consensus</li>
           <li>
             Participants evaluate their penalties, and they can repeat sending
             consensus. This loop cycles continues until a final consensus is

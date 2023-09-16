@@ -7,9 +7,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className=" w-1000 h-screen ">
+      <div className=" w-1000 h-screen m-auto flex  flex-col ">
         <Explanation />
-        <Flex direction="row">
+
+        <h1 className="p-2 text-2xl font-bold mb-4">Some example contracts</h1>
+
+        <Flex direction="row" className="p-4">
           <TextBorder
             children={"Peer Grading text 1"}
             imageSrc={"/assets/security-icon.png"}
