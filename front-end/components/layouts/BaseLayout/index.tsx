@@ -8,8 +8,8 @@ export const BaseLayout = ({ children }: Props) => {
     <div className="w-full h-screen bg-[##e7e8ea]">
       <Navbar />
 
-      <div className="max-w-[1200px] m-auto">
-        <div className="mt-4">{children}</div>
+      <div className=" m-auto">
+        <div className="mt-">{children}</div>
       </div>
     </div>
   );

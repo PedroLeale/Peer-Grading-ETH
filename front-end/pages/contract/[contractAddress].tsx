@@ -1,13 +1,14 @@
 import { Navbar } from "@/components/Navbar";
 import { Participants } from "@/components/Participants";
+import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
 import { useReadNewConsensus } from "@/lib/services/queries/useReadNewConsensus";
 import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 
-const Dashboard = () => {
+const ContractPage = () => {
   const router = useRouter();
   const [contractAddress, setContractAddress] = useState("");
 
@@ -46,4 +47,8 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+ContractPage.getLayout = function getLayout(page: ReactNode) {
+  return <BaseLayout>{page}</BaseLayout>;
+};
+
+export default ContractPage;
