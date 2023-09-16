@@ -69,8 +69,22 @@ contract Test is Script {
         }
 
         pg.receiveConsensus(consensusVector);
-        // uint256[] memory assignments = pg.distributeAssignments();
+        uint256[] memory assignments = pg.distributeAssignments(0x9dB3a915dFdc6f6975769657fE2194d661bA536f);
         uint8[] memory penalties = pg.calculatePenalties(consensusVector, gradings);
+        pg.vote();
+        pg.finalizeConsensus();
+
+        consensusVector[0] = 3;
+        consensusVector[1] = 1;
+        consensusVector[2] = 2;
+        consensusVector[3] = 4;
+        consensusVector[4] = 5;
+
+        penalties = pg.calculatePenalties(consensusVector, gradings);
+
+        pg.receiveConsensus(consensusVector);
+        assignments = pg.distributeAssignments(0x6E10679Eaf9Cc4733274a0F85148F4126364C2b5);
+        pg.vote();
         pg.finalizeConsensus();
 
         vm.stopBroadcast();
