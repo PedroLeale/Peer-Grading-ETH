@@ -35,7 +35,7 @@ This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.
 
 ## Default contract addresses for testing on mumbai
 
-The PeerGradingDeployer contract is deployed in the address `0x4098D20683920BAF4ECF427759AF3a00Df524348`
+The PeerGradingDeployer contract is deployed in the address `0xB7BD05a4d5EF3a3DbD1D4EBC350389Df3cd9455c`
 
 ## Suggested extensions
 
