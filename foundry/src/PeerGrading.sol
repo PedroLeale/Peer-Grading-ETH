@@ -22,6 +22,7 @@ contract PeerGrading {
     uint256 numberParticipants;
     uint8 nextIssuerIndex = 0;
     uint8[] ConsensusVector;
+    string public IPFS_hash;
 
     CurrentState public currentState = CurrentState.WAITING_CONSENSUS;
 
@@ -57,7 +58,7 @@ contract PeerGrading {
      * @notice the first currentIssuer is the first one to submit a consensus vector.
      * It will round-robin through all participant addresses until the final consensus is reached.
      */
-    constructor(address[] memory _participants, address _randSrc, uint256 workload) {
+    constructor(address[] memory _participants, address _randSrc, uint256 workload, string memory _IPFS_hash) {
         require(
             _participants.length > workload,
             "Number of assignments per participant must be lesser than number of participants"
@@ -71,6 +72,7 @@ contract PeerGrading {
         currentIssuer = _participants[0];
         numberParticipants = _participants.length;
         numberAssignments = workload;
+        IPFS_hash = _IPFS_hash;
     }
     /**
      * @dev Ut's not possible to set an assignmentId as 0, so the intention in

@@ -56,7 +56,7 @@ contract Test is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         CommitReveralRandomness cv = new CommitReveralRandomness(participants);
-        PeerGrading pg = new PeerGrading(participants, address(cv), participants.length - 1);
+        PeerGrading pg = new PeerGrading(participants, address(cv), participants.length - 1, "IPFS HASH TEST");
 
         // send a consenus vector to PeerGrading
         uint8[] memory consensusVector = new uint8[](5);

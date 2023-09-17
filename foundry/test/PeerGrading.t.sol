@@ -24,7 +24,7 @@ contract PeerGradingTest is Test {
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
         randSrc = new CommitReveralRandomness(participants);
-        c = new PeerGrading(participants, address(randSrc), participants.length - 1);
+        c = new PeerGrading(participants, address(randSrc), participants.length - 1, "IPFS HASH TEST");
     }
 
     /*
