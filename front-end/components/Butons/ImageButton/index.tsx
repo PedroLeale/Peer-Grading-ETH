@@ -4,7 +4,7 @@ import { type ReactNode, type MouseEvent } from "react";
 interface Props {
   className?: string;
   children: ReactNode;
-  imgPath: string;
+  imgPath?: string;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void; // Defines the onClick prop
 }
 
@@ -27,7 +27,9 @@ export const ImageButton = ({
       `}
       onClick={onClick}
     >
-      <Image src={imgPath} alt="MetaMask Icon" width={25} height={25} />
+      {imgPath && (
+        <Image src={imgPath} alt="MetaMask Icon" width={25} height={25} />
+      )}{" "}
       <span className="text-[#444] font-bold ml-2 self-center text-center w-full">
         {children}
       </span>

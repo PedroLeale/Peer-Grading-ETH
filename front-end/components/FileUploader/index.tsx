@@ -1,48 +1,23 @@
-import React, { useState, type ChangeEvent, type FormEvent } from "react";
+import React, {
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { toast } from "react-toastify";
+import { SingleFileUploader } from "../SingleFileUploader";
 
 interface Uploader {
   fieldName: string;
   file: File | null;
 }
 
-const SingleUploader: React.FC<{
-  index: number;
-  handleFileChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
-  handleFieldNameChange: (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => void;
-}> = ({ index, handleFileChange, handleFieldNameChange }) => (
-  <div className="flex flex-col mb-4">
-    <label className="font-bold text-lg mb-2" htmlFor={`fieldName-${index}`}>
-      Participant address
-    </label>
-    <input
-      id={`fieldName-${index}`}
-      type="text"
-      className="border p-2 rounded"
-      onChange={(e) => {
-        handleFieldNameChange(e, index);
-      }}
-      required
-    />
-    <label className="font-bold text-lg mt-4 mb-2" htmlFor={`file-${index}`}>
-      File:
-    </label>
-    <input
-      id={`file-${index}`}
-      type="file"
-      className="border p-2 rounded"
-      onChange={(e) => {
-        handleFileChange(e, index);
-      }}
-      required
-    />
-  </div>
-);
+interface Props {
+  setCid: Dispatch<SetStateAction<string>>;
+}
 
-export const FileUploader: React.FC = () => {
+export const FileUploader = ({ setCid }: Props) => {
   const [uploaders, setUploaders] = useState<Uploader[]>([
     { fieldName: "", file: null },
   ]);
@@ -98,6 +73,7 @@ export const FileUploader: React.FC = () => {
 
       const data = await response.json();
       console.log("Server Response:", data);
+      setCid(data.cid);
       toast.success("files successfully uploaded!");
     } catch (error) {
       toast.error("error uploading files");
@@ -112,14 +88,14 @@ export const FileUploader: React.FC = () => {
       <form onSubmit={handleSubmit}>
         {uploaders.map((uploader, index) => (
           <div key={index}>
-            <SingleUploader
+            <SingleFileUploader
               index={index}
               handleFileChange={handleFileChange}
               handleFieldNameChange={handleFieldNameChange}
             />
             <button
               type="button"
-              className="text-black font-bold py-2 px-4 rounded bg-[#FF0000]"
+              className="text-white font-bold py-2 px-4 rounded bg-[#FF0000]"
               onClick={() => {
                 removeUploader(index);
               }}
@@ -132,16 +108,16 @@ export const FileUploader: React.FC = () => {
         <div className="flex flex-col mt-8">
           <button
             type="button"
-            className="bg-pg-primary py-2 px-4 font-bold w-1/5"
+            className="bg-pg-primary py-2 px-4 font-bold self-contain"
             onClick={addUploader}
           >
-            Add More
+            Add More participants
           </button>
           <button
             className="bg-pg-primary py-2 px-4 font-bold w-1/2 mt-3"
             type="submit"
           >
-            Upload All
+            Create contract
           </button>
         </div>
       </form>

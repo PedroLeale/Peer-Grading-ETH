@@ -1,8 +1,8 @@
 import { useConnect } from "wagmi";
-import { PrimaryButton } from "../Butons/PrimaryButton";
 import { MetaMaskButton } from "../Butons/MetamaskButton";
 import { SequenceButton } from "../Butons/SequenceButton";
 import { WalletConnect } from "../Butons/WalletConnectButton";
+import { ImageButton } from "../Butons/ImageButton";
 
 export const Connectors = () => {
   const { connect, connectors, error, isLoading, pendingConnector } =
@@ -46,7 +46,7 @@ export const Connectors = () => {
             );
 
           return (
-            <PrimaryButton
+            <ImageButton
               className="mb-2 rounded-md"
               key={connector.id}
               onClick={() => {
@@ -58,7 +58,7 @@ export const Connectors = () => {
               {isLoading &&
                 connector.id === pendingConnector?.id &&
                 " (connecting)"}
-            </PrimaryButton>
+            </ImageButton>
           );
         })}
 
