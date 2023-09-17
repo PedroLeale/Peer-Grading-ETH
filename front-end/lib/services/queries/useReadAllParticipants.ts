@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { QueryKeys } from "@/config/queryKeys";
 import { ethers, type Signer } from "ethers";
 import abi from "@/abi/PeerGrading.json";
-import { LogDescription } from "ethers/lib/utils.js";
 
 type IGetSharesProps = {
   signer?: Signer | null;

@@ -1,0 +1,50 @@
+[
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "peerGradingAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "PeerGradingDeployed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_participants",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_workload",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_IPFS_hash",
+          "type": "string"
+        }
+      ],
+      "name": "deployPeerGrading",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]

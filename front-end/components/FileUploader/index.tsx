@@ -1,11 +1,9 @@
 import React, {
-  useState,
   type ChangeEvent,
   type FormEvent,
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { toast } from "react-toastify";
 import { SingleFileUploader } from "../SingleFileUploader";
 
 interface Uploader {
@@ -14,14 +12,18 @@ interface Uploader {
 }
 
 interface Props {
+  uploaders: Uploader[];
+  setUploaders: Dispatch<SetStateAction<Uploader[]>>;
   setCid: Dispatch<SetStateAction<string>>;
+  handleSubmit: (e: FormEvent) => void;
 }
 
-export const FileUploader = ({ setCid }: Props) => {
-  const [uploaders, setUploaders] = useState<Uploader[]>([
-    { fieldName: "", file: null },
-  ]);
-
+export const FileUploader = ({
+  uploaders,
+  setUploaders,
+  setCid,
+  handleSubmit,
+}: Props) => {
   const handleFileChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number
@@ -50,36 +52,6 @@ export const FileUploader = ({ setCid }: Props) => {
     const newUploaders = [...uploaders];
     newUploaders.splice(index, 1);
     setUploaders(newUploaders);
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    for (const uploader of uploaders) {
-      if (!uploader.file || !uploader.fieldName) {
-        alert("Both field name and file must be provided for all uploaders");
-        return;
-      }
-      formData.append(uploader.fieldName, uploader.file);
-    }
-
-    try {
-      const response = await fetch("/api/store", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log("Server Response:", data);
-      setCid(data.cid);
-      toast.success("files successfully uploaded!");
-    } catch (error) {
-      toast.error("error uploading files");
-
-      console.error("There was an error uploading the files:", error);
-    }
   };
 
   return (

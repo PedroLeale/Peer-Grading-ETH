@@ -19,6 +19,7 @@ export const SingleFileUploader = ({
       Participant address
     </label>
     <input
+      placeholder="add address here"
       id={`fieldName-${index}`}
       type="text"
       className="border p-2 rounded"
