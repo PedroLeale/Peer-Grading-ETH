@@ -1,5 +1,6 @@
 import { FileUploader } from "@/components/FileUploader";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
+import { useCreatePReview } from "@/lib/wagmi/useCreatePReview";
 import { useState, type ReactNode, type FormEvent, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
@@ -11,15 +12,26 @@ interface Uploader {
 
 const CreatePage = () => {
   const [cid, setCid] = useState("");
-  const [workload, setWorkload] = useState<number>();
+  const [workload, setWorkload] = useState<number>(1);
   const [uploaders, setUploaders] = useState<Uploader[]>([
     { fieldName: "", file: null },
   ]);
 
+  const { write } = useCreatePReview({
+    ipfsHash: cid,
+    participants: uploaders.map((up) => up.fieldName),
+    workload,
+  });
+
   useEffect(() => {
     if (cid !== "") {
-      console.log("cid", cid);
-      console.log("aqui o contrato já pode ser chamado para fazer delploy");
+      try {
+        console.log("cid", cid);
+        write?.();
+        toast.success("deployed contract");
+      } catch (e: any) {
+        toast.error(e.message);
+      }
     }
   }, [cid]);
 
@@ -37,6 +49,7 @@ const CreatePage = () => {
     }
 
     try {
+      if (cid !== "") write?.();
       const response = await fetch("/api/store", {
         method: "POST",
         body: formData,

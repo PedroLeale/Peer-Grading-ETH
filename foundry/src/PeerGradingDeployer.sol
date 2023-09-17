@@ -9,7 +9,7 @@ import "./CommitRevealRandomness.sol";
  * @notice This contract deploys instances of the PeerGrading contract
  */
 contract PeerGradingDeployer {
-    event PeerGradingDeployed(address indexed peerGradingAddress, address indexed creator);
+    event PeerGradingDeployed(address indexed peerGradingAddress, address indexed commitRevealAddr);
 
     /**
      * @notice Deploy a new PeerGrading contract
@@ -31,7 +31,7 @@ contract PeerGradingDeployer {
         // Save the address of the deployed contract
         address newPeerGradingAddress = address(newPeerGrading);
         // Emit the deployment event
-        emit PeerGradingDeployed(newPeerGradingAddress, msg.sender);
+        emit PeerGradingDeployed(newPeerGradingAddress, address(cv));
 
         // Return the address of the deployed PeerGrading contract
         return newPeerGradingAddress;
