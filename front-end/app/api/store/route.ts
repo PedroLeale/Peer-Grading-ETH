@@ -1,18 +1,28 @@
-import fs from "fs";
 import { NextResponse } from "next/server";
+import { Web3Storage, File } from "web3.storage";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
-  const formDataEntryValues = Array.from(formData.values());
-  for (const formDataEntryValue of formDataEntryValues) {
+  const formDataEntries = Array.from(formData.entries());
+
+  const files = [];
+  for (const [fieldName, formDataEntryValue] of formDataEntries) {
     if (
       typeof formDataEntryValue === "object" &&
       "arrayBuffer" in formDataEntryValue
     ) {
-      const file = formDataEntryValue as unknown as Blob;
-      const buffer = Buffer.from(await file.arrayBuffer());
-      fs.writeFileSync(`public/${file.name}`, buffer);
+      const blob = formDataEntryValue as Blob;
+      // Create a File object from the Blob and set its name.
+      const file = new File([blob], fieldName);
+      files.push(file);
     }
   }
-  return NextResponse.json({ success: true });
+
+  const client = new Web3Storage({
+    token: String(process.env.WEB3_STORAGE_TOKEN),
+  });
+
+  const cid = await client.put(files);
+
+  return NextResponse.json({ cid });
 }
