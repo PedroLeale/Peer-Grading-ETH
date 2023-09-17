@@ -7,7 +7,7 @@ import "src/CommitRevealRandomness.sol";
 import {CommitUtils} from "src/CommitUtils.sol";
 
 contract CommitReveralRandomnessTest is Test {
-    CommitReveralRandomness randSrc;
+    CommitRevealRandomness randSrc;
 
     address[] participants;
     uint256[] assignemnts;
@@ -16,7 +16,7 @@ contract CommitReveralRandomnessTest is Test {
 
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
-        randSrc = new CommitReveralRandomness(participants);
+        randSrc = new CommitRevealRandomness(participants);
     }
 
     // tests the complete logic as we intend it to work

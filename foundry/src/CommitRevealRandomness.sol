@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {IRandomnessSource} from "./IRandomnessSource.sol";
 import {CommitUtils} from "./CommitUtils.sol";
 
-contract CommitReveralRandomness is IRandomnessSource {
+contract CommitRevealRandomness is IRandomnessSource {
     mapping(address => bytes32) public participants;
     uint256 public requiredCommits;
     bytes32 public globalSeed;

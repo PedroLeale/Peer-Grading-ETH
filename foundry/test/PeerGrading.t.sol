@@ -9,7 +9,7 @@ import {CommitUtils} from "src/CommitUtils.sol";
 
 contract PeerGradingTest is Test {
     PeerGrading c;
-    CommitReveralRandomness randSrc;
+    CommitRevealRandomness randSrc;
 
     address[] participants;
     uint256[] assignemnts;
@@ -23,7 +23,7 @@ contract PeerGradingTest is Test {
 
     function setUp() public {
         participants = [address(1), address(2), address(3), address(4), address(5)];
-        randSrc = new CommitReveralRandomness(participants);
+        randSrc = new CommitRevealRandomness(participants);
         c = new PeerGrading(participants, address(randSrc), participants.length - 1, "IPFS HASH TEST");
     }
 
