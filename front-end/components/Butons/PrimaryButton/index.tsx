@@ -22,12 +22,10 @@ export const PrimaryButton = ({
       onClick={onClick}
       className={`
       ${className}
-    bg-propy-primary
       ${disabled ? "opacity-40" : ""}
       text-white
       inline-flex  flex-col justify-center items-center p-2  flex-shrink-0 rounded-full 
       transition ease-in-out
-      hover:bg-propy-primary-dark
       `}
     >
       {children}
