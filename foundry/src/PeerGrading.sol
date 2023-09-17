@@ -52,15 +52,16 @@ contract PeerGrading {
      * @param _randSrc A randomness source. A ce that will outsource the
      * randmoness generation logic/process to another contract, but allowing this contract to
      * access a random number.
+     * @param _workload defines how many assignments each participant will have to study and evaluate
      * @dev the randomness source is here to allow other implementations of randomness without
      * changing this base contract. For example, the interface could be used to integrate a
      * Chainlink VRF into the randomness source.
      * @notice the first currentIssuer is the first one to submit a consensus vector.
      * It will round-robin through all participant addresses until the final consensus is reached.
      */
-    constructor(address[] memory _participants, address _randSrc, uint256 workload, string memory _IPFS_hash) {
+    constructor(address[] memory _participants, address _randSrc, uint256 _workload, string memory _IPFS_hash) {
         require(
-            _participants.length > workload,
+            _participants.length > _workload,
             "Number of assignments per participant must be lesser than number of participants"
         );
         for (uint256 i = 0; i < _participants.length; i++) {
@@ -71,7 +72,7 @@ contract PeerGrading {
         randSrc = IRandomnessSource(_randSrc);
         currentIssuer = _participants[0];
         numberParticipants = _participants.length;
-        numberAssignments = workload;
+        numberAssignments = _workload;
         IPFS_hash = _IPFS_hash;
     }
     /**
