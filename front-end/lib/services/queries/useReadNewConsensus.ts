@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
 import { QueryKeys } from "@/config/queryKeys";
-import { useAccount, useSigner } from "wagmi";
 import { ethers, type Signer } from "ethers";
 import abi from "@/abi/PeerGrading.json";
 
 type IGetSharesProps = {
   signer?: Signer | null;
-  contract?: string;
+  contractAddress?: string;
 };
 
 const getNewConsensus = async ({ contractAddress }: IGetSharesProps) => {
@@ -24,9 +23,9 @@ const getNewConsensus = async ({ contractAddress }: IGetSharesProps) => {
 
   // Optionally: Set a range to fetch logs from
   // For the latest block:
-  const latestBlock = await provider.getBlockNumber();
-  filter.fromBlock = 39647954;
-  filter.toBlock = latestBlock;
+  // const latestBlock = await provider.getBlockNumber();
+  // filter.fromBlock = 39647954;
+  // filter.toBlock = latestBlock;
 
   // Fetch the logs
   const logs = await provider.getLogs(filter);

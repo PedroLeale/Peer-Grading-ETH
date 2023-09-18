@@ -1,9 +1,8 @@
-import { Navbar } from "@/components/Navbar";
 import { Participants } from "@/components/Participants";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
-import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
-import { useReadNewConsensus } from "@/lib/services/queries/useReadNewConsensus";
-import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
+// import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
+// import { useReadNewConsensus } from "@/lib/services/queries/useReadNewConsensus";
+// import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
@@ -18,7 +17,7 @@ const ContractPage = () => {
 
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
 
-  const { data } = useReadNewConsensus({ contract: contractAddress });
+  // const { data } = useReadNewConsensus({ contract: contractAddress });
 
   return (
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
