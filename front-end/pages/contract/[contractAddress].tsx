@@ -17,12 +17,11 @@ const ContractPage = () => {
   }, [router.query]);
 
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
-  // const { data, refetch } = useReadAllParticipants({contract: contractAddress});
+
   const { data } = useReadNewConsensus({ contract: contractAddress });
 
   return (
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
-      <Navbar />
       <div
         className="
       max-w-[1200px] m-auto

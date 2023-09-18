@@ -1,9 +1,11 @@
 import { FileUploader } from "@/components/FileUploader";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useCreatePReview } from "@/lib/wagmi/useCreatePReview";
+import { useRouter } from "next/router";
 import { useState, type ReactNode, type FormEvent, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { useWaitForTransaction } from "wagmi";
 
 interface Uploader {
   fieldName: string;
@@ -17,11 +19,24 @@ const CreatePage = () => {
     { fieldName: "", file: null },
   ]);
 
-  const { write } = useCreatePReview({
+  const router = useRouter();
+
+  const { write, data } = useCreatePReview({
     ipfsHash: cid,
     participants: uploaders.map((up) => up.fieldName),
     workload,
   });
+
+  const { data: transactionData } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    console.log("transaction data", transactionData);
+    if (transactionData) {
+      router.push(`/contract/${transactionData.logs[0].address}`);
+    }
+  }, [transactionData]);
 
   useEffect(() => {
     if (cid !== "") {

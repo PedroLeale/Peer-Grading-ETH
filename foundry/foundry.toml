@@ -12,3 +12,7 @@ runs = 10_000
 
 [rpc_endpoints]
 polygonMumbai = "${RPC_URL}"
+
+
+[etherscan]
+mumbai = { key = "${MUMBAI_SCAN_KEY}" }

@@ -9,7 +9,7 @@ interface Args {
 
 export function useCreatePReview({ participants, workload, ipfsHash }: Args) {
   const { config } = usePrepareContractWrite({
-    address: `0xB7BD05a4d5EF3a3DbD1D4EBC350389Df3cd9455c`,
+    address: `0xe3ccd97F3448d53E07bfdBf9E5eA542CAC228C22`,
     abi,
     functionName: "deployPeerGrading",
     args: [participants, workload, ipfsHash],
