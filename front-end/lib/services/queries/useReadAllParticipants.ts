@@ -23,9 +23,9 @@ const getAllParticipants = async ({ contractAddress }: IGetSharesProps) => {
 
   // Optionally: Set a range to fetch logs from
   // For the latest block:
-  const latestBlock = await provider.getBlockNumber();
-  filter.fromBlock = 39647954;
-  filter.toBlock = latestBlock;
+  // const latestBlock = await provider.getBlockNumber();
+  // filter.fromBlock = 39647954;
+  // filter.toBlock = latestBlock;
 
   // Fetch the logs
   const logs = await provider.getLogs(filter);
