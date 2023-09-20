@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xB18a3Db7548584CC6499F49c538CA7fF4786BdE7"
       abi: PeerGradingDeployer
-      startBlock: 40297593
+      startBlock: 40298689
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

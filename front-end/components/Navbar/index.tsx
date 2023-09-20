@@ -15,7 +15,7 @@ import { ConnectWalletModal } from "../ConnectWalletModal";
 const Links = [
   {
     name: "Do a peer review",
-    route: "create",
+    route: "/create",
   },
 ];
 
