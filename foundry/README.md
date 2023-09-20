@@ -32,10 +32,9 @@ contract ContractTest is Test {
 
 This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh/getting-started/installation.html) for instructions on how to install and use Foundry.
 
-
 ## Default contract addresses for testing on mumbai
 
-The PeerGradingDeployer contract is deployed in the address `0xe3ccd97F3448d53E07bfdBf9E5eA542CAC228C22`
+The PeerGradingDeployer contract is deployed in the address `0xbf33B84e2504813384434FF6b822DEfbe053dfB5`
 
 ## Suggested extensions
 
