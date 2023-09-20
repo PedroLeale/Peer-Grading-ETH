@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: PeerGradingDeployer
@@ -17,8 +17,8 @@ dataSources:
         - PeerGradingDeployed
       abis:
         - name: PeerGradingDeployer
-          file: ./abis/PeerGradingDeployer.json
+          file: PeerGradingDeployer/abis/PeerGradingDeployer.json
       eventHandlers:
         - event: PeerGradingDeployed(indexed address,indexed address)
           handler: handlePeerGradingDeployed
-      file: ./src/peer-grading-deployer.ts
+      file: PeerGradingDeployer/PeerGradingDeployer.wasm

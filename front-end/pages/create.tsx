@@ -52,7 +52,6 @@ const CreatePage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     const formData = new FormData();
 
     for (const uploader of uploaders) {
@@ -64,7 +63,11 @@ const CreatePage = () => {
     }
 
     try {
-      if (cid !== "") write?.();
+      if (cid !== "") {
+        console.log("cid not null, deploying");
+        write?.();
+        return;
+      }
       const response = await fetch("/api/store", {
         method: "POST",
         body: formData,

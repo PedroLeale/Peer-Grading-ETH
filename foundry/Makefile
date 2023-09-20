@@ -21,4 +21,4 @@ deploy-deployer:
 	forge script script/DeployDeployer.s.sol:Deploy --fork-url ${RPC_URL}  --broadcast -vvvv
 
 verify-deployer:
-	forge verify-contract --verifier-url https://api-testnet.polygonscan.com/api/  0xe3ccd97F3448d53E07bfdBf9E5eA542CAC228C22 ./src/PeerGradingDeployer.sol:PeerGradingDeployer   --etherscan-api-key  ${MUMBAI_SCAN_KEY} --chain mumbai
+	forge verify-contract --verifier-url https://api-testnet.polygonscan.com/api/  0xB18a3Db7548584CC6499F49c538CA7fF4786BdE7 ./src/PeerGradingDeployer.sol:PeerGradingDeployer   --etherscan-api-key  ${MUMBAI_SCAN_KEY} --chain mumbai

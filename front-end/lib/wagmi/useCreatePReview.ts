@@ -1,5 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import abi from "@/abi/PeerGradingDeployer.json";
+import { contractConstants } from "@/config/contractConstants";
 
 interface Args {
   participants: string[];
@@ -9,7 +10,7 @@ interface Args {
 
 export function useCreatePReview({ participants, workload, ipfsHash }: Args) {
   const { config } = usePrepareContractWrite({
-    address: `0xe3ccd97F3448d53E07bfdBf9E5eA542CAC228C22`,
+    address: contractConstants.PeerGradingAddress as `0x${string}`,
     abi,
     functionName: "deployPeerGrading",
     args: [participants, workload, ipfsHash],
