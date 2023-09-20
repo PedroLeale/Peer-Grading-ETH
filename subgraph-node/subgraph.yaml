@@ -22,3 +22,22 @@ dataSources:
         - event: PeerGradingDeployed(indexed address,indexed address)
           handler: handlePeerGradingDeployed
       file: ./src/peer-grading-deployer.ts
+templates:
+  - name: PeerGrading
+    kind: ethereum/contract
+    network: mumbai
+    source:
+      abi: PeerGrading
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/peer-grading.ts
+      entities:
+        - PeerGrading
+      abis:
+        - name: PeerGrading
+          file: ./abis/PeerGrading.json
+      eventHandlers:
+        - event: ConsensusReached(uint8[])
+          handler: handleConsensusReached
