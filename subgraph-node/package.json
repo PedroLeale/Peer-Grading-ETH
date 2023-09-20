@@ -7,6 +7,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
+    "predeploy": "yarn codegen &&  yarn build",
     "deploy": "graph deploy --studio peer-grading-subgraph",
     "create-local": "graph create --node http://localhost:8020/ ",
     "remove-local": "graph remove --node http://localhost:8020/ ",
