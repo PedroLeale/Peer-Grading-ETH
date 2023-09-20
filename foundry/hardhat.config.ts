@@ -1,37 +1,57 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import "hardhat-preprocessor";
-import fs from "fs";
+
+require("@nomicfoundation/hardhat-foundry");
+
+import * as dotenv from 'dotenv';
+
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
+
+dotenv.config();
+
+const {
+  PRIVATE_KEY, SCAN_KEY, MUMBAI_RPC_URL, POLYGON_RPC_URL,
+} = process.env;
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.19",
-  preprocess: {
-    eachLine: (hre) => ({
-      transform: (line: string) => {
-        if (line.match(/^\s*import /i)) {
-          for (const [from, to] of getRemappings()) {
-            if (line.includes(from)) {
-              line = line.replace(from, to);
-              break;
-            }
-          }
-        }
-        return line;
-      },
-    }),
-  },
-  paths: {
+  paths:{
     sources: "./src",
-    cache: "./cache_hardhat",
+    artifacts: "./artifacts"
+  },
+  solidity: {
+    compilers: [
+      {
+        version: '0.8.13',
+      },
+      {
+        version: '0.8.20',
+      }
+    ],
+  },
+  networks: {
+    hardhat: {
+      allowUnlimitedContractSize: true,
+    },
+    polygon: {
+      url: String(POLYGON_RPC_URL),
+      accounts: [String(PRIVATE_KEY)],
+      allowUnlimitedContractSize: true,
+    },
+    mumbai: {
+      url: String(MUMBAI_RPC_URL),
+      accounts: [String(PRIVATE_KEY)],
+      allowUnlimitedContractSize: true,
+    },
+  },
+  etherscan: {
+    apiKey: String(SCAN_KEY),
+  },
+  typechain: {
+    outDir: 'typechain-types',
+    target: 'ethers-v5',
+    // should overloads with full signatures like deposit(uint256) be generated always,
+    // even if there are no overloads?
+    alwaysGenerateOverloads: true,
   },
 };
-
-function getRemappings() {
-  return fs
-    .readFileSync("remappings.txt", "utf8")
-    .split("\n")
-    .filter(Boolean) // remove empty lines
-    .map((line) => line.trim().split("="));
-}
 
 export default config;
