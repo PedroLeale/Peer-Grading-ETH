@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PeerGradingDeployer
+    network: mumbai
+    source:
+      address: "0xbf33B84e2504813384434FF6b822DEfbe053dfB5"
+      abi: PeerGradingDeployer
+      startBlock: 40297593
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PeerGradingDeployed
+      abis:
+        - name: PeerGradingDeployer
+          file: ./abis/PeerGradingDeployer.json
+      eventHandlers:
+        - event: PeerGradingDeployed(indexed address,indexed address)
+          handler: handlePeerGradingDeployed
+      file: ./src/peer-grading-deployer.ts
