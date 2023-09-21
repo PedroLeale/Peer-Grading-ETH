@@ -41,3 +41,23 @@ templates:
       eventHandlers:
         - event: ConsensusReached(uint8[])
           handler: handleConsensusReached
+  - name: IRandomnessSource
+    kind: ethereum/contract
+    network: mumbai
+    source:
+      abi: IRandomnessSource
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/randomness-source.ts
+      entities:
+        - IRandomnessSource
+      abis:
+        - name: IRandomnessSource
+          file: ./abis/IRandomnessSource.json
+      eventHandlers:
+        - event: Commit(indexed address)
+          handler: handleCommit
+        - event: Revealed(indexed address)
+          handler: handleReveal

@@ -1,5 +1,6 @@
 import { PeerGradingDeployed as PeerGradingDeployedEvent } from "../generated/PeerGradingDeployer/PeerGradingDeployer"
 import { PeerGradingDeployed } from "../generated/schema"
+import {PeerGrading, IRandomnessSource} from "../generated/templates"
 
 export function handlePeerGradingDeployed(
   event: PeerGradingDeployedEvent
@@ -14,5 +15,7 @@ export function handlePeerGradingDeployed(
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
-  entity.save()
+  entity.save() 
+  PeerGrading.create(event.params.peerGradingAddress)
+  IRandomnessSource.create(event.params.commitRevealAddr)
 }
