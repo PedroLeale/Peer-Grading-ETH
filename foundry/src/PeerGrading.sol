@@ -41,6 +41,7 @@ contract PeerGrading {
         REACHED_CONSESUS
     }
 
+    event Deployed(uint256 numberParticipants, address indexed randSrc, string ipfsHash);
     event ConsensusReached(uint8[] consensusVector);
     event NewConsensus(uint8[] consensusVector, address indexed sender);
     event AddedParticipant(address indexed participant, uint256 indexed assignmentId);
@@ -74,6 +75,7 @@ contract PeerGrading {
         numberParticipants = _participants.length;
         numberAssignments = _workload;
         IPFS_hash = _IPFS_hash;
+        emit Deployed((numberParticipants), address(randSrc), IPFS_hash);
     }
     /**
      * @dev Ut's not possible to set an assignmentId as 0, so the intention in
