@@ -10,7 +10,7 @@ import "../src/CommitRevealRandomness.sol";
 
 /* solhint-enable no-global-import */
 
-contract Test is Script {
+contract Cycle is Script {
     address contract_address = address(0x821dC5CC6692544CdC6F8F619E41f3cb7F662aEd);
     address[] participants;
     uint8[][] gradings = new uint8[][](5);
