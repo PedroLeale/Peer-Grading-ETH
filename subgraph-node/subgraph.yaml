@@ -39,8 +39,17 @@ templates:
         - name: PeerGrading
           file: ./abis/PeerGrading.json
       eventHandlers:
+        - event:  Deployed(uint256,indexed address,string)
+          handler: handleDeployed 
         - event: ConsensusReached(uint8[])
           handler: handleConsensusReached
+        - event: NewConsensus(uint8[],indexed uint256)
+          handler: handleNewConsensus
+        - event: AddedParticipant(indexed address,indexed uint256) 
+          handler: handleAddedParticipant
+        - event: Voted(indexed address,indexed uint256)
+          handler: handleVoted
+
   - name: IRandomnessSource
     kind: ethereum/contract
     network: mumbai

@@ -6,3 +6,38 @@ type PeerGradingDeployed @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type PeerGrading @entity(immutable: false) {
+  id: Bytes!
+  peerGradingAddress: Bytes! #address
+  commitRevealAddr: Bytes! # address
+  ipfsHash: String!
+}
+
+type Vote @entity(immutable: false){
+  id: Bytes!
+  participant: Bytes!
+  index: BigInt!
+}
+
+type Consensus @entity(immutable: true){
+  id: Bytes!
+  vector: [BigInt!]
+  index: BigInt!
+  final: Boolean!
+}
+
+type Commit @entity(immutable: true){
+  id: Bytes!
+  sender: Bytes!
+}
+
+type Revealed @entity(immutable: true){
+  id: Bytes!
+  sender: Bytes!
+}
+
+type AddedParticipant @entity(immutable: true){
+  id: Bytes!
+  participant: Bytes! #address
+}
