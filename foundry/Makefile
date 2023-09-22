@@ -14,11 +14,13 @@ test-coverage:
 	forge coverage
 
 gen-snapshot: 
-	    forge snapshot --snap ./snapshots/.gas-snapshot-$(shell date +'%Y-%m-%d_%H:%m') --ffi
+	forge snapshot --snap ./snapshots/.gas-snapshot-$(shell date +'%Y-%m-%d_%H:%m') --ffi
 
-cycle-deployer:
+cycle-transaction-tester:
 	forge script scripts/Cycle.s.sol:Cycle --fork-url ${RPC_URL}  --broadcast -vvvv
 
+cycle-CommitRevealRandomness:
+	forge script scripts/Cycle.s.sol:CommitRevealRandomness --fork-url ${RPC_URL}  --broadcast -vvvv
 
 deploy-grading:
 	forge script scripts/Deploy.s.sol:Deploy --fork-url ${RPC_URL}  --broadcast -vvvv

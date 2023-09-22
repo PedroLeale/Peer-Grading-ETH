@@ -55,8 +55,7 @@ contract Cycle is Script {
         participants.push(0x793591f2569B27208Df6ed3CEB396E1C89f4c630);
         vm.startBroadcast(deployerPrivateKey);
 
-        CommitRevealRandomness cv = new CommitRevealRandomness(participants);
-        PeerGrading pg = new PeerGrading(participants, address(cv), participants.length - 1, "IPFS HASH TEST");
+        PeerGrading pg = PeerGrading(address(0x1D31b73a2Dd4BB4F860981dbe7D71aCf030e75a7));
 
         // send a consenus vector to PeerGrading
         uint8[] memory consensusVector = new uint8[](5);
