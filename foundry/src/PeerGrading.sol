@@ -20,7 +20,7 @@ contract PeerGrading {
     uint256 numberAssignments;
     address currentIssuer;
     uint256 numberParticipants;
-    uint8 nextIssuerIndex = 0;
+    uint256 consensusCounter = 0;
     uint8[] ConsensusVector;
     string public IPFS_hash;
 
@@ -43,9 +43,9 @@ contract PeerGrading {
 
     event Deployed(uint256 numberParticipants, address indexed randSrc, string ipfsHash);
     event ConsensusReached(uint8[] consensusVector);
-    event NewConsensus(uint8[] consensusVector, address indexed sender);
+    event NewConsensus(uint8[] consensusVector, uint256 indexed consensusCounter);
     event AddedParticipant(address indexed participant, uint256 indexed assignmentId);
-    event Voted(address indexed participant);
+    event Voted(address indexed participant, uint256 indexed consensusCounter);
 
     /**
      * @param _participants both the addresses and the assignments. The assignemnts are
@@ -98,15 +98,13 @@ contract PeerGrading {
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
         ConsensusVector = _consensusVector;
         votes = 0;
-        // nextIssuerIndex += 1;
-        // if (nextIssuerIndex == numberParticipants) nextIssuerIndex = 0;
-        // currentIssuer = participantsIndex[nextIssuerIndex];
-        emit NewConsensus(_consensusVector, msg.sender);
+        consensusCounter +=1;
+        emit NewConsensus(_consensusVector, consensusCounter);
     }
 
     function vote() public onlyParticipant {
         votes += 1;
-        emit Voted(msg.sender);
+        emit Voted(msg.sender, consensusCounter);
     }
 
     /**
