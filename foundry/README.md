@@ -36,6 +36,17 @@ This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.
 
 The PeerGradingDeployer contract is deployed in the address `0xB18a3Db7548584CC6499F49c538CA7fF4786BdE7`
 
+## Running the scripts
+
+Some scripts were left to help achieving a consistent state for testing purposes. They should be run in the following order:
+
+
+1. `DeployDeployer.s.sol` to create a a new instance of the deployer. This is necessary so the subgraph can index the events of the subsequent contracts.
+2. `CycleCommitRevealRandomness.s.sol` necessary to generate randomness for the peer grading process
+3. `Cycle.s.sol` necessary to cast votes and reach a consensus
+
+Make sure to change all the addresses that must be changed in order for the scripts to work properly.
+
 ## Suggested extensions
 
 https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity
