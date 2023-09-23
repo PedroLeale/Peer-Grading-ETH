@@ -98,7 +98,7 @@ contract PeerGrading {
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
         ConsensusVector = _consensusVector;
         votes = 0;
-        consensusCounter +=1;
+        consensusCounter += 1;
         emit NewConsensus(_consensusVector, consensusCounter);
     }
 

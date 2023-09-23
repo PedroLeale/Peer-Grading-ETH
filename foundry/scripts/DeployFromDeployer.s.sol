@@ -11,7 +11,7 @@ import "../src/PeerGradingDeployer.sol";
 contract Deploy is Script {
     address[] participants;
     address DEPLOYER;
-    address[]  _participants; 
+    address[] _participants;
 
     function setUp() public {
         DEPLOYER = 0x1C7E64bF2A366DCE4EFDEb671e9cc988ec625d7a;
@@ -26,17 +26,18 @@ contract Deploy is Script {
         _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_3")));
         _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_4")));
 
-        for (uint i; i < _participants.length; i +=1){
-            console.log("addres ", i , ": ", _participants[i]);
+        for (uint256 i; i < _participants.length; i += 1) {
+            console.log("addres ", i, ": ", _participants[i]);
         }
 
         vm.startBroadcast(deployerPrivateKey);
 
-        PeerGradingDeployer pd  = PeerGradingDeployer(DEPLOYER);
+        PeerGradingDeployer pd = PeerGradingDeployer(DEPLOYER);
 
-        pd.deployPeerGrading(_participants, 3, "ipfsHash");
+        address peer_grading_address = pd.deployPeerGrading(_participants, 3, "ipfsHash");
 
         vm.stopBroadcast();
         console.log("contract address: ", address(pd));
+        console.log("Peer Grading address: ", address(peer_grading_address));
     }
 }

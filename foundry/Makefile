@@ -33,3 +33,9 @@ deploy-from-deployer:
 
 verify-deployer:
 	forge verify-contract --verifier-url https://api-testnet.polygonscan.com/api/  0x1C7E64bF2A366DCE4EFDEb671e9cc988ec625d7a ./src/PeerGradingDeployer.sol:PeerGradingDeployer   --etherscan-api-key  ${MUMBAI_SCAN_KEY} --chain mumbai
+
+test-subgraph:
+	forge script scripts/indexerVote.s.sol --fork-url ${RPC_URL}  --broadcast -vvvv
+	forge script scripts/indexerReceiveconsensus.s.sol --fork-url ${RPC_URL}  --broadcast -vvvv
+	forge script scripts/indexerFinalizeconsensus.s.sol --fork-url ${RPC_URL}  --broadcast -vvvv
+	
