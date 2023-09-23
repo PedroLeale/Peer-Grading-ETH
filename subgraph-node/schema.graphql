@@ -41,3 +41,11 @@ type AddedParticipant @entity(immutable: true){
   id: Bytes!
   participant: Bytes! #address
 }
+
+
+
+type Voted @entity(immutable: true){
+  id: Bytes!
+  participant: Bytes! #address
+  consensusCounter: BigInt!
+}

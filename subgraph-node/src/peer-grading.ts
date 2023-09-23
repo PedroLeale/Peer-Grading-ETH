@@ -1,7 +1,27 @@
 
-import {  AddedParticipant  as AddedParticipantEvent, ConsensusReached as ConsensusReachedEvent, NewConsensus, NewConsensus as NewConsensusEvent } from "../generated/templates/PeerGrading/PeerGrading"
-import {Consensus, AddedParticipant} from "../generated/schema"
+import {  
+    Deployed as DeployedEvent,     
+    AddedParticipant  as AddedParticipantEvent,
+    ConsensusReached as ConsensusReachedEvent,
+    NewConsensus as NewConsensusEvent,
+    Voted as VotedEvent
+    } from "../generated/templates/PeerGrading/PeerGrading"
+import {Consensus, AddedParticipant,  Voted, PeerGrading} from "../generated/schema"
 import { BigInt } from "@graphprotocol/graph-ts";
+
+
+
+export function handleDeployed(event: DeployedEvent): void {
+    let entity = new PeerGrading(
+        event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.peerGradingAddress = event.address
+    entity.commitRevealAddr = event.params.randSrc
+    entity.ipfsHash = event.params.ipfsHash
+
+    entity.save()
+}
+
 
 export function handleConsensusReached(event: ConsensusReachedEvent): void{
     let entity = new Consensus(
@@ -32,6 +52,17 @@ export function handleAddedParticipant(event: AddedParticipantEvent):void{
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
     entity.participant = event.params.participant;
+
+    entity.save()
+}
+
+export function handleVoted(event: VotedEvent):void{
+
+    let entity = new Voted(
+        event.transaction.hash.concatI32(event.logIndex.toI32())
+    )
+    entity.consensusCounter = event.params.consensusCounter;
+    entity.participant = event.params.participant
 
     entity.save()
 }
