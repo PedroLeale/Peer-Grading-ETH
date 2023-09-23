@@ -9,7 +9,14 @@ import '@nomicfoundation/hardhat-toolbox';
 dotenv.config();
 
 const {
-  PRIVATE_KEY, SCAN_KEY, MUMBAI_RPC_URL, POLYGON_RPC_URL,
+  PRIVATE_KEY_TEST_0,
+  PRIVATE_KEY_TEST_1,
+  PRIVATE_KEY_TEST_2,
+  PRIVATE_KEY_TEST_3,
+  PRIVATE_KEY_TEST_4,
+  PRIVATE_KEY, SCAN_KEY,
+  MUMBAI_RPC_URL, 
+  POLYGON_RPC_URL,
 } = process.env;
 
 const config: HardhatUserConfig = {
@@ -33,12 +40,26 @@ const config: HardhatUserConfig = {
     },
     polygon: {
       url: String(POLYGON_RPC_URL),
-      accounts: [String(PRIVATE_KEY)],
+      accounts: [
+        String(PRIVATE_KEY), 
+        String(PRIVATE_KEY_TEST_0),
+        String(PRIVATE_KEY_TEST_1),
+        String(PRIVATE_KEY_TEST_2),
+        String(PRIVATE_KEY_TEST_3),
+        String(PRIVATE_KEY_TEST_4),
+    ],
       allowUnlimitedContractSize: true,
     },
     mumbai: {
       url: String(MUMBAI_RPC_URL),
-      accounts: [String(PRIVATE_KEY)],
+      accounts: [
+        String(PRIVATE_KEY), 
+        String(PRIVATE_KEY_TEST_0),
+        String(PRIVATE_KEY_TEST_1),
+        String(PRIVATE_KEY_TEST_2),
+        String(PRIVATE_KEY_TEST_3),
+        String(PRIVATE_KEY_TEST_4),
+    ],      
       allowUnlimitedContractSize: true,
     },
   },

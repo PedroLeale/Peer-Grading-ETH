@@ -12,7 +12,7 @@ import "../src/PeerGradingDeployer.sol";
 
 /* solhint-enable no-global-import */
 
-contract indexerVote is Script {
+contract Vote is Script {
     address peer_grading_address = address(0xc8dCBf47D039609B9EF32dFC7B261eD369122f44);
 
     function setUp() public {}

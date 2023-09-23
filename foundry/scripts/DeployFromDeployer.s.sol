@@ -5,13 +5,13 @@ pragma solidity ^0.8.13;
 import "forge-std/Script.sol";
 
 import "../src/PeerGradingDeployer.sol";
+import "../src/PeerGrading.sol";
 
 /* solhint-enable no-global-import */
 
 contract Deploy is Script {
-    address[] participants;
     address DEPLOYER;
-    address[] _participants;
+    address[] participants;
 
     function setUp() public {
         DEPLOYER = 0x1C7E64bF2A366DCE4EFDEb671e9cc988ec625d7a;
@@ -20,24 +20,24 @@ contract Deploy is Script {
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
 
-        _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_0")));
-        _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_1")));
-        _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_2")));
-        _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_3")));
-        _participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_4")));
+        participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_0")));
+        participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_1")));
+        participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_2")));
+        participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_3")));
+        participants.push(vm.addr(vm.envUint("PRIVATE_KEY_TEST_4")));
 
-        for (uint256 i; i < _participants.length; i += 1) {
-            console.log("addres ", i, ": ", _participants[i]);
+        for (uint256 i; i < participants.length; i += 1) {
+            console.log("addres ", i, ": ", participants[i]);
         }
 
         vm.startBroadcast(deployerPrivateKey);
 
         PeerGradingDeployer pd = PeerGradingDeployer(DEPLOYER);
 
-        address peer_grading_address = pd.deployPeerGrading(_participants, 3, "ipfsHash");
+        address pg = pd.deployPeerGrading(participants, 3, "ipfsHash");
 
         vm.stopBroadcast();
-        console.log("contract address: ", address(pd));
-        console.log("Peer Grading address: ", address(peer_grading_address));
+        console.log("Peer Grading address: ", address(pg));
+        console.log("Randomness source address: ", PeerGrading(pg).randSrc.address);
     }
 }
