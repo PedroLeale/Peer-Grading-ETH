@@ -6,7 +6,7 @@ dataSources:
     name: PeerGradingDeployer
     network: mumbai
     source:
-      address: "0xB18a3Db7548584CC6499F49c538CA7fF4786BdE7"
+      address: "0x1C7E64bF2A366DCE4EFDEb671e9cc988ec625d7a"
       abi: PeerGradingDeployer
       startBlock: 40298689
     mapping:
@@ -30,7 +30,7 @@ templates:
       abi: PeerGrading
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/peer-grading.ts
       entities:
@@ -57,7 +57,7 @@ templates:
       abi: IRandomnessSource
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/randomness-source.ts
       entities:

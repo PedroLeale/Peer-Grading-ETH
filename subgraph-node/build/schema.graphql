@@ -1,8 +1,0 @@
-type PeerGradingDeployed @entity(immutable: true) {
-  id: Bytes!
-  peerGradingAddress: Bytes! # address
-  commitRevealAddr: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}

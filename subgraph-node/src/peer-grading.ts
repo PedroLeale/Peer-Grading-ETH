@@ -3,30 +3,30 @@ import {  AddedParticipant  as AddedParticipantEvent, ConsensusReached as Consen
 import {Consensus, AddedParticipant} from "../generated/schema"
 import { BigInt } from "@graphprotocol/graph-ts";
 
-export function handleConsensusReached(event: ConsensusReachedEvent){
+export function handleConsensusReached(event: ConsensusReachedEvent): void{
     let entity = new Consensus(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
 
-    entity.vector = event.params.consensusVector.map(item => BigInt.fromI64(item))
+    entity.vector = event.params.consensusVector.map<BigInt>((item:i32) => BigInt.fromI64(item))
     entity.final = true
     
     entity.save()
 }
 
-export function handleNewConsensus(event: NewConsensusEvent) {
+export function handleNewConsensus(event: NewConsensusEvent):void {
     let entity = new Consensus(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
 
-    entity.vector = event.params.consensusVector.map(item => BigInt.fromI64(item))
+    entity.vector = event.params.consensusVector.map<BigInt>((item: i32) => BigInt.fromI64(item))
     entity.index = event.params.consensusCounter
     entity.final = false
 
     entity.save()
 }
 
-export function handleAddedParticipant(event: AddedParticipantEvent){
+export function handleAddedParticipant(event: AddedParticipantEvent):void{
 
     let entity = new AddedParticipant(
         event.transaction.hash.concatI32(event.logIndex.toI32())

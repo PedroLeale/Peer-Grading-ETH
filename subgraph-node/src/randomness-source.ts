@@ -1,9 +1,8 @@
 
 import {  Commit as CommitEvent, Revealed as RevealedEvent } from "../generated/templates/IRandomnessSource/IRandomnessSource"
 import {Commit, Revealed} from "../generated/schema"
-import { BigInt } from "@graphprotocol/graph-ts";
 
-export function handleCommit(event: CommitEvent){
+export function handleCommit(event: CommitEvent):void{
     let entity = new Commit(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
@@ -12,7 +11,7 @@ export function handleCommit(event: CommitEvent){
     entity.save()
 }
 
-export function handleReveal(event: RevealedEvent) {
+export function handleReveal(event: RevealedEvent):void {
     let entity = new Revealed(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )

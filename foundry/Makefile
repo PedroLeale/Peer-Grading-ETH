@@ -28,5 +28,8 @@ deploy-grading:
 deploy-deployer:
 	forge script scripts/DeployDeployer.s.sol:Deploy --fork-url ${RPC_URL}  --broadcast -vvvv
 
+deploy-from-deployer:
+	forge script scripts/DeployFromDeployer.s.sol:Deploy --fork-url ${RPC_URL}  --broadcast -vvvv
+
 verify-deployer:
-	forge verify-contract --verifier-url https://api-testnet.polygonscan.com/api/  0xB18a3Db7548584CC6499F49c538CA7fF4786BdE7 ./src/PeerGradingDeployer.sol:PeerGradingDeployer   --etherscan-api-key  ${MUMBAI_SCAN_KEY} --chain mumbai
+	forge verify-contract --verifier-url https://api-testnet.polygonscan.com/api/  0x1C7E64bF2A366DCE4EFDEb671e9cc988ec625d7a ./src/PeerGradingDeployer.sol:PeerGradingDeployer   --etherscan-api-key  ${MUMBAI_SCAN_KEY} --chain mumbai
