@@ -42,7 +42,7 @@ verify-deployer:
 run-commit:
 	forge script scripts/CommitProcess.sol --fork-url ${RPC_URL} --broadcast -vvvv
 
-
+# reveal script stil needs to be implemented
 run-reveal:
 	forge script scripts/Vote.s.sol --fork-url ${RPC_URL} --broadcast -vvvv
 
