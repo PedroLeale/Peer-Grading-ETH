@@ -10,6 +10,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { type ReactNode } from "react";
 import AuthProvider from "@/lib/services/contexts/AuthContext/provider";
 import { ChangeChainModal } from "@/components/ChangeChainModal";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../lib/services/apollo/client";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,19 +28,21 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <main className={anonPro.className}>
-      <AuthProvider>
-        <ChakraProvider>
-          <WagmiProvider>
-            <ChangeChainModal></ChangeChainModal>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <ChakraProvider>
+            <WagmiProvider>
+              <ChangeChainModal></ChangeChainModal>
 
-            <QueryClientProvider client={queryClient}>
-              <ToastContainer position="top-left" />
+              <QueryClientProvider client={queryClient}>
+                <ToastContainer position="top-left" />
 
-              {getLayout(<Component {...pageProps} />)}
-            </QueryClientProvider>
-          </WagmiProvider>
-        </ChakraProvider>
-      </AuthProvider>
+                {getLayout(<Component {...pageProps} />)}
+              </QueryClientProvider>
+            </WagmiProvider>
+          </ChakraProvider>
+        </AuthProvider>
+      </ApolloProvider>
     </main>
   );
 }

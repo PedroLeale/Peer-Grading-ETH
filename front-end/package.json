@@ -9,7 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compile-gpql": "graphql-codegen",
+    "watch-gpql": "graphql-codegen -w"
   },
   "resolutions": {
     "@types/react": "17.0.2",
@@ -18,6 +20,7 @@
   "dependencies": {
     "0xsequence": "^0.43.26",
     "@0xsequence/wagmi-connector": "^1.1.5",
+    "@apollo/client": "^3.8.4",
     "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.1",
@@ -39,6 +42,7 @@
     "firebase-admin": "^11.9.0",
     "formidable": "^3.5.1",
     "framer-motion": "^10.12.16",
+    "graphql": "^16.8.1",
     "jose": "^4.14.4",
     "js-cookie": "^3.0.5",
     "next": "13.4.6",
@@ -60,6 +64,8 @@
     "web3.storage": "^4.5.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@types/cookies": "^0.7.7",
     "@types/js-cookie": "^3.0.3",
     "@types/react-router": "^5.1.20",
