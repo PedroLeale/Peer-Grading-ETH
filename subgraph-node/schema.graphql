@@ -14,8 +14,6 @@ type PeerGrading @entity(immutable: true) {
   ipfsHash: String!
 }
 
-
-
 type Consensus @entity(immutable: true){
   id: Bytes!
   vector: [BigInt!]
