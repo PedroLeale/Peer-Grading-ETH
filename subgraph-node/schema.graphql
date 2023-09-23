@@ -19,7 +19,7 @@ type PeerGrading @entity(immutable: true) {
 type Consensus @entity(immutable: true){
   id: Bytes!
   vector: [BigInt!]
-  index: BigInt!
+  index: BigInt
   final: Boolean!
   contract: Bytes!
 }

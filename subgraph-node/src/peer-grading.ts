@@ -53,7 +53,7 @@ export function handleAddedParticipant(event: AddedParticipantEvent):void{
     let entity = new AddedParticipant(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
-    entity.participant = event.params.participant;
+    entity.participant = event.params.participant
     entity.contract = event.address
 
     entity.save()
