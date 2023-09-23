@@ -13,8 +13,8 @@ import { BigInt } from "@graphprotocol/graph-ts";
 
 export function handleDeployed(event: DeployedEvent): void {
     let entity = new PeerGrading(
-        event.transaction.hash.concatI32(event.logIndex.toI32())
-    )
+            event.address
+        )
     entity.peerGradingAddress = event.address
     entity.commitRevealAddr = event.params.randSrc
     entity.ipfsHash = event.params.ipfsHash
@@ -29,6 +29,7 @@ export function handleConsensusReached(event: ConsensusReachedEvent): void{
     )
 
     entity.vector = event.params.consensusVector.map<BigInt>((item:i32) => BigInt.fromI64(item))
+    entity.contract = event.address
     entity.final = true
     
     entity.save()
@@ -41,6 +42,7 @@ export function handleNewConsensus(event: NewConsensusEvent):void {
 
     entity.vector = event.params.consensusVector.map<BigInt>((item: i32) => BigInt.fromI64(item))
     entity.index = event.params.consensusCounter
+    entity.contract = event.address
     entity.final = false
 
     entity.save()
@@ -52,6 +54,7 @@ export function handleAddedParticipant(event: AddedParticipantEvent):void{
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
     entity.participant = event.params.participant;
+    entity.contract = event.address
 
     entity.save()
 }
@@ -62,7 +65,8 @@ export function handleVoted(event: VotedEvent):void{
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
     entity.consensusCounter = event.params.consensusCounter;
-    entity.participant = event.params.participant
+    entity.participant = event.params.participant   
+    entity.contract = event.address
 
     entity.save()
 }

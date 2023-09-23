@@ -7,7 +7,7 @@ export function handleCommit(event: CommitEvent):void{
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
     entity.sender = event.params.sender
-        
+    entity.contract = event.address
     entity.save()
 }
 
@@ -16,6 +16,6 @@ export function handleReveal(event: RevealedEvent):void {
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
     entity.sender = event.params.sender
-
+    entity.contract = event.address
     entity.save()
 }
