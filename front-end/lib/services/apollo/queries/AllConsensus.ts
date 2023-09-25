@@ -1,12 +1,11 @@
 import { gql } from "@apollo/client";
-export const GET_PLACES_FROM_OWNER = gql(/* GraphQL */ `
+export const GET_ALL_CONSENSUS = gql(/* GraphQL */ `
   query AllConsensus($offset: Int, $address: String) {
-    peerGradingDeployeds (
-      offset: $offset
-    ) {
+    peerGradingDeployeds(offset: $offset) {
       peerGradingAddress
       commitRevealAddr
-    } consensuses {
+    }
+    consensuses {
       final
       vector
     }
