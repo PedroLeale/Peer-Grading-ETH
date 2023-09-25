@@ -1,5 +1,6 @@
 import { GET_ALL_CONTRACTS } from "@/lib/services/apollo/queries/AllContracts";
 import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export const Contracts = () => {
@@ -7,6 +8,8 @@ export const Contracts = () => {
     skip,
     // setSkip
   ] = useState(0);
+
+  const router = useRouter();
 
   const {
     data,
@@ -26,7 +29,13 @@ export const Contracts = () => {
     <div className="container mx-auto p-4">
       {data?.peerGradingDeployeds &&
         data.peerGradingDeployeds.map((item) => (
-          <div key={item.id} className="bg-white p-4 m-2 rounded shadow-lg">
+          <div
+            onClick={() => {
+              router.push(`/contract/${item.peerGradingAddress}`);
+            }}
+            key={item.id}
+            className="bg-white p-4 m-2 rounded shadow-lg cursor-pointer"
+          >
             <span className="block font-bold text-gray-900 text-lg">
               Peer grading at {item.peerGradingAddress}
             </span>

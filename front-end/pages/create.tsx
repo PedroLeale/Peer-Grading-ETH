@@ -85,7 +85,7 @@ const CreatePage = () => {
   };
 
   return (
-    <div className=" p-2 w-1/3 justify-center  flex flex-col  items-left rounded-md   bg-[##e7e8ea] text-[#444]">
+    <div className=" p-2 m-auto w-1/2 justify-center  flex flex-col  items-left rounded-md   bg-[##e7e8ea] text-[#444]">
       <h1 className="text-2xl font-bold mb-4">Create a peer review</h1>
 
       <p className="mb-4">
