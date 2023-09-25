@@ -55,7 +55,7 @@ export function handleAddedParticipant(event: AddedParticipantEvent):void{
     )
     entity.participant = event.params.participant
     entity.contract = event.address
-
+    entity.assignmentId = event.params.assignmentId
     entity.save()
 }
 

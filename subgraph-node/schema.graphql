@@ -38,6 +38,7 @@ type AddedParticipant @entity(immutable: true){
   id: Bytes!
   participant: Bytes! #address
   contract: Bytes!
+  assignmentId: BigInt!
 }
 
 
