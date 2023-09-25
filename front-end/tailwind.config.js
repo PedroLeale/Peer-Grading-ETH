@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     colors: {
       white: "#fff",
+      "link-blue": "#0000EE",
       "pg-primary": "#FCEC5F",
     },
     extend: {
