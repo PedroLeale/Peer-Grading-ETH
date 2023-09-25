@@ -23,14 +23,16 @@ const ContractPage = () => {
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
       <div
         className="
-      max-w-[1200px] m-auto
-      flex flex-col   mt-4"
+      max-w-[1600px] m-auto
+      flex flex-col  mt-4"
       >
-        <h1 className="text-4xl">Bem vindo ao helper do Peer Grading</h1>
-        <h4 className="text-left"> seu contrato é {contractAddress}</h4>
+        <h1 className="text-2xl font-bold">
+          Peer Grading ontract at {contractAddress}{" "}
+        </h1>
 
-        <Participants />
-
+        <div className="flex flex-row">
+          <Participants />
+        </div>
         <h2>Addresses that commited and revealed for randomness already</h2>
 
         <h2>Randomness seed validity: true</h2>
