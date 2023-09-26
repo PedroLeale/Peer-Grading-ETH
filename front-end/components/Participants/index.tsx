@@ -22,6 +22,12 @@ export const Participants = () => {
     },
   });
 
+  let consensus_state: boolean = false;
+
+  if (data?.addedParticipants.length === data?.randomnessData?.commits.length) {
+    consensus_state = true;
+  } 
+
   return (
     <div className="text-left p-4 bg-white rounded-lg w-1/2">
       <span className="text-xl font-bold mb-2 block">
@@ -48,11 +54,16 @@ export const Participants = () => {
                 </span>
               </div>
               {randomnessData?.commits.some(
-                (commit) => commit.sender === item.participant
+                (commit: { sender: any; }) => commit.sender === item.participant
               ) ? (
                 <span className="text-[#008000]">Commited</span>
               ) : (
                 <span className="text-[#808080]">Waiting for commit</span>
+              )}
+              {consensus_state ? (
+                <div className="text-[#008000]">Consensus reached!</div>
+              ) : (
+                  <div className="text-[#008000]">Consensus not reached.</div>
               )}
             </div>
           ))}
