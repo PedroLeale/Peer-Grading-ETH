@@ -34,16 +34,19 @@ export const Participants = () => {
               key={item.id}
               className="flex text-left text-blue-500  cursor-pointer mb-2 p-2 rounded border border-blue-500 hover:bg-blue-100 justify-between"
             >
-              <span
-                className="text-link-blue underline"
-                onClick={() => {
-                  router.push(
-                    `https://mumbai.polygonscan.com/address/${item.participant}`
-                  );
-                }}
-              >
-                {item.participant}
-              </span>
+              <div>
+                <span className="font-bold ">#{item.assignmentId} </span>
+                <span
+                  className="text-link-blue underline"
+                  onClick={() => {
+                    router.push(
+                      `https://mumbai.polygonscan.com/address/${item.participant}`
+                    );
+                  }}
+                >
+                  {item.participant}
+                </span>
+              </div>
               {randomnessData?.commits.some(
                 (commit) => commit.sender === item.participant
               ) ? (

@@ -34,7 +34,7 @@ export const Contracts = () => {
               router.push(`/contract/${item.peerGradingAddress}`);
             }}
             key={item.id}
-            className="bg-white p-4 m-2 rounded shadow-lg cursor-pointer"
+            className="bg-white p-4 m-2 rounded border border-gray-300 cursor-pointer"
           >
             <span className="block font-bold text-gray-900 text-lg">
               Peer grading at {item.peerGradingAddress}

@@ -4,6 +4,7 @@ interface AddedParticipant {
   id: string;
   participant: string;
   contract: string;
+  assignmentId: string;
 }
 
 export interface AllParticipantsResponse {
@@ -30,6 +31,7 @@ export const GET_ALL_PARTICIPANTS: TypedDocumentNode<
       id
       participant
       contract
+      assignmentId
     }
   }
 `);

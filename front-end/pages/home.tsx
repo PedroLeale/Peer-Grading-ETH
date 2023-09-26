@@ -9,7 +9,9 @@ function Home() {
     <div className=" w-1000 h-screen m-auto flex  flex-col ">
       <Explanation />
 
-      <h1 className="p-2 text-2xl font-bold mb-4">Some example contracts</h1>
+      <h1 className="p-2 text-2xl font-bold mb-4">
+        Some example contracts below:
+      </h1>
 
       <Contracts />
     </div>
