@@ -14,7 +14,7 @@ export const Participants = () => {
     },
   });
 
-  const { data: randomnessData } = useQuery(GET_ALL_COMMITS_AND_REVEALS, {
+  const { commit_data: randomnessData } = useQuery(GET_ALL_COMMITS_AND_REVEALS, {
     variables: {
       address: String(router.query.contractAddress),
       first: 10,
@@ -35,7 +35,7 @@ export const Participants = () => {
       </span>
       <div className="flex flex-col bg-gray-100 rounded-lg">
         {data?.addedParticipants &&
-          data.addedParticipants.map((item) => (
+          data.addedParticipants.map((item: { id: number; assignmentId: number; participant: string }) => (
             <div
               key={item.id}
               className="flex text-left text-blue-500  cursor-pointer mb-2 p-2 rounded border border-blue-500 hover:bg-blue-100 justify-between"
@@ -64,6 +64,13 @@ export const Participants = () => {
                 <div className="text-[#008000]">Consensus reached!</div>
               ) : (
                   <div className="text-[#008000]">Consensus not reached.</div>
+              )}
+              {randomnessData?.reveals.some(
+                (reveal: { sender: any; }) => reveal.sender === item.participant
+              ) ? (
+                <span className="text-[#008000]">Revealed</span>
+              ) : (
+                <span className="text-[#808080]">Waiting for reveal</span>
               )}
             </div>
           ))}
