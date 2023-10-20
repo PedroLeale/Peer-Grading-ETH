@@ -1,7 +1,7 @@
 import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticipants";
 import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 
-import RandAbi from "@/abi/RandomnessSource.json";
+import abi from "@/abi/RandomnessSource.json";
 import { useEffect } from "react";
 
 interface IVotedButton {
@@ -11,11 +11,10 @@ interface IVotedButton {
 
 export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
   const { address } = useAccount();
-  console.log(RandAbi);
+  console.log({ randSrc, abi });
 
   const { config, error } = usePrepareContractWrite({
-    address: randSrc as `0x${string}`,
-    abi: RandAbi,
+    address,
     functionName: "commit",
   });
 
