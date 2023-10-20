@@ -1,5 +1,5 @@
 import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticipants";
-import { useAccoun } from "wagmi";
+import { useAccount } from "wagmi";
 
 import abi from "@/abi/RandomnessSource.json";
 import { useEffect } from "react";
