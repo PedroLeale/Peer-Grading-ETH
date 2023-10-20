@@ -28,26 +28,34 @@ export const Contracts = () => {
   return (
     <div className="container mx-auto p-4">
       {data?.peerGradingDeployeds &&
-        data.peerGradingDeployeds.map((item) => (
-          <div
-            onClick={() => {
-              router.push(`/contract/${item.peerGradingAddress}`);
-            }}
-            key={item.id}
-            className="bg-white p-4 m-2 rounded border border-gray-300 cursor-pointer"
-          >
-            <span className="block font-bold text-gray-900 text-lg">
-              Peer grading at {item.peerGradingAddress}
-            </span>
-            <span className="block text-gray-700 text-sm mb-2">
-              Randomness contract: {item.commitRevealAddr}
-            </span>
+        data.peerGradingDeployeds.map(
+          ({ id, commitRevealAddr, peerGradingAddress, blockTimestamp }) => (
+            <div
+              onClick={() => {
+                router.push({
+                  pathname: "/contract",
+                  query: {
+                    commitRevealAddr,
+                    peerGradingAddress,
+                  },
+                });
+              }}
+              key={id}
+              className="bg-white p-4 m-2 rounded border border-gray-300 cursor-pointer"
+            >
+              <span className="block font-bold text-gray-900 text-lg">
+                Peer grading at {peerGradingAddress}
+              </span>
+              <span className="block text-gray-700 text-sm mb-2">
+                Randomness contract: {commitRevealAddr}
+              </span>
 
-            <span>
-              Deployed at {new Date(item.blockTimestamp * 1000).toISOString()}
-            </span>
-          </div>
-        ))}
+              <span>
+                Deployed at {new Date(blockTimestamp * 1000).toISOString()}
+              </span>
+            </div>
+          )
+        )}
     </div>
   );
 };

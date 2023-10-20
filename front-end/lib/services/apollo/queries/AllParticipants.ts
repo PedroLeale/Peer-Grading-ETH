@@ -1,6 +1,6 @@
 import { type TypedDocumentNode, gql } from "@apollo/client";
 
-interface AddedParticipant {
+export interface AddedParticipant {
   id: string;
   participant: string;
   contract: string;

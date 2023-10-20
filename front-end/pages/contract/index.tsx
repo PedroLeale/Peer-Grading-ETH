@@ -9,10 +9,12 @@ import "react-quill/dist/quill.snow.css";
 
 const ContractPage = () => {
   const router = useRouter();
-  const [contractAddress, setContractAddress] = useState("");
+  const [contract, setContract] = useState("");
+  const [randSrc, setRandSrc] = useState("");
 
   useEffect(() => {
-    setContractAddress(String(router.query.contractAddress));
+    setContract(String(router.query.peerGradingAddress));
+    setRandSrc(String(router.query.commitRevealAddr));
   }, [router.query]);
 
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
@@ -27,11 +29,17 @@ const ContractPage = () => {
       flex flex-col  mt-4"
       >
         <h1 className="text-2xl font-bold">
-          Peer Grading ontract at {contractAddress}{" "}
+          Peer Grading ontract at {contract}{" "}
         </h1>
 
+        <span className="text-xl font-bold mb-2 block">
+          The contract is still in the commit phase
+        </span>
+
+        <h2>First the participants must commit to reach a valid consensus</h2>
+
         <div className="flex flex-row">
-          <Participants />
+          <Participants contract={contract} randSrc={randSrc} />
         </div>
         <h2>Addresses that commited and revealed for randomness already</h2>
 
