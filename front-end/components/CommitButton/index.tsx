@@ -1,8 +1,9 @@
 import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticipants";
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useAccoun } from "wagmi";
 
 import abi from "@/abi/RandomnessSource.json";
 import { useEffect } from "react";
+import { useCommit } from "@/lib/wagmi/useCommit";
 
 interface IVotedButton {
   addedParticipants: AddedParticipant[];
@@ -13,18 +14,13 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
   const { address } = useAccount();
   console.log({ randSrc, abi });
 
-  const { config, error } = usePrepareContractWrite({
-    address,
-    functionName: "commit",
-  });
+  const { write, error } = useCommit({ randSrc, _commit: "asaofsdaifj" });
 
   useEffect(() => {
     if (error) {
       console.log({ error });
     }
   }, [error]);
-
-  const { write } = useContractWrite(config);
 
   if (
     addedParticipants
@@ -35,7 +31,9 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
       <div className="text-left p-4 bg-white rounded-lg w-1/2">
         <button
           className="bg-[#0096FF] text-white font-bold py-2 px-4 rounded cursor-pointer"
-          onClick={() => write?.()}
+          onClick={() => {
+            write?.();
+          }}
           disabled={!write}
         >
           commit

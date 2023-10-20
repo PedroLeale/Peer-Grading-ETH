@@ -59,7 +59,7 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-font-inter": "^3.0.1",
     "typescript": "*",
-    "viem": "^1.0.0",
+    "viem": "^1.16.6",
     "wagmi": "^1.0.6",
     "web3.storage": "^4.5.4"
   },
