@@ -2,10 +2,17 @@ import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticip
 import { useAccount } from "wagmi";
 
 import abi from "@/abi/RandomnessSource.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCommit } from "@/lib/wagmi/useCommit";
-import { useDisclosure } from "@chakra-ui/react";
+import {
+  useDisclosure,
+  Checkbox,
+  Input,
+  ModalFooter,
+  Button,
+} from "@chakra-ui/react";
 import { BaseModal } from "../BaseModal";
+import Cookies from "js-cookie";
 
 interface IVotedButton {
   addedParticipants: AddedParticipant[];
@@ -18,6 +25,24 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
 
   const { /* write */ error } = useCommit({ randSrc, _commit: "asaofsdaifj" });
   const { onClose, onOpen, isOpen } = useDisclosure();
+
+  const [inputValue, setInputValue] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
+    if (event.target.checked) {
+      Cookies.set("commitValue", inputValue, { path: "/" });
+    }
+  };
+
+  const handleCommitInput = () => {
+    Cookies.set("commitValue", inputValue, { path: "/" });
+  };
 
   useEffect(() => {
     if (error) {
@@ -37,19 +62,28 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
           onClick={() => {
             onOpen();
           }}
-          // disabled={!write}
         >
           commit
         </button>
-
-        <BaseModal title="teste" isOpen={isOpen} onClose={onClose}>
-          {/* TODO: 
-          Colocar um input, uma checkbox para salvar nos cookies,
-          // e o botão final para fazer o commit
-           
-          
-          */}
-          <p> teste</p>
+        <BaseModal title="Input commit" isOpen={isOpen} onClose={onClose}>
+          {
+            <div>
+              <Input
+                placeholder="Commit value"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <Checkbox
+                defaultChecked={isChecked}
+                onChange={handleCheckboxChange}
+              >
+                Store commit value on cookies
+              </Checkbox>
+              <ModalFooter>
+                <Button onClick={handleCommitInput}>Commit input</Button>
+              </ModalFooter>
+            </div>
+          }
         </BaseModal>
       </div>
     );
