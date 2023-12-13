@@ -24,7 +24,7 @@ const WalletButton = () => {
         />
         <span className="ml-3">{renderWalletText(status, address)}</span>
       </div>
-      <BaseModal onClose={onClose} isOpen={isOpen} title="connect wallet">
+      <BaseModal onClose={onClose} isOpen={isOpen} title="Connect wallet">
         <Wallets />
       </BaseModal>
     </div>

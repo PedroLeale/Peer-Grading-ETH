@@ -1,8 +1,7 @@
+import Link from "next/link";
 import { Explanation } from "@/components/Explanation";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { type ReactNode } from "react";
-
-import { Contracts } from "@/components/Contracts";
 
 function Home() {
   return (
@@ -10,10 +9,10 @@ function Home() {
       <Explanation />
 
       <h1 className="p-2 text-2xl font-bold mb-4">
-        Some example contracts below:
+        <Link href="/contracts" className="text-blue-500 hover:underline">
+          Go to Contracts Page
+        </Link>
       </h1>
-
-      <Contracts />
     </div>
   );
 }

@@ -85,9 +85,8 @@ const CreatePage = () => {
   };
 
   return (
-    <div className=" p-2 m-auto w-1/2 justify-center  flex flex-col  items-left rounded-md   bg-[##e7e8ea] text-[#444]">
+    <div className="p-2 mt-8 m-auto w-1/2 justify-center  flex flex-col  items-left rounded-md  bg-[##e7e8ea] text-[#444] rounded border border-4 border-emerald-600">
       <h1 className="text-2xl font-bold mb-4">Create a peer review</h1>
-
       <p className="mb-4">
         First, add each participant and their respective report. These will be
         uploaded to IPFS, and each report will be linked to the participant by

@@ -37,10 +37,11 @@ const NavLink = ({
       py={1}
       rounded={"md"}
       color="black"
+      fontWeight="bold"
       _hover={{
         color: "black",
         textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.700"),
+        bg: useColorModeValue("rgb(16 185 129)", "rgb(4 120 87)"),
       }}
       href={"#"}
     >
@@ -56,7 +57,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <Box bg={`#D9D9D9`} px={4}>
+      <Box bg={`rgb(5 150 105)`} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <div className="flex flex-row items-center">
             <Link href="/home">
