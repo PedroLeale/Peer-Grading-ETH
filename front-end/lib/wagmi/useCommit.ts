@@ -1,5 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import abi from "@/abi/RandomnessSource.json";
+import { ethers } from "ethers";
 
 interface Args {
   randSrc: string;
@@ -11,7 +12,7 @@ export function useCommit({ randSrc, _commit }: Args) {
     address: randSrc as `0x${string}`,
     abi,
     functionName: "commit",
-    args: [_commit],
+    args: [ethers.utils.formatBytes32String(_commit)],
   });
 
   return useContractWrite(config);

@@ -2,7 +2,7 @@ import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticip
 import { useAccount } from "wagmi";
 
 import abi from "@/abi/RandomnessSource.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCommit } from "@/lib/wagmi/useCommit";
 import {
   useDisclosure,
@@ -23,10 +23,11 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
   const { address } = useAccount();
   console.log({ randSrc, abi });
 
-  const { /* write */ error } = useCommit({ randSrc, _commit: "asaofsdaifj" });
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const [inputValue, setInputValue] = useState("");
+  const { write } = useCommit({ randSrc, _commit: inputValue });
+
   const [isChecked, setIsChecked] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +42,9 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
   };
 
   const handleCommitInput = () => {
+    write?.();
     Cookies.set("commitValue", inputValue, { path: "/" });
   };
-
-  useEffect(() => {
-    if (error) {
-      console.log({ error });
-    }
-  }, [error]);
 
   if (
     addedParticipants
@@ -80,7 +76,9 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
                 Store commit value on cookies
               </Checkbox>
               <ModalFooter>
-                <Button onClick={handleCommitInput}>Commit input</Button>
+                <Button disabled={!write} onClick={handleCommitInput}>
+                  Commit input
+                </Button>
               </ModalFooter>
             </div>
           }

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_COMMITS_AND_REVEALS } from "@/lib/services/apollo/queries/AllVotes";
 import { CommitButton } from "../CommitButton";
+import { useEffect } from "react";
 
 interface IParticipant {
   contract: string;
@@ -22,11 +23,15 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
 
   const { data: CommitData } = useQuery(GET_ALL_COMMITS_AND_REVEALS, {
     variables: {
-      address: String(contract),
+      address: String(randSrc),
       first: 10,
       skip: 0,
     },
   });
+
+  useEffect(() => {
+    console.log("commid data", { CommitData });
+  }, [CommitData]);
 
   // let consensusState: boolean = false;
 
