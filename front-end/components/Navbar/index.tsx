@@ -53,8 +53,6 @@ const NavLink = ({
 export const Navbar = () => {
   const { isOpen: isOpenSignIn, onClose: onCloseSignIn } = useDisclosure();
 
-  // TODO: atualizar esse código posteriorment
-
   return (
     <>
       <Box bg={`rgb(5 150 105)`} px={4}>
