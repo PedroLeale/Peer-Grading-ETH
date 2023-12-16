@@ -37,7 +37,7 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
-      Cookies.set("commitValue", inputValue, { path: "/" });
+      Cookies.set(`commitValue/${randSrc}`, inputValue, { path: "/" });
     }
   };
 

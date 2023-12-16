@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_COMMITS_AND_REVEALS } from "@/lib/services/apollo/queries/AllVotes";
 import { CommitButton } from "../CommitButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IParticipant {
   contract: string;
@@ -12,6 +12,7 @@ interface IParticipant {
 
 export const Participants = ({ contract, randSrc }: IParticipant) => {
   const router = useRouter();
+  const [, setConsensus] = useState(false);
 
   const { data } = useQuery(GET_ALL_PARTICIPANTS, {
     variables: {
@@ -30,14 +31,12 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
   });
 
   useEffect(() => {
-    console.log("commid data", { CommitData });
-  }, [CommitData]);
+    if (data?.addedParticipants.length === CommitData?.revealeds.length) {
+      setConsensus(true);
+    }
+  }, [CommitData, data]);
 
   // let consensusState: boolean = false;
-
-  // if (data?.addedParticipants.length === data?.randomnessData?.commits.length) {
-  //   consensusState = true;
-  // }
 
   return (
     <div className="text-left p-4 bg-white rounded-lg w-1/2">
@@ -84,12 +83,16 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
             </div>
           ))}
       </div>
+      {/* TODO: only show commit button when not commited */}
       {data?.addedParticipants && (
         <CommitButton
           randSrc={randSrc}
           addedParticipants={data?.addedParticipants}
         ></CommitButton>
       )}
+
+      {/* TODO: Reval button can only show up to addresses
+        that are able to reveal  */}
     </div>
   );
 };

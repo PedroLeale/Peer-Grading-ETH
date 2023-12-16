@@ -21,7 +21,7 @@ export const Contracts = ({ search }: ContractsProps) => {
   } = useQuery(GET_ALL_CONTRACTS, {
     variables: {
       skip,
-      first: 10,
+      first: 15,
     },
   });
 
