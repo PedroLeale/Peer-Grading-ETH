@@ -4,6 +4,8 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_COMMITS_AND_REVEALS } from "@/lib/services/apollo/queries/AllVotes";
 import { CommitButton } from "../CommitButton";
 import { useEffect, useState } from "react";
+import { RevealButton } from "../RevealButton";
+import { useAccount } from "wagmi";
 
 interface IParticipant {
   contract: string;
@@ -12,7 +14,9 @@ interface IParticipant {
 
 export const Participants = ({ contract, randSrc }: IParticipant) => {
   const router = useRouter();
-  const [, setConsensus] = useState(false);
+  const { address } = useAccount();
+
+  const [allCommited, setAllCommited] = useState(false);
 
   const { data } = useQuery(GET_ALL_PARTICIPANTS, {
     variables: {
@@ -22,7 +26,7 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
     },
   });
 
-  const { data: CommitData } = useQuery(GET_ALL_COMMITS_AND_REVEALS, {
+  const { data: commitData } = useQuery(GET_ALL_COMMITS_AND_REVEALS, {
     variables: {
       address: String(randSrc),
       first: 10,
@@ -31,10 +35,14 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
   });
 
   useEffect(() => {
-    if (data?.addedParticipants.length === CommitData?.revealeds.length) {
-      setConsensus(true);
+    if (data === undefined || commitData === undefined) return;
+
+    if (data?.addedParticipants.length === commitData?.commits.length) {
+      console.log({ data, commitData });
+      console.log("chmoU");
+      setAllCommited(true);
     }
-  }, [CommitData, data]);
+  }, [commitData, data]);
 
   // let consensusState: boolean = false;
 
@@ -61,29 +69,28 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
                   {item.participant}
                 </span>
               </div>
-              {CommitData?.commits.some(
+              {commitData?.commits.some(
                 (commit: { sender: any }) => commit.sender === item.participant
               ) ? (
-                <span className="text-[#008000]">Commited</span>
-              ) : (
-                <span className="text-[#808080]">Waiting for commit</span>
-              )}
-              {/* {consensusState ? (
-                <div className="text-[#008000]">Consensus reached!</div>
-              ) : (
-                <div className="text-[#008000]">Consensus not reached.</div>
-              )}
-              {CommitData?.reveals.some(
-                (reveal: { sender: any }) => reveal.sender === item.participant
-              ) ? (
+                <span className="text-[#008000]">Committed</span>
+              ) : commitData?.revealeds?.some(
+                  (reveal: { sender: any }) =>
+                    reveal.sender === item.participant
+                ) ? (
                 <span className="text-[#008000]">Revealed</span>
               ) : (
-                <span className="text-[#808080]">Waiting for reveal</span>
-              )} */}
+                <span className="text-[#808080]">
+                  Waiting for commit/reveal
+                </span>
+              )}
             </div>
           ))}
       </div>
-      {/* TODO: only show commit button when not commited */}
+
+      {/* TODO: Testar e corrigir para ver se o botão de commit só aparece quando ainda é possível o usuário fazer commit
+      e quando o usuário faz parte dos added participants
+      */}
+
       {data?.addedParticipants && (
         <CommitButton
           randSrc={randSrc}
@@ -91,8 +98,14 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
         ></CommitButton>
       )}
 
-      {/* TODO: Reval button can only show up to addresses
-        that are able to reveal  */}
+      {/* TODO: Testar e corrigir para ver se o botão de reveal só aparece quando é permitido revelar  */}
+      {data?.addedParticipants &&
+        data?.addedParticipants.length === commitData?.commits.length && (
+          <RevealButton
+            randSrc={randSrc}
+            addedParticipants={data?.addedParticipants}
+          ></RevealButton>
+        )}
     </div>
   );
 };
