@@ -91,15 +91,18 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
       e quando o usuário faz parte dos added participants
       */}
 
-      {data?.addedParticipants && (
-        <CommitButton
-          randSrc={randSrc}
-          addedParticipants={data?.addedParticipants}
-        ></CommitButton>
-      )}
+      {data?.addedParticipants &&
+        address &&
+        data?.addedParticipants.length !== commitData?.commits.length && (
+          <CommitButton
+            randSrc={randSrc}
+            addedParticipants={data?.addedParticipants}
+          ></CommitButton>
+        )}
 
       {/* TODO: Testar e corrigir para ver se o botão de reveal só aparece quando é permitido revelar  */}
       {data?.addedParticipants &&
+        address &&
         data?.addedParticipants.length === commitData?.commits.length && (
           <RevealButton
             randSrc={randSrc}
