@@ -63,7 +63,7 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
         </button>
         <BaseModal title="Input commit" isOpen={isOpen} onClose={onClose}>
           {
-            <div>
+            <div className="flex flex-col">
               <Input
                 placeholder="Commit value"
                 value={inputValue}
@@ -75,11 +75,13 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
               >
                 Store commit value on cookies
               </Checkbox>
-              <ModalFooter>
-                <Button disabled={!write} onClick={handleCommitInput}>
-                  Commit input
-                </Button>
-              </ModalFooter>
+              <Button
+                className="w-1/2 mt-5"
+                disabled={!write}
+                onClick={handleCommitInput}
+              >
+                Commit input
+              </Button>
             </div>
           }
         </BaseModal>
