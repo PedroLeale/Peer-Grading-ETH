@@ -3,7 +3,6 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 // import { verify } from "./lib/utils/jwt";
 
-// TODO: checar sobre o nested middleware: https://nextjs.org/docs/messages/nested-middleware
 export default function middleware(req: NextRequest) {
   // const url = req.url;
 
