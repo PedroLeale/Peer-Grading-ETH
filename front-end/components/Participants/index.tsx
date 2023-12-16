@@ -6,6 +6,8 @@ import { CommitButton } from "../CommitButton";
 import { useEffect, useState } from "react";
 import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
+import { useReadConsensusReached } from "@/lib/services/queries/useReadConsensusReached";
+import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/AllFinalConsensus";
 
 interface IParticipant {
   contract: string;
@@ -34,8 +36,16 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
     },
   });
 
+  const { data: statusData } = useQuery(GET_ALL_FINAL_CONSENSUS, {
+    variables: {
+      address: String(contract),
+      first: 10,
+      skip: 0,
+    },
+  });
+
   useEffect(() => {
-    if (data === undefined || commitData === undefined) return;
+    if (data === undefined || commitData === undefined || statusData) return;
 
     if (data?.addedParticipants.length === commitData?.commits.length) {
       console.log({ data, commitData });
@@ -87,10 +97,6 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
           ))}
       </div>
 
-      {/* TODO: Testar e corrigir para ver se o botão de commit só aparece quando ainda é possível o usuário fazer commit
-      e quando o usuário faz parte dos added participants
-      */}
-
       {data?.addedParticipants &&
         address &&
         data?.addedParticipants.length !== commitData?.commits.length && (
@@ -103,7 +109,8 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
       {/* TODO: Testar e corrigir para ver se o botão de reveal só aparece quando é permitido revelar  */}
       {data?.addedParticipants &&
         address &&
-        data?.addedParticipants.length === commitData?.commits.length && (
+        data?.addedParticipants.length === commitData?.commits.length &&
+        !statusData?.peerGradingAddress && (
           <RevealButton
             randSrc={randSrc}
             addedParticipants={data?.addedParticipants}
