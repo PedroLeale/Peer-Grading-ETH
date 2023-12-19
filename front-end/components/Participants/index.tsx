@@ -6,7 +6,6 @@ import { CommitButton } from "../CommitButton";
 import { useEffect, useState } from "react";
 import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
-import { useReadConsensusReached } from "@/lib/services/queries/useReadConsensusReached";
 import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/AllFinalConsensus";
 
 interface IParticipant {
@@ -79,19 +78,17 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
                   {item.participant}
                 </span>
               </div>
-              {commitData?.commits.some(
-                (commit: { sender: any }) => commit.sender === item.participant
+              {commitData?.revealeds?.some(
+                (reveal: { sender: any }) => reveal.sender === item.participant
               ) ? (
-                <span className="text-[#008000]">Committed</span>
-              ) : commitData?.revealeds?.some(
-                  (reveal: { sender: any }) =>
-                    reveal.sender === item.participant
-                ) ? (
                 <span className="text-[#008000]">Revealed</span>
+              ) : commitData?.commits.some(
+                  (commit: { sender: any }) =>
+                    commit.sender === item.participant
+                ) ? (
+                <span className="text-[#008000]">Committed</span>
               ) : (
-                <span className="text-[#808080]">
-                  Waiting for commit/reveal
-                </span>
+                <span className="text-[#808080]">waiting for commit</span>
               )}
             </div>
           ))}

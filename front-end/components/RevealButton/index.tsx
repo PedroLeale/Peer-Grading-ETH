@@ -3,9 +3,9 @@ import { useAccount } from "wagmi";
 
 import abi from "@/abi/RandomnessSource.json";
 import { useState } from "react";
-import { useCommit } from "@/lib/wagmi/useCommit";
 import { useDisclosure, Input, ModalFooter, Button } from "@chakra-ui/react";
 import { BaseModal } from "../BaseModal";
+import { useReveal } from "@/lib/wagmi/useReveal";
 
 interface IVotedButton {
   addedParticipants: AddedParticipant[];
@@ -18,11 +18,11 @@ export const RevealButton = ({ addedParticipants, randSrc }: IVotedButton) => {
 
   const { onClose, onOpen, isOpen } = useDisclosure();
 
-  const [inputValue, setInputValue] = useState("");
-  const { write } = useCommit({ randSrc, _commit: inputValue });
+  const [inputValue, setInputValue] = useState(0);
+  const { write } = useReveal({ randSrc, randNumb: inputValue });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    setInputValue(Number(event.target.value));
   };
 
   const handleCommitInput = () => {

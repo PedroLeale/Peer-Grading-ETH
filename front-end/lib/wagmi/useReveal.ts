@@ -4,15 +4,15 @@ import { ethers } from "ethers";
 
 interface Args {
   randSrc: string;
-  _commit: string;
+  randNumb: number;
 }
 
-export function useReveal({ randSrc, _commit }: Args) {
+export function useReveal({ randSrc, randNumb }: Args) {
   const { config } = usePrepareContractWrite({
     address: randSrc as `0x${string}`,
     abi,
     functionName: "reveal",
-    args: [ethers.utils.formatBytes32String(_commit)],
+    args: [ethers.utils.defaultAbiCoder.encode(["uint256"], [randNumb])],
   });
 
   return useContractWrite(config);
