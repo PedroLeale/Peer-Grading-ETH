@@ -41,7 +41,6 @@ const ContractPage = () => {
         <div className="flex flex-row">
           <Participants contract={contract} randSrc={randSrc} />
         </div>
-        <h2>Addresses that commited and revealed for randomness already</h2>
 
         <h2>Randomness seed validity: true</h2>
 
