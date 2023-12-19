@@ -107,6 +107,7 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
       {data?.addedParticipants &&
         address &&
         data?.addedParticipants.length === commitData?.commits.length &&
+        commitData.commits.length !== commitData.revealeds.length &&
         !statusData?.peerGradingAddress && (
           <RevealButton
             randSrc={randSrc}

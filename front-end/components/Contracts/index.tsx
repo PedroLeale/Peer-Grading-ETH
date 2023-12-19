@@ -8,20 +8,19 @@ interface ContractsProps {
 }
 
 export const Contracts = ({ search }: ContractsProps) => {
-  const [
-    skip,
-    // setSkip
-  ] = useState(0);
+  const [page, setPage] = useState(0);
 
   const router = useRouter();
+
+  const totalItems = 15;
 
   const {
     data,
     // error, loading
   } = useQuery(GET_ALL_CONTRACTS, {
     variables: {
-      skip,
-      first: 15,
+      skip: totalItems * page,
+      first: totalItems,
     },
   });
 
