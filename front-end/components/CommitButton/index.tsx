@@ -4,13 +4,7 @@ import { useAccount } from "wagmi";
 import abi from "@/abi/RandomnessSource.json";
 import { useState } from "react";
 import { useCommit } from "@/lib/wagmi/useCommit";
-import {
-  useDisclosure,
-  Checkbox,
-  Input,
-  ModalFooter,
-  Button,
-} from "@chakra-ui/react";
+import { useDisclosure, Checkbox, Input, Button } from "@chakra-ui/react";
 import { BaseModal } from "../BaseModal";
 import Cookies from "js-cookie";
 
@@ -25,25 +19,29 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
 
   const { onClose, onOpen, isOpen } = useDisclosure();
 
-  const [inputValue, setInputValue] = useState("");
-  const { write } = useCommit({ randSrc, _commit: inputValue });
+  const [inputValue, setInputValue] = useState(0);
+  const { write } = useCommit({
+    randSrc,
+    randNumb: inputValue,
+    _adress: address,
+  });
 
   const [isChecked, setIsChecked] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    setInputValue(Number(event.target.value));
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
-      Cookies.set(`commitValue/${randSrc}`, inputValue, { path: "/" });
+      Cookies.set(`commitValue/${randSrc}`, String(inputValue), { path: "/" });
     }
   };
 
   const handleCommitInput = () => {
     write?.();
-    Cookies.set("commitValue", inputValue, { path: "/" });
+    Cookies.set("commitValue", String(inputValue), { path: "/" });
   };
 
   if (
