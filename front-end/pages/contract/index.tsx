@@ -32,23 +32,23 @@ const ContractPage = () => {
           Peer Grading ontract at {contract}{" "}
         </h1>
 
-        <span className="text-xl font-bold mb-2 block">
+        {/*         <span className="text-xl font-bold mb-2 block">
           The contract is still in the commit phase
-        </span>
+        </span> */}
 
-        <h2>First the participants must commit to reach a valid consensus</h2>
+        {/* <h2>First the participants must commit to reach a valid consensus</h2> */}
 
         <div className="flex flex-row">
           <Participants contract={contract} randSrc={randSrc} />
         </div>
 
-        <h2>Randomness seed validity: true</h2>
+        {/*         <h2>Randomness seed validity: true</h2>
 
         <h2> actual consensus array</h2>
 
         <h2> penalties</h2>
 
-        <h2> consensus reached</h2>
+        <h2> consensus reached</h2> */}
       </div>
     </div>
   );
