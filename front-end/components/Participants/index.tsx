@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_COMMITS_AND_REVEALS } from "@/lib/services/apollo/queries/AllVotes";
 import { CommitButton } from "../CommitButton";
-import { useEffect, useState } from "react";
 import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
-import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/AllFinalConsensus";
+import { GET_SINGLE_PG_CONTRACT } from "@/lib/services/apollo/queries/SinglePgContract";
+import { ethers } from "ethers";
 
 interface IParticipant {
   contract: string;
@@ -17,11 +17,17 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
   const router = useRouter();
   const { address } = useAccount();
 
-  const [allCommited, setAllCommited] = useState(false);
-
   const { data } = useQuery(GET_ALL_PARTICIPANTS, {
     variables: {
       address: String(contract),
+      first: 10,
+      skip: 0,
+    },
+  });
+
+  const { data: contractData } = useQuery(GET_SINGLE_PG_CONTRACT, {
+    variables: {
+      contract: String(contract),
       first: 10,
       skip: 0,
     },
@@ -34,26 +40,6 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
       skip: 0,
     },
   });
-
-  const { data: statusData } = useQuery(GET_ALL_FINAL_CONSENSUS, {
-    variables: {
-      address: String(contract),
-      first: 10,
-      skip: 0,
-    },
-  });
-
-  useEffect(() => {
-    if (data === undefined || commitData === undefined || statusData) return;
-
-    if (data?.addedParticipants.length === commitData?.commits.length) {
-      console.log({ data, commitData });
-      console.log("chmoU");
-      setAllCommited(true);
-    }
-  }, [commitData, data]);
-
-  // let consensusState: boolean = false;
 
   return (
     <div className="text-left p-4 bg-white rounded-lg w-1/2">
@@ -90,6 +76,16 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
               ) : (
                 <span className="text-[#808080]">waiting for commit</span>
               )}
+              <a
+                href={`ipfs://${
+                  contractData?.peerGradings[0].ipfsHash ?? ""
+                }/${ethers.utils.getAddress(item.participant)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link-blue underline"
+              >
+                file
+              </a>{" "}
             </div>
           ))}
       </div>
@@ -103,12 +99,12 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
           ></CommitButton>
         )}
 
-      {/* TODO: Testar e corrigir para ver se o botão de reveal só aparece quando é permitido revelar  */}
       {data?.addedParticipants &&
         address &&
         data?.addedParticipants.length === commitData?.commits.length &&
-        commitData.commits.length !== commitData.revealeds.length &&
-        !statusData?.peerGradingAddress && (
+        !commitData.revealeds
+          .map((item) => item.sender)
+          .includes(address.toLowerCase()) && (
           <RevealButton
             randSrc={randSrc}
             addedParticipants={data?.addedParticipants}
