@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 
 interface ContractsProps {
   search: string;
+  page: number;
+  setPage: (page: number) => void;
 }
 
-export const Contracts = ({ search }: ContractsProps) => {
-  const [page, setPage] = useState(0);
+export const Contracts = ({ search, page, setPage }: ContractsProps) => {
+  // const [page, setPage] = useState(0);
 
   const router = useRouter();
 
@@ -25,8 +27,10 @@ export const Contracts = ({ search }: ContractsProps) => {
   });
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (data?.peerGradingDeployeds.length === 0 && page > 0) {
+      setPage(page - 1);
+    }
+  }, [data, page, setPage]);
 
   return (
     <div className="container mx-8 p-4">

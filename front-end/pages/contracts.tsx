@@ -9,6 +9,7 @@ interface PageWithLayout extends React.FC {
 
 const ContractsPage: PageWithLayout = () => {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
 
   return (
     <div>
@@ -23,7 +24,28 @@ const ContractsPage: PageWithLayout = () => {
           }}
         />
       </div>
-      <Contracts search={search} />
+      <div className="flex justify-between w-1/2 m-auto">
+        <button
+          className={`px-4 py-2 border border-gray-300 rounded-md text-black ${
+            page === 0 ? "bg-gray-500" : "bg-green-500 hover:bg-green-700"
+          }`}
+          onClick={() => {
+            setPage((old) => Math.max(old - 1, 0));
+          }}
+          disabled={page === 0}
+        >
+          Previous Page
+        </button>
+        <button
+          className="px-4 py-2 border border-gray-300 rounded-md bg-green-500 hover:bg-green-700 text-black"
+          onClick={() => {
+            setPage((old) => old + 1);
+          }}
+        >
+          Next Page
+        </button>
+      </div>
+      <Contracts search={search} page={page} setPage={setPage} />
     </div>
   );
 };
