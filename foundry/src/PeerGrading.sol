@@ -108,7 +108,7 @@ contract PeerGrading {
     }
 
     /**
-     * @notice this function sets the state to consensus reached.]
+     * @notice this function sets the state to consensus reached.
      * this consensus depends on the votes cast by the participants
      */
     function finalizeConsensus() public {
