@@ -10,7 +10,7 @@ interface ContractsProps {
 }
 
 export const Contracts = ({ search, page, setPage }: ContractsProps) => {
-  // const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   const router = useRouter();
 
@@ -28,7 +28,9 @@ export const Contracts = ({ search, page, setPage }: ContractsProps) => {
 
   useEffect(() => {
     if (data?.peerGradingDeployeds.length === 0 && page > 0) {
-      setPage(page - 1);
+      setHasMore(false);
+    } else {
+      setHasMore(true);
     }
   }, [data, page, setPage]);
 
@@ -67,6 +69,11 @@ export const Contracts = ({ search, page, setPage }: ContractsProps) => {
               </div>
             )
           )}
+      {!hasMore && (
+        <span className="text-gray-500 text-lg font-bold mt-4">
+          There is no more contracts
+        </span>
+      )}
     </div>
   );
 };
