@@ -1,8 +1,5 @@
 import { Participants } from "@/components/Participants";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
-// import { useReadAllParticipants } from "@/lib/services/queries/useReadAllParticipants";
-// import { useReadNewConsensus } from "@/lib/services/queries/useReadNewConsensus";
-// import { useReadRandomnessContract } from "@/lib/services/queries/useReadRandomnessContract";
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
@@ -47,6 +44,15 @@ const ContractPage = () => {
         <h2> actual consensus array</h2>
 
         <h2> penalties</h2>
+        <h2>Randomness seed validity: true</h2>
+        {/* TODO: create a consensusComponent
+        that shows:
+        1- current consensus array;
+        2- current votes for consensus array;
+        3- finalize consensus button if votes > len(participants)/2
+      
+        optional: show penalties
+      */}
 
         <h2> consensus reached</h2> */}
       </div>
