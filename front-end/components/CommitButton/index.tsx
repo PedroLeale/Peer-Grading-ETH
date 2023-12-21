@@ -63,6 +63,7 @@ export const CommitButton = ({ addedParticipants, randSrc }: IVotedButton) => {
           {
             <div className="flex flex-col">
               <Input
+                type="number"
                 placeholder="Commit value"
                 value={inputValue}
                 onChange={handleInputChange}

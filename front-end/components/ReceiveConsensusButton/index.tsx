@@ -34,7 +34,7 @@ export const ReceniveConsensusButton = ({ contract }: IReceiveConsensus) => {
           onOpen();
         }}
       >
-        Reveal commit
+        Insert consensus
       </button>
       <BaseModal
         title="send consensus vector"

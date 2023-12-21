@@ -1,6 +1,6 @@
 import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticipants";
 import { useAccount } from "wagmi";
-
+import Cookies from "js-cookie";
 import abi from "@/abi/RandomnessSource.json";
 import { useState } from "react";
 import { useDisclosure, Input, ModalFooter, Button } from "@chakra-ui/react";
@@ -29,6 +29,15 @@ export const RevealButton = ({ addedParticipants, randSrc }: IRevealButton) => {
     write?.();
   };
 
+  const handleOpen = () => {
+    // Retrieve the commit value from the cookies when the modal opens
+    const commitValue = Cookies.get(`commitValue/${randSrc}`);
+    // If the commit value exists, set it as the input value
+    // If the commit value does not exist, set the input value to 0
+    setInputValue(commitValue ? Number(commitValue) : 0);
+    onOpen();
+  };
+
   if (
     addedParticipants
       .map((ap) => ap.participant)
@@ -38,9 +47,7 @@ export const RevealButton = ({ addedParticipants, randSrc }: IRevealButton) => {
       <div className="text-left p-4 bg-white rounded-lg w-1/2">
         <button
           className="bg-[#0096FF] text-white font-bold py-2 px-4 rounded cursor-pointer"
-          onClick={() => {
-            onOpen();
-          }}
+          onClick={handleOpen}
         >
           Reveal commit
         </button>
