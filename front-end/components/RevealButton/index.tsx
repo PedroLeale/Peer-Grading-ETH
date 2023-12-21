@@ -7,12 +7,12 @@ import { useDisclosure, Input, ModalFooter, Button } from "@chakra-ui/react";
 import { BaseModal } from "../BaseModal";
 import { useReveal } from "@/lib/wagmi/useReveal";
 
-interface IVotedButton {
+interface IRevealButton {
   addedParticipants: AddedParticipant[];
   randSrc: string;
 }
 
-export const RevealButton = ({ addedParticipants, randSrc }: IVotedButton) => {
+export const RevealButton = ({ addedParticipants, randSrc }: IRevealButton) => {
   const { address } = useAccount();
   console.log({ randSrc, abi });
 

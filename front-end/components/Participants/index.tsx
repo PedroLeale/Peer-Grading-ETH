@@ -6,8 +6,9 @@ import { CommitButton } from "../CommitButton";
 import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
 import { GET_SINGLE_PG_CONTRACT } from "@/lib/services/apollo/queries/SinglePgContract";
-import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/AllFinalConsensus";
+import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/GetConsensuses";
 import { ethers } from "ethers";
+import { ReceniveConsensusButton } from "../ReceiveConsensusButton";
 
 interface IParticipant {
   contract: string;
@@ -118,10 +119,20 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
             addedParticipants={data?.addedParticipants}
           ></RevealButton>
         )}
+
+      {data?.addedParticipants.length === commitData?.revealeds.length && (
+        <ReceniveConsensusButton contract={contract}></ReceniveConsensusButton>
+      )}
+
       <div className="mt-4 p-4 bg-gray-100 rounded-md">
         {consensusData?.consensuses.map((consensus: any, index: number) => (
           <p key={index} className="text-gray-700 text-lg font-bold">
-            Consensus array: {consensus.vector}
+            Consensus array:
+            {consensusData?.consensuses === 0 ? (
+              <span className="text-red">Empty</span>
+            ) : (
+              consensus.vector
+            )}
           </p>
         ))}
       </div>
