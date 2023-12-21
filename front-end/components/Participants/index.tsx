@@ -6,7 +6,7 @@ import { CommitButton } from "../CommitButton";
 import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
 import { GET_SINGLE_PG_CONTRACT } from "@/lib/services/apollo/queries/SinglePgContract";
-import { GET_ALL_FINAL_CONSENSUS } from "@/lib/services/apollo/queries/GetConsensuses";
+import { GET_CONSENSUSES } from "@/lib/services/apollo/queries/GetConsensuses";
 import { ethers } from "ethers";
 import { ReceniveConsensusButton } from "../ReceiveConsensusButton";
 
@@ -43,10 +43,11 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
     },
   });
 
-  const { data: consensusData } = useQuery(GET_ALL_FINAL_CONSENSUS, {
+  const { data: consensusData } = useQuery(GET_CONSENSUSES, {
     variables: {
-      address: String(contract),
-      offset: 0,
+      contract: String(contract),
+      skip: 0,
+      first: 10,
     },
   });
 
@@ -128,7 +129,7 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
         {consensusData?.consensuses.map((consensus: any, index: number) => (
           <p key={index} className="text-gray-700 text-lg font-bold">
             Consensus array:
-            {consensusData?.consensuses === 0 ? (
+            {consensusData?.consensuses.length === 0 ? (
               <span className="text-red">Empty</span>
             ) : (
               consensus.vector
