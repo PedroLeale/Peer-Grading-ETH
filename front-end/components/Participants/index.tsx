@@ -128,11 +128,11 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
       <div className="mt-4 p-4 bg-gray-100 rounded-md">
         {consensusData?.consensuses.map((consensus: any, index: number) => (
           <p key={index} className="text-gray-700 text-lg font-bold">
-            Consensus array:
+            Consensus array:{" "}
             {consensusData?.consensuses.length === 0 ? (
               <span className="text-red">Empty</span>
             ) : (
-              consensus.vector
+              consensus.vector.join(" ")
             )}
           </p>
         ))}
