@@ -53,8 +53,6 @@ const ContractPage = () => {
       
         optional: show penalties
       */}
-
-        <h2> consensus reached</h2> */}
       </div>
     </div>
   );
