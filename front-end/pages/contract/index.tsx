@@ -18,6 +18,7 @@ const ContractPage = () => {
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
 
   return (
+    // TODO: indicate that the user
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
       <div
         className="

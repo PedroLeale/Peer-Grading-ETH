@@ -19,7 +19,7 @@ export const Consensus = ({ contract }: IConsensus) => {
     },
   });
 
-  const { data, error } = useContractRead({
+  const { data } = useContractRead({
     address: contract as `0x${string}`,
     abi,
     functionName: "distributeAssignments",
