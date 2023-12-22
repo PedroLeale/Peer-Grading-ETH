@@ -24,14 +24,16 @@ export const Consensus = ({ contract }: IConsensus) => {
     abi,
     functionName: "distributeAssignments",
     args: [address],
+    select: (data) => String(data),
   });
+
   useEffect(() => {
-    console.log({ data, error });
-  }, [data, error]);
+    console.log({ data });
+  }, [data]);
 
   return (
     <div>
-      <span> Your assignments:</span>
+      <span> Your assignments: {data}</span>
 
       <div className="mt-4 p-4 bg-gray-100 rounded-md">
         {consensusData?.consensuses.map((consensus: any, index: number) => (
