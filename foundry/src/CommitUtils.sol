@@ -26,8 +26,6 @@ library CommitUtils {
         if (hash == commitment) return true;
         return false;
 
-        //TODO: isso aqui pode ser feito para ir atualizando a seed no PeerGradindgContract
-        // para termos a seed global de maneira performática.
-        // seed = keccak256(abi.encode(seed, rand));
+
     }
 }

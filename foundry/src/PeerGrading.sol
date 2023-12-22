@@ -88,14 +88,14 @@ contract PeerGrading {
         _;
     }
 
-    //TODO: check alternatives in this function to mitigate the problem
-    // of a participant not issuing a new consensus vector.
+   
     /**
      * @param _consensusVector the next consensus verctor issue by the current chosen participant
      * @notice any participant can issue a new consesnus at any time. The commented code is another
      * alternative where users issued in a round-robin style but we thought about not doing that now
      */
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
+        // TODO: vetor de consenso precisa ser do mesmo tamanho que a quantidade de participantes
         ConsensusVector = _consensusVector;
         votes = 0;
         consensusCounter += 1;
@@ -171,6 +171,13 @@ contract PeerGrading {
         return (
             participant.commit, participant.penalty, participant.assignmentId, participant.assigned, participant.grading
         );
+    }
+
+    function setGrading(uint256[] memory _gradings) public {
+        // TODO: não permitir alocar grading se valor já foi alocado.
+        // O grading é uma vez só
+        participants[msg.sender].grading = _gradings;
+        // TODO: emitir evento do participante que envio o grading
     }
 
     /**
