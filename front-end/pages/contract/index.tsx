@@ -3,6 +3,7 @@ import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
+import { Consensus } from "@/components/Consensus";
 
 const ContractPage = () => {
   const router = useRouter();
@@ -16,8 +17,6 @@ const ContractPage = () => {
 
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
 
-  // const { data } = useReadNewConsensus({ contract: contractAddress });
-
   return (
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
       <div
@@ -26,7 +25,7 @@ const ContractPage = () => {
       flex flex-col  mt-4"
       >
         <h1 className="text-2xl font-bold">
-          Peer Grading ontract at {contract}{" "}
+          Peer Grading contract at {contract}{" "}
         </h1>
 
         {/*         <span className="text-xl font-bold mb-2 block">
@@ -53,6 +52,8 @@ const ContractPage = () => {
       
         optional: show penalties
       */}
+
+        <Consensus contract={contract} />
       </div>
     </div>
   );
