@@ -13,8 +13,12 @@ export const ReceniveConsensusButton = ({ contract }: IReceiveConsensus) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // TODO: usar um regex para aceitar apenas número inteiros e vírgula.
-    setInputValue(event.target.value);
+    const regex = /^[0-9,]*$/;
+    const value = event.target.value;
+    // If the value matches the regex, update the input value
+    if (regex.test(value)) {
+      setInputValue(value);
+    }
   };
 
   const { write } = useSendConsensus({
