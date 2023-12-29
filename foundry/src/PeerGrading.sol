@@ -42,6 +42,7 @@ contract PeerGrading {
     }
 
     event Deployed(uint256 numberParticipants, address indexed randSrc, string ipfsHash);
+    event Graded(uint256[] grading);
     event ConsensusReached(uint8[] consensusVector);
     event NewConsensus(uint8[] consensusVector, uint256 indexed consensusCounter);
     event AddedParticipant(address indexed participant, uint256 indexed assignmentId);
@@ -88,7 +89,6 @@ contract PeerGrading {
         _;
     }
 
-   
     /**
      * @param _consensusVector the next consensus verctor issue by the current chosen participant
      * @notice any participant can issue a new consesnus at any time. The commented code is another
@@ -96,6 +96,11 @@ contract PeerGrading {
      */
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
         // TODO: vetor de consenso precisa ser do mesmo tamanho que a quantidade de participantes
+        require(currentState == CurrentState.WAITING_CONSENSUS, "Consensus already reached");
+        require(
+            _consensusVector.length == numberParticipants,
+            "Consensus vector must have the same size as the number of participants"
+        );
         ConsensusVector = _consensusVector;
         votes = 0;
         consensusCounter += 1;
@@ -176,8 +181,10 @@ contract PeerGrading {
     function setGrading(uint256[] memory _gradings) public {
         // TODO: não permitir alocar grading se valor já foi alocado.
         // O grading é uma vez só
+        require(participants[msg.sender].grading.length == 0, "Grading already set");
         participants[msg.sender].grading = _gradings;
         // TODO: emitir evento do participante que envio o grading
+        emit Graded(_gradings);
     }
 
     /**
