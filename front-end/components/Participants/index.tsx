@@ -44,15 +44,18 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
 
   return (
     <div className="text-left p-4 bg-white rounded-lg w-1/2">
-      <span className="text-xl font-bold mb-2 block">participants:</span>
       {/* 
+      <span className="text-xl font-bold mb-2 block">participants:</span>
       //TODO:
         Colocar colunas avisando o que é cada coisa. São 4 ao todo:
-        1. Endereço;
-        2. status de revelado, ou commited;
-        3. arquivo;
-        4. Grading;
+        1. Endereço; -- done
+        2. status de revelado, ou commited; -- done
+        3. arquivo; -- done
+        4. Grading; -- falta a consulta
       */}
+      <div className="flex flex-row justify-between font-bold mb-2">
+        <span>Participants&apos; addresses</span>
+      </div>
       <div className="flex flex-col bg-gray-100 rounded-lg">
         {data?.addedParticipants &&
           data.addedParticipants.map((item) => (
@@ -73,6 +76,7 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
                   {item.participant}
                 </span>
               </div>
+              <span className="font-bold mb-2">Status:</span>
               {commitData?.revealeds?.some(
                 (reveal: { sender: any }) => reveal.sender === item.participant
               ) ? (

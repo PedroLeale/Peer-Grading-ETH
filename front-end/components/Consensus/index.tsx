@@ -33,11 +33,16 @@ export const Consensus = ({ contract }: IConsensus) => {
 
   return (
     <div>
-      {/* //TODO: avisar que a carteira não faz parte das cartieras do consenso,
-      // então não tem distributed assignmetns nela. Ou seja, pedir para o usuário
-      // selecionar a carteira correta. 
-      */}
-      <span> Your assignments here: {data}</span>
+      {data ? (
+        <span className="mt-4 p-4 font-bold border-2 border-blue-500 rounded">
+          Your assignments here: {data}
+        </span>
+      ) : (
+        <span className="mt-4 p-4 font-bold border-2 border-red-500 rounded">
+          Your wallet is not part of the consensus, and therefore does not have
+          any distributed assignments. Please select the correct wallet.
+        </span>
+      )}
 
       <div className="mt-4 p-4 bg-gray-100 rounded-md">
         {consensusData?.consensuses.map((consensus: any, index: number) => (
