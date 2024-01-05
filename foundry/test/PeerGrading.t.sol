@@ -154,4 +154,21 @@ contract PeerGradingTest is Test {
             assertEq(result[i], penalties[i]);
         }
     }
+
+    function test_Grading() public {
+        // First: this will send an empty array to the grading function
+        // and it should revert
+
+        uint256[] memory grading = new uint256[](0);
+        vm.expectRevert();
+        c.setGrading(grading);
+
+        // Second: this will send an enormous array to the grading function
+        // and it should revert
+
+        grading = new uint256[](participants.length + 1);
+        vm.prank(participants[0]);
+        vm.expectRevert();
+        c.setGrading(grading);
+    }
 }
