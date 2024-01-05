@@ -182,6 +182,7 @@ contract PeerGrading {
         // TODO: não permitir alocar grading se valor já foi alocado.
         // O grading é uma vez só
         require(participants[msg.sender].grading.length == 0, "Grading already set");
+        require(_gradings.length == numberAssignments, "Number of assignments differs from gradings length");
         participants[msg.sender].grading = _gradings;
         // TODO: emitir evento do participante que envio o grading
         emit Graded(_gradings);
