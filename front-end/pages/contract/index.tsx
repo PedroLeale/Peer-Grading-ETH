@@ -18,7 +18,6 @@ const ContractPage = () => {
   // const { data, refetch } = useReadRandomnessContract({contract: contractAddress});
 
   return (
-    // TODO: indicate that the user
     <div className="w-full h-screen bg-[##e7e8ea] text-[#444]">
       <div
         className="
@@ -29,30 +28,13 @@ const ContractPage = () => {
           Peer Grading contract at {contract}{" "}
         </h1>
 
-        {/*         <span className="text-xl font-bold mb-2 block">
-          The contract is still in the commit phase
-        </span> */}
-
-        {/* <h2>First the participants must commit to reach a valid consensus</h2> */}
-
         <div className="flex flex-row">
           <Participants contract={contract} randSrc={randSrc} />
         </div>
 
-        {/*         <h2>Randomness seed validity: true</h2>
-
-        <h2> actual consensus array</h2>
-
-        <h2> penalties</h2>
-        <h2>Randomness seed validity: true</h2>
-        {/* TODO: create a consensusComponent
-        that shows:
-        1- current consensus array;
-        2- current votes for consensus array;
-        3- finalize consensus button if votes > len(participants)/2
-      
-        optional: show penalties
-      */}
+        {/* 
+        //TODO: criar o botão de set Grading, para cada usuário colocar seus gradings dos assignments gerados        
+        */}
 
         <Consensus contract={contract} />
       </div>

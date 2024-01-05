@@ -7,7 +7,7 @@ import { RevealButton } from "../RevealButton";
 import { useAccount } from "wagmi";
 import { GET_SINGLE_PG_CONTRACT } from "@/lib/services/apollo/queries/SinglePgContract";
 import { ethers } from "ethers";
-import { ReceniveConsensusButton } from "../ReceiveConsensusButton";
+import { ReceiveConsensusButton } from "../ReceiveConsensusButton";
 
 interface IParticipant {
   contract: string;
@@ -45,6 +45,14 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
   return (
     <div className="text-left p-4 bg-white rounded-lg w-1/2">
       <span className="text-xl font-bold mb-2 block">participants:</span>
+      {/* 
+      //TODO:
+        Colocar colunas avisando o que é cada coisa. São 4 ao todo:
+        1. Endereço;
+        2. status de revelado, ou commited;
+        3. arquivo;
+        4. Grading;
+      */}
       <div className="flex flex-col bg-gray-100 rounded-lg">
         {data?.addedParticipants &&
           data.addedParticipants.map((item) => (
@@ -77,6 +85,9 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
               ) : (
                 <span className="text-[#808080]">waiting for commit</span>
               )}
+              {/* 
+              //TODO: arrumar o nodo de IPFS, para ele salvar e trazer os dados. (Precisa colocar o cartão no web3Storage)
+              */}
               <a
                 href={`ipfs://${
                   contractData?.peerGradings[0].ipfsHash ?? ""
@@ -113,7 +124,7 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
         )}
 
       {data?.addedParticipants.length === commitData?.revealeds.length && (
-        <ReceniveConsensusButton contract={contract}></ReceniveConsensusButton>
+        <ReceiveConsensusButton contract={contract}></ReceiveConsensusButton>
       )}
     </div>
   );

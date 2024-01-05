@@ -7,7 +7,7 @@ interface IReceiveConsensus {
   contract: string;
 }
 
-export const ReceniveConsensusButton = ({ contract }: IReceiveConsensus) => {
+export const ReceiveConsensusButton = ({ contract }: IReceiveConsensus) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
 
   const [inputValue, setInputValue] = useState("");
