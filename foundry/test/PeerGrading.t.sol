@@ -160,6 +160,7 @@ contract PeerGradingTest is Test {
         // and it should revert
 
         uint256[] memory grading = new uint256[](0);
+        vm.prank(participants[1]);
         vm.expectRevert();
         c.setGrading(grading);
 

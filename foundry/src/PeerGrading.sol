@@ -42,7 +42,7 @@ contract PeerGrading {
     }
 
     event Deployed(uint256 numberParticipants, address indexed randSrc, string ipfsHash);
-    event Graded(uint256[] grading);
+    event Graded(uint256[] grading, address indexed participant);
     event ConsensusReached(uint8[] consensusVector);
     event NewConsensus(uint8[] consensusVector, uint256 indexed consensusCounter);
     event AddedParticipant(address indexed participant, uint256 indexed assignmentId);
@@ -178,14 +178,14 @@ contract PeerGrading {
         );
     }
 
-    function setGrading(uint256[] memory _gradings) public {
+    function setGrading(uint256[] memory _gradings) public onlyParticipant {
         // TODO: não permitir alocar grading se valor já foi alocado.
         // O grading é uma vez só
         require(participants[msg.sender].grading.length == 0, "Grading already set");
         require(_gradings.length == numberAssignments, "Number of assignments differs from gradings length");
         participants[msg.sender].grading = _gradings;
         // TODO: emitir evento do participante que envio o grading
-        emit Graded(_gradings);
+        emit Graded(_gradings, msg.sender);
     }
 
     /**
