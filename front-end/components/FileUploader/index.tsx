@@ -89,6 +89,8 @@ export const FileUploader = ({
             className="bg-pg-primary py-2 px-4 font-bold w-1/2 mt-3"
             type="submit"
           >
+            {/* TODO: mostrar uma caixa com todos os carregamentos. Primeiro o que envia para o IPFS e depois o que envia para a rede */}
+            {/* TODO: corrigir redirect de página, para redirecionar corretamente após criação do contrato */}
             Create contract
           </button>
         </div>

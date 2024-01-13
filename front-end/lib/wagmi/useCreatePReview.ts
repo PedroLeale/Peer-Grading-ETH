@@ -8,6 +8,7 @@ interface Args {
   ipfsHash: string;
 }
 
+// TODO: tratar erros de criação de contrato.
 export function useCreatePReview({ participants, workload, ipfsHash }: Args) {
   const { config } = usePrepareContractWrite({
     address: contractConstants.PeerGradingAddress as `0x${string}`,
