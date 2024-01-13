@@ -95,7 +95,6 @@ contract PeerGrading {
      * alternative where users issued in a round-robin style but we thought about not doing that now
      */
     function receiveConsensus(uint8[] memory _consensusVector) public onlyParticipant {
-        // TODO: vetor de consenso precisa ser do mesmo tamanho que a quantidade de participantes
         require(currentState == CurrentState.WAITING_CONSENSUS, "Consensus already reached");
         require(
             _consensusVector.length == numberParticipants,
@@ -179,12 +178,9 @@ contract PeerGrading {
     }
 
     function setGrading(uint256[] memory _gradings) public onlyParticipant {
-        // TODO: não permitir alocar grading se valor já foi alocado.
-        // O grading é uma vez só
         require(participants[msg.sender].grading.length == 0, "Grading already set");
         require(_gradings.length == numberAssignments, "Number of assignments differs from gradings length");
         participants[msg.sender].grading = _gradings;
-        // TODO: emitir evento do participante que envio o grading
         emit Graded(_gradings, msg.sender);
     }
 

@@ -43,5 +43,9 @@ contract CommitReveralRandomnessTest is Test {
             vm.prank(participants[i]);
             randSrc.reveal(numbers[i]);
         }
+
+        vm.prank(participants[0]);
+        vm.expectRevert();
+        randSrc.reveal(numbers[0]);
     }
 }
