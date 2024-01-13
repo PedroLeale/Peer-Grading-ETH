@@ -127,6 +127,8 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
           ></RevealButton>
         )}
 
+      {data?.addedParticipants.length}
+
       {data?.addedParticipants.length === commitData?.revealeds.length && (
         <ReceiveConsensusButton contract={contract}></ReceiveConsensusButton>
       )}

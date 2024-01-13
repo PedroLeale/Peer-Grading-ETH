@@ -6,6 +6,7 @@ import {CommitUtils} from "./CommitUtils.sol";
 
 contract CommitRevealRandomness is IRandomnessSource {
     mapping(address => bytes32) public participants;
+    mapping(address => bool) public revealeds;
     uint256 public requiredCommits;
     bytes32 public globalSeed;
 
@@ -33,6 +34,7 @@ contract CommitRevealRandomness is IRandomnessSource {
     }
 
     function reveal(uint256 _rand) public {
+        if (revealeds[msg.sender]) revert InvalidReveal();
         if (requiredCommits > 0) revert WaitingCommits();
         bool check = CommitUtils.reveal(_rand, participants[msg.sender]);
         if (!check) revert InvalidReveal();
@@ -43,6 +45,8 @@ contract CommitRevealRandomness is IRandomnessSource {
         // onde é preciso rodar a hash de cada um dos commits.
 
         globalSeed = keccak256(abi.encode(globalSeed, _rand));
+        revealeds[msg.sender] = true;
+
         emit Revealed(msg.sender);
     }
 
