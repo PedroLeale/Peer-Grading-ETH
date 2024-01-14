@@ -1,3 +1,3 @@
 export const contractConstants = {
-  PeerGradingAddress: "0xF840BDB24AC10C5b36fca18e692d69E20a2bb28f",
+  PeerGradingAddress: "0x4f48a77A2aE225D61bf60CD375752a5073564807",
 };
