@@ -37,6 +37,8 @@ const ContractPage = () => {
         */}
 
         <Consensus contract={contract} />
+
+        {/* TODO: colocar o botão para votos  */}
       </div>
     </div>
   );
