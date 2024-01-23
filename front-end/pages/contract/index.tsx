@@ -1,4 +1,5 @@
 import { Participants } from "@/components/Participants";
+import { VoteButton } from "@/components/VoteButton";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
@@ -39,6 +40,7 @@ const ContractPage = () => {
         <Consensus contract={contract} />
 
         {/* TODO: colocar o botão para votos  */}
+        <VoteButton />
       </div>
     </div>
   );
