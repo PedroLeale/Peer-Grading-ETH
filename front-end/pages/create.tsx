@@ -1,6 +1,8 @@
+import { BaseModal } from "@/components/BaseModal";
 import { FileUploader } from "@/components/FileUploader";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useCreatePReview } from "@/lib/wagmi/useCreatePReview";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, type ReactNode, type FormEvent, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
@@ -15,13 +17,20 @@ interface Uploader {
 const CreatePage = () => {
   const [cid, setCid] = useState("");
   const [workload, setWorkload] = useState<number>(1);
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   const [uploaders, setUploaders] = useState<Uploader[]>([
     { fieldName: "", file: null },
   ]);
 
   const router = useRouter();
 
-  const { write, data } = useCreatePReview({
+  const {
+    writeAsync,
+    data,
+    error: createError,
+    isError,
+  } = useCreatePReview({
     ipfsHash: cid,
     participants: uploaders.map((up) => up.fieldName),
     workload,
@@ -32,23 +41,18 @@ const CreatePage = () => {
   });
 
   useEffect(() => {
+    console.log("caiu aqui");
+    if (createError) {
+      toast.error(createError.message);
+    }
+  }, [createError, isError]);
+
+  useEffect(() => {
     console.log("transaction data", transactionData);
     if (transactionData) {
       router.push(`/contract/${transactionData.logs[0].address}`);
     }
   }, [transactionData]);
-
-  useEffect(() => {
-    if (cid !== "") {
-      try {
-        console.log("cid", cid);
-        write?.();
-        toast.success("deployed contract");
-      } catch (e: any) {
-        toast.error(e.message);
-      }
-    }
-  }, [cid]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,13 +65,19 @@ const CreatePage = () => {
       }
       formData.append(uploader.fieldName, uploader.file);
     }
+    if (cid !== "") {
+      toast.warn("content already, deployed, attempting to create contract");
+      try {
+        console.log("deploying contract", cid);
+        await writeAsync?.();
+        toast.success("deployed contract");
+      } catch (e: any) {
+        toast.error(e.message);
+      }
+      return;
+    }
 
     try {
-      if (cid !== "") {
-        console.log("cid not null, deploying");
-        write?.();
-        return;
-      }
       const response = await fetch("/api/store", {
         method: "POST",
         body: formData,
@@ -113,6 +123,38 @@ const CreatePage = () => {
         setCid={setCid}
         handleSubmit={handleSubmit}
       />
+
+      <button
+        className="bg-pg-primary py-2 px-4 font-bold w-1/2 mt-3"
+        type="submit"
+        onClick={(e) => {
+          handleSubmit(e);
+          onOpen();
+        }}
+      >
+        {/* TODO: mostrar erros de endereço inválido */}
+        {/* TODO: mostrar uma caixa com todos os carregamentos. Primeiro o que envia para o IPFS e depois o que envia para a rede */}
+        {/* TODO: corrigir redirect de página, para redirecionar corretamente após criação do contrato */}
+        Create contract
+      </button>
+
+      <BaseModal title="create peer grading" isOpen={isOpen} onClose={onClose}>
+        <div className="flex flex-col items-center">
+          <span>
+            {cid === "" ? `Deploying to IPFS...` : `Deployed to IPFS`}
+          </span>
+
+          <p className="text-sm mt-3 mb-3 text-center">
+            Once the details of the contract are deployed to ipfs, press deploy
+            contract below
+          </p>
+
+          <Button colorScheme="blue" onClick={async () => await writeAsync?.()}>
+            {" "}
+            deploy contract
+          </Button>
+        </div>
+      </BaseModal>
     </div>
   );
 };
