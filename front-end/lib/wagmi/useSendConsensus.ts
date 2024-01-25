@@ -1,7 +1,5 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import abi from "@/abi/PeerGrading.json";
-// import { ethers } from "ethers";
-// const abiCoder = ethers.utils.defaultAbiCoder;
 interface Args {
   uintVector: string;
   contract: string;
