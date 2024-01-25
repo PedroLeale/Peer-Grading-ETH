@@ -48,7 +48,8 @@ export const Consensus = ({ contract }: IConsensus) => {
     <div>
       {data ? (
         <span className="mt-4 p-4 font-bold border-2 border-blue-500 rounded">
-          Your assignments here: {data}
+          {/* TODO: only show assignemtns after all users revealed */}
+          Your assignments: {data}
         </span>
       ) : (
         <span className="mt-4 p-4 font-bold border-2 border-red-500 rounded">
@@ -57,6 +58,9 @@ export const Consensus = ({ contract }: IConsensus) => {
         </span>
       )}
 
+      <h4 className="mt-4">
+        the consesus on top of the list is the most recent:
+      </h4>
       <div className="mt-4 p-4 bg-gray-100 rounded-md">
         {consensusData?.consensuses
           .slice()
