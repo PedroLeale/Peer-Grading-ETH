@@ -15,6 +15,7 @@ export function useCreatePReview({ participants, workload, ipfsHash }: Args) {
     abi,
     functionName: "deployPeerGrading",
     args: [participants, workload, ipfsHash],
+    enabled: Boolean(ipfsHash),
   });
 
   return useContractWrite(config);
