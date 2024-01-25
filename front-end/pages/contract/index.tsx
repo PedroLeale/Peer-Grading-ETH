@@ -1,5 +1,6 @@
 import { Participants } from "@/components/Participants";
 import { VoteButton } from "@/components/VoteButton";
+import { FinalizeConsensusButton } from "@/components/FinalizeConsensusButton";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
@@ -36,6 +37,8 @@ const ContractPage = () => {
         <Consensus contract={contract} />
 
         <VoteButton />
+
+        <FinalizeConsensusButton />
       </div>
     </div>
   );
