@@ -1,8 +1,8 @@
 export const Explanation = () => {
   return (
-    <div className="flex flex-row">
-      <div className="p-4 m-2 bg-white w-1/2 m-auto hover:bg-gray-200 transition-colors duration-200">
-        <div className="p-4 rounded border border-4 border-emerald-600">
+    <div className="md:flex flex-row">
+      <div className="p-4  bg-white md:w-1/2 m-auto hover:bg-gray-200 transition-colors duration-200">
+        <div className="p-4 rounded border-4 border-emerald-600">
           <h1 className="text-2xl font-bold mb-4">
             Peer Grading: An Ethereum Solution
           </h1>
@@ -53,14 +53,14 @@ export const Explanation = () => {
         </div>
       </div>
 
-      <div className="p-4  w-1/2">
+      <div className="p-4  md:w-1/2">
         <div className="p-4 rounded border border-4 border-emerald-600 hover:bg-gray-200 transition-colors duration-200">
           <h1 className="text-2xl font-bold mb-4">
             How to use this helper application
           </h1>
 
           <h2 className="text-xl font-semibold mt-4 mb-2">
-            Step 1: Have a dedicated RPC url
+            Step 1: Have a dedicated RPC url (for mumbai)
           </h2>
           <p className="mb-4">
             This application requires reading events from the blockchain and{" "}
@@ -82,6 +82,8 @@ export const Explanation = () => {
             <code className="text-sm bg-gray-200 p-1 rounded">
               /contract/0x793591f2569B27208Df6ed3CEB396E1C89f4c630
             </code>
+            You can also browse the contracts by clicking "go to contracts page"
+            in the bottom of this page
           </p>
 
           <h2 className="text-xl font-semibold mt-4 mb-2">
