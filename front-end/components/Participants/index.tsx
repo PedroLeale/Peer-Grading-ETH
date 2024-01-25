@@ -93,9 +93,11 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
               //TODO: arrumar o nodo de IPFS, para ele salvar e trazer os dados. (Precisa colocar o cartão no web3Storage)
               */}
               <a
-                href={`ipfs://${
+                href={`
+                https://${
                   contractData?.peerGradings[0].ipfsHash ?? ""
-                }/${ethers.utils.getAddress(item.participant)}`}
+                }.ipfs.w3s.link/${ethers.utils.getAddress(item.participant)}
+                `}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-link-blue underline"
