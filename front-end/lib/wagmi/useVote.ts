@@ -1,10 +1,13 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import abi from "@/abi/PeerGradingDeployer.json";
-import { contractConstants } from "@/config/contractConstants";
+import abi from "@/abi/PeerGrading.json";
 
-export function useVote() {
+interface Args {
+  PeerGradingAddress: string;
+}
+
+export function useVote({ PeerGradingAddress }: Args) {
   const { config } = usePrepareContractWrite({
-    address: contractConstants.PeerGradingAddress as `0x${string}`,
+    address: PeerGradingAddress as `0x${string}`,
     abi,
     functionName: "vote",
     args: [],

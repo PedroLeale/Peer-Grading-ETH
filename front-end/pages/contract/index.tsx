@@ -33,13 +33,8 @@ const ContractPage = () => {
           <Participants contract={contract} randSrc={randSrc} />
         </div>
 
-        {/* 
-        //TODO: criar o botão de set Grading, para cada usuário colocar seus gradings dos assignments gerados        
-        */}
-
         <Consensus contract={contract} />
 
-        {/* TODO: colocar o botão para votos  */}
         <VoteButton />
       </div>
     </div>
