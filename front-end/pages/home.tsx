@@ -10,7 +10,7 @@ function Home() {
 
       <h1 className="p-2 text-2xl font-bold mb-4">
         <Link href="/contracts" className="text-blue-500 hover:underline">
-          Go to Contracts Page
+          <span className="underline">Go to Contracts Page</span>
         </Link>
       </h1>
     </div>
