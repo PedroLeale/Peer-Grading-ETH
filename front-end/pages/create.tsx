@@ -49,8 +49,16 @@ const CreatePage = () => {
     }
   }, [createError, isError]);
 
+  const redirect = async (parsedLog: any) => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    router.push(
+      `/contract?commitRevealAddr=${String(
+        parsedLog?.args[1]
+      )}&peerGradingAddress=${String(parsedLog?.args[0])}`
+    );
+  };
+
   useEffect(() => {
-    console.log("transaction data", transactionData);
     if (transactionData) {
       console.log({ transactionData });
       const iface = new ethers.utils.Interface(abi);
@@ -71,11 +79,8 @@ const CreatePage = () => {
 
       if (parsedLog?.args) {
         console.log("Found and parsed the log:", parsedLog);
-        router.push(
-          `/contract?commitRevealAddr=${String(
-            parsedLog?.args[1]
-          )}&peerGradingAddress=${String(parsedLog?.args[0])}`
-        );
+
+        redirect(parsedLog);
       } else {
         console.log("No log entry matched the ABI.");
       }
