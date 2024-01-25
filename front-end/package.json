@@ -30,6 +30,7 @@
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
+    "@web3-storage/w3up-client": "^12.2.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "cookies": "^0.8.0",
@@ -60,8 +61,7 @@
     "tailwindcss-font-inter": "^3.0.1",
     "typescript": "*",
     "viem": "^1.16.6",
-    "wagmi": "^1.0.6",
-    "web3.storage": "^4.5.4"
+    "wagmi": "^1.0.6"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
