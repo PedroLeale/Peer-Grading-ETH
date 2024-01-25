@@ -1,20 +1,25 @@
-import { useAccount } from "wagmi";
-import { type AddedParticipant } from "@/lib/services/apollo/queries/AllParticipants";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useVote } from "@/lib/wagmi/useVote";
 import { useDisclosure, Button } from "@chakra-ui/react";
 import { BaseModal } from "../BaseModal";
+import { useRouter } from "next/router";
 
 export const VoteButton = () => {
-  const { address } = useAccount();
+  const [contract, setContract] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+  useEffect(() => {
+    setContract(String(router.query.peerGradingAddress));
+  }, [router.query]);
 
-  const onVote = () => {
+  const { writeAsync } = useVote({ PeerGradingAddress: contract });
+  const onVote = async () => {
     // Here you can add the logic to handle the vote using the PeerGrading.json ABI
     console.log("Vote confirmed");
-    useVote();
+    await writeAsync?.();
     onClose();
   };
+
   return (
     // make a button that opens a modal, with another button inside the modal
     // that when clicked, calls the onVote function
