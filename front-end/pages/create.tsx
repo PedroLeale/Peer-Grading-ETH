@@ -3,10 +3,12 @@ import { FileUploader } from "@/components/FileUploader";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { useCreatePReview } from "@/lib/wagmi/useCreatePReview";
 import { Button, useDisclosure } from "@chakra-ui/react";
+import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useState, type ReactNode, type FormEvent, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import abi from "@/abi/PeerGradingDeployer.json";
 import { useWaitForTransaction } from "wagmi";
 
 interface Uploader {
@@ -50,7 +52,33 @@ const CreatePage = () => {
   useEffect(() => {
     console.log("transaction data", transactionData);
     if (transactionData) {
-      router.push(`/contract/${transactionData.logs[0].address}`);
+      console.log({ transactionData });
+      const iface = new ethers.utils.Interface(abi);
+
+      let parsedLog = null;
+
+      for (const log of transactionData.logs) {
+        try {
+          const parsed = iface.parseLog(log);
+          if (parsed) {
+            parsedLog = parsed;
+            break; // Exit the loop once we've successfully parsed a log
+          }
+        } catch (error) {
+          console.log("Log didn't match the ABI, checking the next one.");
+        }
+      }
+
+      if (parsedLog?.args) {
+        console.log("Found and parsed the log:", parsedLog);
+        router.push(
+          `/contract?commitRevealAddr=${String(
+            parsedLog?.args[1]
+          )}&peerGradingAddress=${String(parsedLog?.args[0])}`
+        );
+      } else {
+        console.log("No log entry matched the ABI.");
+      }
     }
   }, [transactionData]);
 
@@ -133,8 +161,6 @@ const CreatePage = () => {
         }}
       >
         {/* TODO: mostrar erros de endereço inválido */}
-        {/* TODO: mostrar uma caixa com todos os carregamentos. Primeiro o que envia para o IPFS e depois o que envia para a rede */}
-        {/* TODO: corrigir redirect de página, para redirecionar corretamente após criação do contrato */}
         Create contract
       </button>
 

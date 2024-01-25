@@ -89,9 +89,6 @@ export const Participants = ({ contract, randSrc }: IParticipant) => {
               ) : (
                 <span className="text-[#808080]">waiting for commit</span>
               )}
-              {/* 
-              //TODO: arrumar o nodo de IPFS, para ele salvar e trazer os dados. (Precisa colocar o cartão no web3Storage)
-              */}
               <a
                 href={`
                 https://${
