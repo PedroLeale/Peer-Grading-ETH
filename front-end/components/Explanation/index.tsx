@@ -82,7 +82,8 @@ export const Explanation = () => {
             <code className="text-sm bg-gray-200 p-1 rounded">
               /contract/0x793591f2569B27208Df6ed3CEB396E1C89f4c630
             </code>
-            You can also browse the contracts by clicking "go to contracts page"
+            You can also browse the contracts by clicking{" "}
+            {`"go to contracts page"`}
             in the bottom of this page
           </p>
 
