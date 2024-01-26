@@ -30,6 +30,15 @@ export const Consensus = ({ contract }: IConsensus) => {
 
   return (
     <div>
+      {consensusData?.consensuses.some((c) => c.final) && (
+        <div className="font-bold text-[#23DC3D]">
+          <span> final consensus reached:</span>
+          <span>
+            {consensusData?.consensuses.find((c) => c.final)?.vector?.join(" ")}
+          </span>
+        </div>
+      )}
+
       <h4 className="mt-4">
         the consesus on top of the list is the most recent:
       </h4>
@@ -43,7 +52,9 @@ export const Consensus = ({ contract }: IConsensus) => {
               {consensusData?.consensuses.length === 0 ? (
                 <span className="text-red">Empty</span>
               ) : (
-                consensus.vector.join(" ")
+                <div>
+                  <span>{consensus.vector.join(" ")}</span>{" "}
+                </div>
               )}
               <div>
                 <span className="font-bold">

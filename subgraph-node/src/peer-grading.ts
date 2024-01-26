@@ -27,7 +27,7 @@ export function handleConsensusReached(event: ConsensusReachedEvent): void{
     let entity = new Consensus(
         event.transaction.hash.concatI32(event.logIndex.toI32())
     )
-
+        
     entity.vector = event.params.consensusVector.map<BigInt>((item:i32) => BigInt.fromI64(item))
     entity.contract = event.address
     entity.final = true
