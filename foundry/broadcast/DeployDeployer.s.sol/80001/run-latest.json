@@ -22,7 +22,7 @@
       "hash": "0xaac5fcb41e8f37aec099b1a45d540d3081e211c070fa6f3dfb24390d9987ec57",
       "transactionType": "CREATE",
       "contractName": "PeerGradingDeployer",
-      "contractAddress": "0x4f48a77A2aE225D61bf60CD375752a5073564807",
+      "contractAddress": "0xee488Bb0FE672A204C1e2fd9C9D06316fe1Bd4E9",
       "function": null,
       "arguments": null,
       "transaction": {
@@ -81,7 +81,7 @@
       "to": null,
       "cumulativeGasUsed": "0x265d7a",
       "gasUsed": "0x23f0b2",
-      "contractAddress": "0x4f48a77A2aE225D61bf60CD375752a5073564807",
+      "contractAddress": "0xee488Bb0FE672A204C1e2fd9C9D06316fe1Bd4E9",
       "logs": [
         {
           "address": "0x0000000000000000000000000000000000001010",
