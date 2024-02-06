@@ -14,7 +14,6 @@ export const FinalizeConsensusButton = () => {
 
   const { writeAsync } = useFinalizeConsensus({ PeerGradingAddress: contract });
   const onVote = async () => {
-    console.log("Finalize Consensus confirmed");
     await writeAsync?.();
     onClose();
   };
@@ -27,7 +26,7 @@ export const FinalizeConsensusButton = () => {
       >
         Finalize Consensus
       </button>
-      <BaseModal title="Vote" isOpen={isOpen} onClose={onClose}>
+      <BaseModal title="Finalize" isOpen={isOpen} onClose={onClose}>
         <div>
           <Button onClick={onVote}>Confirm to finalize it</Button>
         </div>

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Consensus } from "@/components/Consensus";
+import { AssignmentList } from "@/components/AssignemtnsList";
 
 const ContractPage = () => {
   const router = useRouter();
@@ -34,11 +35,15 @@ const ContractPage = () => {
           <Participants contract={contract} randSrc={randSrc} />
         </div>
 
-        <Consensus contract={contract} />
+        <AssignmentList contract={contract}></AssignmentList>
 
-        <VoteButton />
-
-        <FinalizeConsensusButton />
+        <div className="flex flex-row w-1/2">
+          <VoteButton />
+          <FinalizeConsensusButton />
+        </div>
+        <div className="mt-3">
+          <Consensus contract={contract} />
+        </div>
       </div>
     </div>
   );

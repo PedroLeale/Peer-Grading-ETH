@@ -116,6 +116,7 @@ contract PeerGrading {
      * this consensus depends on the votes cast by the participants
      */
     function finalizeConsensus() public {
+        require(currentState == CurrentState.WAITING_CONSENSUS, "Consensus already reached");
         if (votes > (numberParticipants / 2)) {
             currentState = CurrentState.REACHED_CONSESUS;
             emit ConsensusReached(ConsensusVector);
